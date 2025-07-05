@@ -6,13 +6,14 @@ import { Link } from "react-router-dom";
 import Topweardata from "../data/Topweardata";
 import BottomwearData from "../data/Bottomweardata";
 import Cart from '../components/Cart'
-
+import Hero from '../components/hero'
 const Home = () => {
   
 
   return (
     <>
       <Navbar />
+       <Hero/>
       <Category />
 
            
