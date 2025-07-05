@@ -5,7 +5,7 @@ import { setCategory } from "../redux/Filterslice";
 
 import Checkshirt from "../assets/Checkshirt.png.jpg";
 import formalshirt from "../assets/FormalShirts.png.jpg";
-import tshirt from "../assets/T-Shirts.png.jpg";
+import tshirt from "../assets/Tshirts.png.jpg";
 import bottom from "../assets/Bottom.jpg.jpg";
 import BottomwearData from "../data/Bottomweardata";
 import Topweardata from "../data/Topweardata";
