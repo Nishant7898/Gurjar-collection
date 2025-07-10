@@ -104,50 +104,52 @@ const Navbar = () => {
             } overflow-hidden transition-all duration-300 ease-in-out`}
           >
             <div className="pb-4 space-y-3">
-              {/* Search Bar */}
-              <div className="flex items-center bg-white rounded-lg shadow-md overflow-hidden">
-                <input
-                  className="flex-1 px-3 py-2 text-sm outline-none placeholder-gray-500"
-                  type="text"
-                  placeholder="Find your perfect style..."
-                  value={searchValue}
-                  onChange={(e) => setSearchValue(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                />
-                <div className="relative" ref={dropdownRef}>
+              {/* Search Bar with fixed dropdown */}
+              <div className="relative">
+                <div className="flex items-center bg-white rounded-lg shadow-md overflow-hidden">
+                  <input
+                    className="flex-1 px-3 py-2 text-sm outline-none placeholder-gray-500"
+                    type="text"
+                    placeholder="Find your perfect style..."
+                    value={searchValue}
+                    onChange={(e) => setSearchValue(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                  />
                   <button
                     onClick={handleDropdownToggle}
-                    onTouchStart={(e) => e.stopPropagation()}
                     className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200"
                   >
                     Category
                     <IoMdArrowDropdownCircle className="text-lg" />
                   </button>
-
-                  {isDropdownOpen && (
-                    <ul className="absolute top-full mt-1 right-0 bg-white border rounded-md shadow-lg z-50 w-40 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
-                      {categories.map((category, index) => (
-                        <li
-                          key={index}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm font-medium transition-colors duration-150 touch-manipulation"
-                          onClick={() => {
-                            setIsDropdownOpen(false);
-                            console.log("Selected category:", category.value);
-                          }}
-                        >
-                          {category.name}
-                        </li>
-                      ))}
-                    </ul>
-                  )}
+                  <button
+                    onClick={handleSearch}
+                    className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
+                  >
+                    <IoIosSearch className="h-4 w-4" />
+                  </button>
                 </div>
 
-                <button
-                  onClick={handleSearch}
-                  className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
-                >
-                  <IoIosSearch className="h-4 w-4" />
-                </button>
+                {/* Dropdown moved outside to prevent clipping */}
+                {isDropdownOpen && (
+                  <ul
+                    ref={dropdownRef}
+                    className="absolute z-50 mt-1 right-0 w-40 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto"
+                  >
+                    {categories.map((category, index) => (
+                      <li
+                        key={index}
+                        className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+                        onClick={() => {
+                          setIsDropdownOpen(false);
+                          console.log("Selected category:", category.value);
+                        }}
+                      >
+                        {category.name}
+                      </li>
+                    ))}
+                  </ul>
+                )}
               </div>
 
               {/* Action Icons */}
