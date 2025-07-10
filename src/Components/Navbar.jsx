@@ -125,11 +125,11 @@ const Navbar = () => {
                   </button>
 
                   {isDropdownOpen && (
-                    <ul className="absolute top-full mt-1 right-0 bg-white border rounded-md shadow-lg z-50 w-40">
+                    <ul className="absolute top-full mt-1 right-0 bg-white border rounded-md shadow-lg z-50 w-40 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                       {categories.map((category, index) => (
                         <li
                           key={index}
-                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm font-medium transition-colors duration-150"
+                          className="px-4 py-2 hover:bg-gray-100 cursor-pointer text-sm font-medium transition-colors duration-150 touch-manipulation"
                           onClick={() => {
                             setIsDropdownOpen(false);
                             console.log("Selected category:", category.value);
@@ -206,11 +206,11 @@ const Navbar = () => {
               </button>
 
               {isDropdownOpen && (
-                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-50 w-40 lg:w-48">
+                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-50 w-40 lg:w-48 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                   {categories.map((category, index) => (
                     <li
                       key={index}
-                      className="px-4 py-2 lg:py-3 hover:bg-gray-100 cursor-pointer text-sm lg:text-base font-medium transition-colors duration-150"
+                      className="px-4 py-2 lg:py-3 hover:bg-gray-100 cursor-pointer text-sm lg:text-base font-medium transition-colors duration-150 touch-manipulation"
                       onClick={() => {
                         setIsDropdownOpen(false);
                         console.log("Selected category:", category.value);

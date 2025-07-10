@@ -103,11 +103,11 @@ const Category = () => {
               </button>
 
               {isOpen && (
-                <ul className="absolute top-full left-0 mt-2 w-full bg-white border rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+                <ul className="absolute top-full left-0 mt-2 w-full bg-white border rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                   {categories.map((category, index) => (
                     <li
                       key={index}
-                      className="px-4 py-3 hover:bg-gray-100 cursor-pointer font-medium text-gray-700 transition-colors duration-150 border-b border-gray-100 last:border-b-0"
+                      className="px-4 py-3 hover:bg-gray-100 cursor-pointer font-medium text-gray-700 transition-colors duration-150 border-b border-gray-100 last:border-b-0 touch-manipulation"
                       onClick={() => handleCategorySelect(category)}
                     >
                       {category.name}
@@ -172,11 +172,11 @@ const Category = () => {
           </button>
 
           {isOpen && (
-            <ul className="absolute top-full left-0 mt-2 bg-white border rounded-lg shadow-lg z-50 w-48 max-h-60 overflow-y-auto">
+            <ul className="absolute top-full left-0 mt-2 bg-white border rounded-lg shadow-lg z-50 w-48 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
               {categories.map((category, index) => (
                 <li
                   key={index}
-                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer font-medium text-gray-700 transition-colors duration-150 border-b border-gray-100 last:border-b-0"
+                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer font-medium text-gray-700 transition-colors duration-150 border-b border-gray-100 last:border-b-0 touch-manipulation"
                   onClick={() => handleCategorySelect(category)}
                 >
                   {category.name}
