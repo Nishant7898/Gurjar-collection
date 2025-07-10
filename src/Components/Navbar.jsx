@@ -80,9 +80,7 @@ const Navbar = () => {
                 alt="Logo"
                 className="h-10 w-10 rounded-full object-cover"
               />
-              <span className="ml-2 text-lg font-bold text-gray-800">
-                StyleHub
-              </span>
+          
             </div>
 
             <button
@@ -101,7 +99,7 @@ const Navbar = () => {
           <div
             className={`${
               isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-            } overflow-hidden transition-all duration-300 ease-in-out`}
+            }  transition-all duration-300 ease-in-out`}
           >
             <div className="pb-4 space-y-3">
               {/* Search Bar with fixed dropdown */}
@@ -126,7 +124,7 @@ const Navbar = () => {
                     onClick={handleSearch}
                     className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
                   >
-                    <IoIosSearch className="h-4 w-4" />
+                    <IoIosSearch className="h-5  w-4" />
                   </button>
                 </div>
 
@@ -153,7 +151,7 @@ const Navbar = () => {
               </div>
 
               {/* Action Icons */}
-              <div className="flex justify-center gap-8 pt-2">
+              <div className="flex justify-center overflow-hidden gap-8 pt-2">
                 <button className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200">
                   <AiOutlineHeart className="h-6 w-6" />
                   <span className="text-xs font-medium">Wishlist</span>

@@ -10,18 +10,22 @@ import { BiFemale } from "react-icons/bi";
 import { HiChevronDown, HiChevronUp } from "react-icons/hi";
 
 const Category = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const dropdownRef = useRef(null);
+  const [isOpen, setIsOpen] = useState(false); // Category dropdown open/close
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false); // Mobile menu open/close
 
-  // Close dropdown when clicking outside
+  const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+
+  // Close dropdown when clicking outside dropdown
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target)
+      ) {
         setIsOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     document.addEventListener("touchstart", handleClickOutside);
     return () => {
@@ -30,14 +34,34 @@ const Category = () => {
     };
   }, []);
 
-  // Close mobile menu when screen size changes
+  // Close mobile menu when clicking outside mobile menu (for better UX)
+  useEffect(() => {
+    const handleClickOutsideMobileMenu = (event) => {
+      if (
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
+        !mobileMenuRef.current.contains(event.target)
+      ) {
+        setIsMobileMenuOpen(false);
+        setIsOpen(false); // Also close dropdown if open
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutsideMobileMenu);
+    document.addEventListener("touchstart", handleClickOutsideMobileMenu);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutsideMobileMenu);
+      document.removeEventListener("touchstart", handleClickOutsideMobileMenu);
+    };
+  }, [isMobileMenuOpen]);
+
+  // Close mobile menu on window resize >= 768px
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
         setIsMobileMenuOpen(false);
+        setIsOpen(false);
       }
     };
-
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -59,18 +83,25 @@ const Category = () => {
   const handleCategoryToggle = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsOpen(!isOpen);
+    setIsOpen((prev) => !prev);
   };
 
   return (
     <div className="mt-20 sm:mt-24 md:mt-28 lg:mt-32 w-full bg-gradient-to-r from-gray-50 to-gray-100 shadow-sm">
       
       {/* Mobile Layout */}
-      <div className="md:hidden px-4 py-4">
+      <div className="md:hidden px-4 py-4" ref={mobileMenuRef}>
         
         {/* Mobile Toggle Button */}
         <button
-          onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          onClick={(e) => {
+            e.stopPropagation(); // Prevent click bubbling up
+            setIsMobileMenuOpen((prev) => {
+              // If closing mobile menu, also close category dropdown
+              if (prev) setIsOpen(false);
+              return !prev;
+            });
+          }}
           className="w-full flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
         >
           <div className="flex items-center gap-2">
@@ -85,14 +116,20 @@ const Category = () => {
         </button>
 
         {/* Mobile Menu */}
-        <div className={`${isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"} overflow-hidden transition-all duration-300 ease-in-out`}>
+        <div
+          className={`${
+            isMobileMenuOpen ? "max-h-screen opacity-100" : "max-h-0 opacity-0"
+          } overflow-hidden transition-all duration-300 ease-in-out`}
+        >
           <div className="mt-4 space-y-3">
             
             {/* Category Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
-                onClick={handleCategoryToggle}
-                onTouchStart={(e) => e.stopPropagation()}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleCategoryToggle(e);
+                }}
                 className="w-full flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
               >
                 <div className="flex items-center gap-2">
@@ -163,7 +200,10 @@ const Category = () => {
         {/* Category Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
-            onClick={handleCategoryToggle}
+            onClick={(e) => {
+              e.stopPropagation();
+              handleCategoryToggle(e);
+            }}
             className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all"
           >
             <ImMenu className="text-lg text-gray-600" />
