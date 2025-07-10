@@ -80,7 +80,6 @@ const Navbar = () => {
                 alt="Logo"
                 className="h-10 w-10 rounded-full object-cover"
               />
-          
             </div>
 
             <button
@@ -95,63 +94,65 @@ const Navbar = () => {
             </button>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Always visible search bar on mobile */}
+          <div className="pb-3">
+            <div className="relative">
+              <div className="flex items-center bg-white rounded-lg shadow-md overflow-hidden">
+                <input
+                  className="flex-1 px-3 py-2 text-sm outline-none placeholder-gray-500"
+                  type="text"
+                  placeholder="Find your perfect style..."
+                  value={searchValue}
+                  onChange={(e) => setSearchValue(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                />
+                <button
+                  onClick={handleDropdownToggle}
+                  className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200"
+                >
+                  Category
+                  <IoMdArrowDropdownCircle className="text-lg" />
+                </button>
+                <button
+                  onClick={handleSearch}
+                  className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
+                >
+                  <IoIosSearch className="h-5 w-4" />
+                </button>
+              </div>
+
+              {/* Dropdown moved outside to prevent clipping */}
+              {isDropdownOpen && (
+                <ul
+                  ref={dropdownRef}
+                  className="absolute z-50 mt-1 right-0 w-40 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto"
+                >
+                  {categories.map((category, index) => (
+                    <li
+                      key={index}
+                      className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
+                      onClick={() => {
+                        setIsDropdownOpen(false);
+                        console.log("Selected category:", category.value);
+                      }}
+                    >
+                      {category.name}
+                    </li>
+                  ))}
+                </ul>
+              )}
+            </div>
+          </div>
+
+          {/* Mobile Menu - Only for other items */}
           <div
             className={`${
               isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-            }  transition-all duration-300 ease-in-out`}
+            } overflow-hidden transition-all duration-300 ease-in-out`}
           >
-            <div className="pb-4 space-y-3">
-              {/* Search Bar with fixed dropdown */}
-              <div className="relative">
-                <div className="flex items-center bg-white rounded-lg shadow-md overflow-hidden">
-                  <input
-                    className="flex-1 px-3 py-2 text-sm outline-none placeholder-gray-500"
-                    type="text"
-                    placeholder="Find your perfect style..."
-                    value={searchValue}
-                    onChange={(e) => setSearchValue(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                  />
-                  <button
-                    onClick={handleDropdownToggle}
-                    className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200"
-                  >
-                    Category
-                    <IoMdArrowDropdownCircle className="text-lg" />
-                  </button>
-                  <button
-                    onClick={handleSearch}
-                    className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
-                  >
-                    <IoIosSearch className="h-5  w-4" />
-                  </button>
-                </div>
-
-                {/* Dropdown moved outside to prevent clipping */}
-                {isDropdownOpen && (
-                  <ul
-                    ref={dropdownRef}
-                    className="absolute z-50 mt-1 right-0 w-40 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto"
-                  >
-                    {categories.map((category, index) => (
-                      <li
-                        key={index}
-                        className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                        onClick={() => {
-                          setIsDropdownOpen(false);
-                          console.log("Selected category:", category.value);
-                        }}
-                      >
-                        {category.name}
-                      </li>
-                    ))}
-                  </ul>
-                )}
-              </div>
-
+            <div className="pb-4">
               {/* Action Icons */}
-              <div className="flex justify-center overflow-hidden gap-8 pt-2">
+              <div className="flex justify-center gap-8 pt-2">
                 <button className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200">
                   <AiOutlineHeart className="h-6 w-6" />
                   <span className="text-xs font-medium">Wishlist</span>
@@ -178,9 +179,6 @@ const Navbar = () => {
               src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-2648-61fd-bf46-440664016bbb/raw?se=2025-07-10T09%3A52%3A58Z&sp=r&sv=2024-08-04&sr=b&scid=46fae348-dd0d-54c2-a324-e5475646afb6&skoid=30ec2761-8f41-44db-b282-7a0f8809659b&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-09T20%3A27%3A16Z&ske=2025-07-10T20%3A27%3A16Z&sks=b&skv=2024-08-04&sig=U/FNzKY93O3bm1uIPrf7CNhZT1L7NYOgZuIU72sD0jc%3D"
               alt="Logo"
             />
-            <span className="ml-3 text-xl lg:text-2xl font-bold text-gray-800">
-              StyleHub
-            </span>
           </div>
 
           {/* Search Section */}
