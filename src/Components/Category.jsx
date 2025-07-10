@@ -23,7 +23,11 @@ const Category = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
   }, []);
 
   // Close mobile menu when screen size changes
@@ -50,6 +54,12 @@ const Category = () => {
   const handleCategorySelect = (category) => {
     setIsOpen(false);
     console.log("Selected category:", category.value);
+  };
+
+  const handleCategoryToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsOpen(!isOpen);
   };
 
   return (
@@ -81,7 +91,8 @@ const Category = () => {
             {/* Category Dropdown */}
             <div className="relative" ref={dropdownRef}>
               <button
-                onClick={() => setIsOpen(!isOpen)}
+                onClick={handleCategoryToggle}
+                onTouchStart={(e) => e.stopPropagation()}
                 className="w-full flex items-center justify-between px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-200"
               >
                 <div className="flex items-center gap-2">
@@ -152,7 +163,7 @@ const Category = () => {
         {/* Category Dropdown */}
         <div className="relative" ref={dropdownRef}>
           <button
-            onClick={() => setIsOpen(!isOpen)}
+            onClick={handleCategoryToggle}
             className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all"
           >
             <ImMenu className="text-lg text-gray-600" />
@@ -189,8 +200,8 @@ const Category = () => {
 
         {/* New Arrival */}
         <button className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all">
-      
-          <span className="font-medium text-gray-800 whitespace-nowrap">NEW ARRIVAL</span><MdOutlineFiberNew className="text-red-500 relative animate-bounce   font-bold  -top-2 text-2xl" />
+          <MdOutlineFiberNew className="text-xl lg:text-2xl text-red-500 animate-pulse" />
+          <span className="font-medium text-gray-800 whitespace-nowrap">NEW ARRIVAL</span>
         </button>
 
         {/* Offers */}

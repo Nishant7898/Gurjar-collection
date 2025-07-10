@@ -21,7 +21,11 @@ const Navbar = () => {
     };
 
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
+    };
   }, []);
 
   // Close mobile menu when screen size changes
@@ -49,6 +53,12 @@ const Navbar = () => {
     }
   };
 
+  const handleDropdownToggle = (e) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setIsDropdownOpen(!isDropdownOpen);
+  };
+
   const categories = [
     { name: "T-Shirts", value: "tshirts" },
     { name: "Shirts", value: "shirts" },
@@ -60,20 +70,21 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-100 to-blue-200 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        
         {/* Mobile Layout */}
         <div className="sm:hidden">
           {/* Top row - Logo and Menu Toggle */}
           <div className="flex items-center justify-between py-3">
             <div className="flex items-center">
               <img
-                src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-2648-61fd-bf46-440664016bbb/raw?se=2025-07-10T09%3A52%3A58Z&sp=r&sv=2024-08-04&sr=b&scid=46fae348-dd0d-54c2-a324-e5475646afb6&skoid=30ec2761-8f41-44db-b282-7a0f8809659b&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-09T20%3A27%3A16Z&ske=2025-07-10T20%3A27%3A16Z&sks=b&skv=2024-08-04&sig=U/FNzKY93O3bm1uIPrf7CNhZT1L7NYOgZuIU72sD0jc%3D"
+                src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-2648-61fd-bf46-440664016bbb/raw?se=2025-07-10T12%3A40%3A21Z&sp=r&sv=2024-08-04&sr=b&scid=42571aba-037a-5e52-96d7-e0f8e1eded27&skoid=04233560-0ad7-493e-8bf0-1347c317d021&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-09T20%3A28%3A26Z&ske=2025-07-10T20%3A28%3A26Z&sks=b&skv=2024-08-04&sig=LAMyqkS%2BYIAhsds%2BkoVWax8KT1Xx3QDFEsv5O9TZcgg%3D"
                 alt="Logo"
                 className="h-10 w-10 rounded-full object-cover"
               />
-              <span className="ml-2 text-lg font-bold text-gray-800">StyleHub</span>
+              <span className="ml-2 text-lg font-bold text-gray-800">
+                StyleHub
+              </span>
             </div>
-            
+
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-blue-300 transition-colors duration-200"
@@ -87,7 +98,11 @@ const Navbar = () => {
           </div>
 
           {/* Mobile Menu */}
-          <div className={`${isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"} overflow-hidden transition-all duration-300 ease-in-out`}>
+          <div
+            className={`${
+              isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
+            } overflow-hidden transition-all duration-300 ease-in-out`}
+          >
             <div className="pb-4 space-y-3">
               {/* Search Bar */}
               <div className="flex items-center bg-white rounded-lg shadow-md overflow-hidden">
@@ -101,13 +116,14 @@ const Navbar = () => {
                 />
                 <div className="relative" ref={dropdownRef}>
                   <button
-                    onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                    onClick={handleDropdownToggle}
+                    onTouchStart={(e) => e.stopPropagation()}
                     className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200"
                   >
                     Category
                     <IoMdArrowDropdownCircle className="text-lg" />
                   </button>
-                  
+
                   {isDropdownOpen && (
                     <ul className="absolute top-full mt-1 right-0 bg-white border rounded-md shadow-lg z-50 w-40">
                       {categories.map((category, index) => (
@@ -125,7 +141,7 @@ const Navbar = () => {
                     </ul>
                   )}
                 </div>
-                
+
                 <button
                   onClick={handleSearch}
                   className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
@@ -162,7 +178,9 @@ const Navbar = () => {
               src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-2648-61fd-bf46-440664016bbb/raw?se=2025-07-10T09%3A52%3A58Z&sp=r&sv=2024-08-04&sr=b&scid=46fae348-dd0d-54c2-a324-e5475646afb6&skoid=30ec2761-8f41-44db-b282-7a0f8809659b&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2025-07-09T20%3A27%3A16Z&ske=2025-07-10T20%3A27%3A16Z&sks=b&skv=2024-08-04&sig=U/FNzKY93O3bm1uIPrf7CNhZT1L7NYOgZuIU72sD0jc%3D"
               alt="Logo"
             />
-            <span className="ml-3 text-xl lg:text-2xl font-bold text-gray-800">StyleHub</span>
+            <span className="ml-3 text-xl lg:text-2xl font-bold text-gray-800">
+              StyleHub
+            </span>
           </div>
 
           {/* Search Section */}
@@ -180,7 +198,7 @@ const Navbar = () => {
 
             <div className="relative" ref={dropdownRef}>
               <button
-                onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+                onClick={handleDropdownToggle}
                 className="flex items-center gap-2 bg-yellow-200 px-4 py-2 lg:py-3 text-sm lg:text-base font-medium hover:bg-yellow-300 hover:scale-105 transition-all duration-200 whitespace-nowrap"
               >
                 Category
@@ -215,21 +233,21 @@ const Navbar = () => {
 
           {/* Action Icons */}
           <div className="flex gap-4 lg:gap-6 flex-shrink-0">
-            <button 
+            <button
               className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               title="Wishlist"
             >
               <AiOutlineHeart className="h-6 w-6 lg:h-7 lg:w-7" />
               <span className="text-xs lg:text-sm font-medium">Wishlist</span>
             </button>
-            <button 
+            <button
               className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               title="Cart"
             >
               <BiCartAdd className="h-6 w-6 lg:h-7 lg:w-7" />
               <span className="text-xs lg:text-sm font-medium">Cart</span>
             </button>
-            <button 
+            <button
               className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
               title="Profile"
             >
