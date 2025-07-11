@@ -142,7 +142,7 @@ const Bannerbottom = () => {
 
       <div
         ref={categoryScrollRef}
-        className="flex gap-4 md:gap-6 overflow-hidden scrollbar-hide scroll-smooth"
+        className="flex gap-4 md:gap-6 md:overflow-hidden overflow-x-auto scrollbar-hide scroll-smooth"
       >
         {categories.map((item, index) => (
           <div
