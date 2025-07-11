@@ -166,7 +166,7 @@ const Hero = () => {
   }, [direction5]);
 
   return (
-    <div className="w-full min-h-screen flex flex-col gap-3 sm:gap-5 px-2 sm:px-4 xl:px-20 py-4">
+    <div className="w-full h-1/2  flex flex-col gap-3 sm:gap-5 px-2 sm:px-4 xl:px-20 py-4">
       {/* 1st banner..........................................---------------------------------................---------->>>>>>>> */}
       {/* ..................................>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
       <div className="flex flex-col xl:flex-row gap-3 sm:gap-5 w-full">
@@ -195,8 +195,8 @@ const Hero = () => {
                   className="w-full items-center justify-center h-full bg-amber-400"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform -translate-x-1/2 bg-red-600 text-white text-xs sm:text-sm font-semibold px-3 sm:px-6 py-1 sm:py-2 rounded-md hover:bg-white hover:text-black border border-black transition duration-300">
-                  Buy Now
+                <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                   Buy Now
                 </button>
               </div>
             ))}
@@ -205,20 +205,31 @@ const Hero = () => {
         {/* 2nd banner-------------------------------------------------------------------------..............................>>>>>>>> */}
         <div className="flex flex-col gap-3 sm:gap-5 flex-1">
           <div className="relative h-[250px] sm:h-[350px] lg:h-[400px] w-full overflow-hidden rounded-lg bg-white shadow-2xl group">
-            <div className="absolute top-2 sm:top-3 right-2 sm:right-3 z-10 flex gap-1 sm:gap-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <button
-                onClick={() => scroll("left")}
-                className="bg-amber-200 p-1 sm:p-2 rounded-full shadow hover:bg-amber-400 text-sm sm:text-base"
-              >
-                <IoArrowBackCircleOutline />
-              </button>
-              <button
-                onClick={() => scroll("right")}
-                className="p-1 sm:p-2 rounded-md bg-amber-200 shadow hover:bg-gray-400 text-sm sm:text-base"
-              >
-                <IoArrowForwardCircleOutline />
-              </button>
+        
+            
+            {/* Dots indicator */}
+            <div className="absolute bottom-2 sm:bottom-3 left-1/2 transform -translate-x-1/2 z-10 flex gap-1 sm:gap-2 items-center">
+              {images2.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setHorizontalIndex(index);
+                    if (scrollRef.current) {
+                      scrollRef.current.scrollTo({
+                        left: index * scrollRef.current.clientWidth,
+                        behavior: "smooth",
+                      });
+                    }
+                  }}
+                  className={`transition-all text-xs duration-300 ${
+                    index === horizontalIndex
+                      ? "w-6 h-2 sm:w-8 sm:h-3 bg-black rounded-full shadow-md"
+                      : "w-2 h-2 sm:w-3 sm:h-3 bg-red-500 hover:bg-white/75 rounded-full"
+                  }`}
+                />
+              ))}
             </div>
+            
             <div
               ref={scrollRef}
               className="flex overflow-x-hidden scroll-smooth h-full"
@@ -234,13 +245,15 @@ const Hero = () => {
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                  <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform -translate-x-1/2 bg-red-600 text-white text-xs sm:text-sm font-semibold px-3 sm:px-6 py-1 sm:py-2 rounded-md hover:bg-white hover:text-black border border-black transition duration-300">
-                    Order Now
+                  <button className="absolute bottom-8 sm:bottom-10 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                     Order Now
                   </button>
                 </div>
               ))}
+              
             </div>
           </div>
+          
           {/* 4th banner-------------------------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <div className="h-[140px] sm:h-[160px] lg:h-[180px] w-full sm:max-w-[350px] overflow-hidden rounded-md shadow-xl bg-white">
@@ -268,8 +281,8 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform -translate-x-1/2 bg-red-600 text-white text-xs font-semibold px-2 sm:px-4 py-1 rounded-md hover:bg-white hover:text-black border border-black transition duration-300">
-                      Buy Now
+                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 border border-white">
+                       Buy Now
                     </button>
                   </div>
                 ))}
@@ -301,8 +314,8 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform -translate-x-1/2 bg-red-600 text-white text-xs font-semibold px-2 sm:px-4 py-1 rounded-md hover:bg-white hover:text-black border border-black transition duration-300">
-                      Order Now
+                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2  bg-red-500 hover:bg-black text-white text-xs font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 border border-white">
+                       Order Now
                     </button>
                   </div>
                 ))}
@@ -336,8 +349,8 @@ const Hero = () => {
                   className="w-full h-full object-cover bg-amber-400"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform -translate-x-1/2 bg-red-600 text-white text-xs sm:text-sm font-semibold px-3 sm:px-6 py-1 sm:py-2 rounded-md hover:bg-white hover:text-black border border-black transition duration-300">
-                  Buy Now
+                <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-500 text-white hover:bg-black text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                   Buy Now
                 </button>
               </div>
             ))}

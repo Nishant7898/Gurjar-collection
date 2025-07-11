@@ -68,7 +68,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-blue-100 to-blue-200 shadow-lg z-50">
+    <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-red-100 to-red-200 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Mobile Layout */}
         <div className="sm:hidden">
