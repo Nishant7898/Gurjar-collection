@@ -6,13 +6,13 @@ import {
 
 // Vertical Carousel 1
 const images1 = [
-  "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/nobel-and-gray-3d-posters-poster-template-efq1zs2a5d5741.jpg",
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/wild-sand-and-nero-world-mens-day-instagram-post-template-g40xw3d1fee6a2.jpg",
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/white-and-off-white-fashion-show-poster-template-rmsuci5bbcc335.jpg",
 ];
 
 // Horizontal Carousel
 const images2 = [
+  "https://t3.ftcdn.net/jpg/04/21/96/00/240_F_421960020_OXD2NfRTh2BaMXDqwRAPfUcWM5KWdhss.jpg",
   "https://cdn.dribbble.com/userupload/10866321/file/original-117dd32f2ec57d55305d528be0fc170b.jpg?resize=1504x1034&vertical=center",
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_original/cararra-and-quill-gray-clothing-banner-template-qx3tsb79c73aac.webp",
   "http://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_original/linen-and-mischka-clothing-banner-template-8y8ujn4f8a9a68.webp",
@@ -31,7 +31,6 @@ const images3 = [
 
 // Vertical Carousel 4
 const images4 = [
-  "https://cdn.dribbble.com/userupload/6710199/file/original-98be7900a343086da4026330f142d01e.jpg?resize=400x0",
   "https://cdn.dribbble.com/userupload/30977009/file/original-d565eede788dd39f637feca93807f0a6.jpg?resize=1200x800&vertical=center",
 ];
 const images5 = [
@@ -192,11 +191,11 @@ const Hero = () => {
                 <img
                   src={img}
                   alt="slide"
-                  className="w-full items-center justify-center h-full bg-amber-400"
+                  className="w-full items-center gap-1 justify-center h-full bg-amber-400"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-full shadow-2xl hover:shadow-purple-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
-                   Buy Now
+                <button className="absolute  bottom-2 sm:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-md shadow-2xl hover:drop-shadow-2xl transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                  Buy Now
                 </button>
               </div>
             ))}
@@ -205,8 +204,6 @@ const Hero = () => {
         {/* 2nd banner-------------------------------------------------------------------------..............................>>>>>>>> */}
         <div className="flex flex-col gap-3 sm:gap-5 flex-1">
           <div className="relative h-[250px] sm:h-[350px] lg:h-[400px] w-full overflow-hidden rounded-lg bg-white shadow-2xl group">
-        
-            
             {/* Dots indicator */}
             <div className="absolute bottom-2 sm:bottom-3 left-1/2 transform -translate-x-1/2 z-10 flex gap-1 sm:gap-2 items-center">
               {images2.map((_, index) => (
@@ -229,7 +226,7 @@ const Hero = () => {
                 />
               ))}
             </div>
-            
+
             <div
               ref={scrollRef}
               className="flex overflow-x-hidden scroll-smooth h-full"
@@ -242,18 +239,17 @@ const Hero = () => {
                   <img
                     src={img}
                     alt="slide"
-                    className="w-full h-full object-cover"
+                    className="w-full h-full gap-2 "
                     loading="lazy"
                   />
                   <button className="absolute bottom-8 sm:bottom-10 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
-                     Order Now
+                    Order Now
                   </button>
                 </div>
               ))}
-              
             </div>
           </div>
-          
+
           {/* 4th banner-------------------------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
           <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
             <div className="h-[140px] sm:h-[160px] lg:h-[180px] w-full sm:max-w-[350px] overflow-hidden rounded-md shadow-xl bg-white">
@@ -278,11 +274,11 @@ const Hero = () => {
                     <img
                       src={img}
                       alt="slide"
-                      className="w-full h-full object-cover"
+                      className="w-full gap-2 h-full "
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 border border-white">
-                       Buy Now
+                    <button className="absolute  bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-500 hover:bg-black text-white text-xs font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 border border-white">
+                      Buy Now
                     </button>
                   </div>
                 ))}
@@ -311,11 +307,11 @@ const Hero = () => {
                     <img
                       src={img}
                       alt="slide"
-                      className="w-full h-full object-cover"
+                      className="w-full gap-2 h-full "
                       loading="lazy"
                     />
                     <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2  bg-red-500 hover:bg-black text-white text-xs font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 border border-white">
-                       Order Now
+                      Order Now
                     </button>
                   </div>
                 ))}
@@ -340,17 +336,17 @@ const Hero = () => {
             {images3.map((img, index) => (
               <div
                 key={index}
-                className="w-full flex-shrink-0 relative"
+                className="w-full gap-2 flex-shrink-0 relative"
                 style={{ height: `${100 / images3.length}%` }}
               >
                 <img
                   src={img}
                   alt="slide"
-                  className="w-full h-full object-cover bg-amber-400"
+                  className="w-full h-full  bg-amber-400"
                   loading="lazy"
                 />
                 <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-500 text-white hover:bg-black text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
-                   Buy Now
+                  Buy Now
                 </button>
               </div>
             ))}

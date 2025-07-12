@@ -22,6 +22,10 @@ const Brands = [
     img: "https://www.logo.wine/a/logo/Zara_(retailer)/Zara_(retailer)-Logo.wine.svg",
   },
   {
+    label:"Louis Philippe",
+    img:"https://images.seeklogo.com/logo-png/44/1/louis-philippe-logo-png_seeklogo-444256.png"
+  },
+  {
     label: "Gucci",
     img: "https://www.logo.wine/a/logo/Gucci/Gucci-Logo.wine.svg",
   },
@@ -69,7 +73,7 @@ const categories = [
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5iXTlgY2_ccwzKao2dV0TNxaLzF7lY7O5Yw&s",
   },
   {
-    label: "Top",
+    label: "Tops",
     img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTek0OIQBC225eh_v5aGFU6w4noUQVkw_Wz3w&s",
   },
   {
@@ -119,7 +123,7 @@ const Bannerbottom = () => {
   }, []);
 
   return (
-    <div className="px-4 md:px-10 py-10 bg-violet-100 w-full">
+    <div className="px-4 md:px-40 py-40  w-full">
       {/* Categories */}
       <div className="flex flex-wrap justify-between items-center mb-6">
         <p className="text-xl md:text-2xl font-bold">Shop By Categories</p>
