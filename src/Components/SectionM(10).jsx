@@ -45,7 +45,7 @@ const MenProducts = () => {
         >
           {/* 1st poduct.............------------------------->>>>>>>>>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://images.meesho.com/images/products/305708885/m9ppd_512.webp"
                 className="w-full h-full  transition-opacity duration-500 group-hover:opacity-0"
@@ -76,7 +76,7 @@ const MenProducts = () => {
           {/* 2nd product----------------------------------------->>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/41Dw3Jc7CTL._SX300_SY300_QL70_FMwebp_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -102,7 +102,7 @@ const MenProducts = () => {
           </div>
           {/* 3rd product.........------------------------->>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/71eUwDk8z+L._SY879_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -131,7 +131,7 @@ const MenProducts = () => {
 
           {/* 4th product.........------------------------------>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/51sOrVBx9LL._SY679_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -161,7 +161,7 @@ const MenProducts = () => {
           {/* 5th product--------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://offduty.in/cdn/shop/products/ff2def08-93ae-4984-89e8-8352dea110da_1800x1800.jpg?v=1676893036"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -190,7 +190,7 @@ const MenProducts = () => {
           {/* 6th product................---------------------------------------------->>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://images.meesho.com/images/products/446118957/qv1ua_512.webp"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"

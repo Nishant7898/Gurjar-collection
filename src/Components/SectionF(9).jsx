@@ -53,7 +53,7 @@ const Womenproducts = () => {
         >
           {/* 1st poduct.............------------------------->>>>>>>>>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/71cWGXjSesL._SY741_.jpg"
                 className="w-full h-full  transition-opacity duration-500 group-hover:opacity-0"
@@ -82,7 +82,7 @@ const Womenproducts = () => {
           {/* 2nd product----------------------------------------->>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/81LN4PQiuHL._SY741_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -108,7 +108,7 @@ const Womenproducts = () => {
           </div>
           {/* 3rd product.........------------------------->>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61TcnMgHv4L._SY741_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -138,7 +138,7 @@ const Womenproducts = () => {
 
           {/* 4th product.........------------------------------>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61-e58B8BiL._SX679_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -168,7 +168,7 @@ const Womenproducts = () => {
           {/* 5th product--------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61UY0CyxUtL._SY741_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -197,7 +197,7 @@ const Womenproducts = () => {
           {/* 6th product................---------------------------------------------->>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
+            <div className="relative w-[300px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61wT6z1pBPL._SY879_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
