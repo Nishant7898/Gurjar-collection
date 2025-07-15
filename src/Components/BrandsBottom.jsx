@@ -43,10 +43,10 @@ const images = [
 const BrandsBottom = () => {
   return (
     <div className="flex flex-wrap justify-center items-center gap-6 px-4 sm:px-10 md:px-20 lg:px-40 py-6">
-      <span className="relative text-center  rounded-md p-2">
+      <div className="relative text-center rounded-md p-2 max-w-[300px] sm:max-w-[350px]">
         <img
           src="https://saadaa.in/cdn/shop/files/81.jpg?v=1729237929&width=600"
-          className="h-[250px] w-full max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px] rounded-md hover:scale-95 transition-transform"
+          className="h-[250px] w-full object-cover rounded-md hover:scale-95 transition-transform"
         />
         <IoMdHeartEmpty className="absolute top-4 right-4 text-xl text-white" />
         <p className="font-bold mt-2">Formal Shirt</p>
@@ -57,12 +57,12 @@ const BrandsBottom = () => {
           </button>
           <HiMiniShoppingCart className="bg-gray-300 text-black w-10 h-10 p-2 rounded-md" />
         </div>
-      </span>
+      </div>
 
       {images.map((item, idx) => (
         <div
           key={idx}
-          className="relative text-center  rounded-md p-2 max-w-[300px] sm:max-w-[350px]"
+          className="relative text-center rounded-md p-2 max-w-[300px] sm:max-w-[350px]"
         >
           <img
             src={item.img}
@@ -76,7 +76,6 @@ const BrandsBottom = () => {
             <button className="bg-orange-500 flex items-center gap-2 rounded-md font-semibold hover:scale-95 text-white p-2">
               Add To Cart
             </button>
-            
           </div>
         </div>
       ))}

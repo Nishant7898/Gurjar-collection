@@ -200,7 +200,7 @@ const Category = () => {
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:flex md:items-center justify-center gap-3 lg:gap-4 xl:gap-6 py-6">
+      <div className="hidden md:flex md:items-center bg-white justify-center gap-3 lg:gap-4 xl:gap-6 py-6">
         {/* Category Dropdown */}
         <div className="relative" ref={desktopDropdownRef}>
           <button
