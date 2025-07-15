@@ -38,7 +38,7 @@ const MenProducts = () => {
         </div>
       </div>
 
-      <div className="overflow-hidden mt-20">
+      <div className="overflow-hidden flex itesm-center justify-center mt-20">
         <div
           ref={scrollRef}
           className="grid grid-rows-2 grid-flow-col gap-3 w-max scroll-smooth"
