@@ -31,13 +31,7 @@ const images = [
     img: "https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/28282918/2024/3/15/ae32aaf4-b7cb-452d-b066-eb28a5c118841710485348248CampusSutraMenRelaxedEasyWashTrousers1.jpg",
     desc: "Men Beige Relaxed Cotton Easy Wash Trousers",
   },
-  {
-    id: 6,
-    Name: "OverSized Shirt",
-    price: 449,
-    img: "https://media.powerlook.in/catalog/product/d/p/dp102-1076620.jpg?aio=w-640",
-    desc: "Buy Light Grey Cuban Structured Oversized Shirt",
-  },
+
 ];
 
 const BrandsBottom = () => {
