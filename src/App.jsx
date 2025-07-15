@@ -5,16 +5,16 @@ import Navbar from "./Components/Navbar";
 function App() {
   return (
     <>
-      <BrowserRouter >
-      <Navbar/>
-   
-        <Routes>
-          
-          <Route path="/" element={<Home />} />
+      <div className="overflow-y-hidden">
+        {" "}
+        <BrowserRouter>
+          <Navbar />
 
-     
-        </Routes>
-      </BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Home />} />
+          </Routes>
+        </BrowserRouter>
+      </div>
     </>
   );
 }

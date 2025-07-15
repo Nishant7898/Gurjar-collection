@@ -107,31 +107,31 @@ const Category = () => {
   };
 
   return (
-    <div className=" mt-30 sm:mt-20 md:mt-28 lg:mt-32 w-full bg-gradient-to-r from-gray-50 to-gray-100 shadow-sm px-4">
+    <div className="mt-23 mb-2.5 sm:mt-20 md:mt-28 lg:mt-23 w-full bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-md px-4 backdrop-blur-sm">
       {/* Mobile Layout */}
       <div className="md:hidden" ref={mobileMenuRef}>
         {/* Mobile Menu Toggle Button */}
         <button
           onClick={toggleMobileMenu}
           aria-label="Mobile Menu"
-          className="w-full flex  items-center justify-between px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg transition-shadow duration-200"
+          className="w-full flex items-center justify-between px-6 py-4 bg-gradient-to-r from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200"
         >
-          <div className="flex items-center gap-2">
-            <ImMenu className="text-lg text-gray-600" />
-            <span className="font-semibold text-gray-800">Menu</span>
+          <div className="flex items-center gap-3">
+            <ImMenu className="text-lg text-purple-600" />
+            <span className="font-bold text-gray-800 text-lg">Menu</span>
           </div>
           {isMobileMenuOpen ? (
-            <HiChevronUp className="text-xl text-gray-600" />
+            <HiChevronUp className="text-xl text-purple-600 transition-transform duration-300" />
           ) : (
-            <HiChevronDown className="text-xl text-gray-600" />
+            <HiChevronDown className="text-xl text-purple-600 transition-transform duration-300" />
           )}
         </button>
 
         {/* Mobile Menu Content */}
         <div
-          className={`mt-4 bg-white rounded-lg shadow-md transition-all duration-300 ease-in-out ${
+          className={`mt-4 bg-gradient-to-r from-white to-gray-50 rounded-2xl shadow-xl transition-all duration-300 ease-in-out border border-gray-100 ${
             isMobileMenuOpen
-              ? "max-h-screen opacity-100 p-4 space-y-4"
+              ? "max-h-screen opacity-100 p-6 space-y-4"
               : "max-h-0 opacity-0 overflow-hidden p-0"
           }`}
         >
@@ -139,21 +139,21 @@ const Category = () => {
           <div className="relative" ref={mobileDropdownRef}>
             <button
               onClick={toggleMobileCategoryDropdown}
-              className="w-full flex items-center justify-between px-4 py-3 bg-gray-100 rounded-lg shadow-inner hover:shadow-lg transition-all duration-200"
+              className="w-full flex items-center justify-between px-5 py-4 bg-gradient-to-r from-purple-100 to-indigo-100 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 border border-purple-200 hover:border-purple-300"
             >
-              <div className="flex items-center gap-2">
-                <ImMenu className="text-lg text-gray-600" />
-                <span className="font-medium text-gray-800">Categories</span>
+              <div className="flex items-center gap-3">
+                <ImMenu className="text-lg text-purple-600" />
+                <span className="font-semibold text-gray-800">Categories</span>
               </div>
-              <IoMdArrowDropdownCircle className="text-xl text-gray-600" />
+              <IoMdArrowDropdownCircle className="text-xl text-purple-600" />
             </button>
 
             {isMobileCategoryDropdownOpen && (
-              <ul className="mt-2 w-full bg-white border rounded-lg shadow-lg z-50 max-h-60 overflow-y-auto">
+              <ul className="mt-3 w-full bg-white border border-gray-200 rounded-xl shadow-2xl z-50 max-h-60 overflow-y-auto">
                 {categories.map((category, index) => (
                   <li
                     key={index}
-                    className="px-4 py-3 hover:bg-gray-100 cursor-pointer font-medium text-gray-700 border-b border-gray-100 last:border-b-0"
+                    className="px-5 py-4 hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 cursor-pointer font-semibold text-gray-700 border-b border-gray-100 overflow-hidden last:border-b-0 transition-all duration-200 hover:text-purple-600"
                     onClick={() => handleCategorySelect(category)}
                   >
                     {category.name}
@@ -164,59 +164,59 @@ const Category = () => {
           </div>
 
           {/* Gender Buttons */}
-          <div className="grid grid-cols-2 gap-3">
-            <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+          <div className="grid grid-cols-2 gap-4">
+            <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-blue-200 hover:border-blue-300">
               <BiMale className="text-xl text-blue-600" />
-              <span className="font-medium text-gray-800">MEN</span>
+              <span className="font-semibold text-gray-800">MEN</span>
             </button>
-            <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200">
+            <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-pink-200 hover:border-pink-300">
               <BiFemale className="text-xl text-pink-600" />
-              <span className="font-medium text-gray-800">WOMEN</span>
+              <span className="font-semibold text-gray-800">WOMEN</span>
             </button>
           </div>
 
           {/* Other Buttons */}
-          <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 w-full relative">
-            <span className="font-medium text-gray-800">NEW ARRIVAL</span>
+          <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-red-50 to-orange-50 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 w-full relative border border-red-200 hover:border-red-300">
+            <span className="font-semibold text-gray-800">NEW ARRIVAL</span>
             <MdOutlineFiberNew className="text-xl text-red-500 animate-pulse absolute -top-1 -right-1" />
           </button>
 
-          <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 w-full">
+          <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-amber-50 to-yellow-50 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 w-full border border-amber-200 hover:border-amber-300">
             <TbFlame className="text-xl text-amber-500" />
-            <span className="font-medium text-gray-800">OFFERS</span>
+            <span className="font-semibold text-gray-800">OFFERS</span>
           </button>
 
-          <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 w-full">
+          <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-green-50 to-emerald-50 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 w-full border border-green-200 hover:border-green-300">
             <FaShippingFast className="text-xl text-green-600" />
-            <span className="font-medium text-gray-800">TRACK ORDER</span>
+            <span className="font-semibold text-gray-800">TRACK ORDER</span>
           </button>
 
-          <button className="flex items-center justify-center gap-2 px-4 py-3 bg-white rounded-lg shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 w-full">
+          <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-gray-50 to-slate-50 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 w-full border border-gray-200 hover:border-gray-300">
             <CgProfile className="text-xl text-gray-600" />
-            <span className="font-medium text-gray-800">LOGIN / REGISTER</span>
+            <span className="font-semibold text-gray-800">LOGIN / REGISTER</span>
           </button>
         </div>
       </div>
 
       {/* Desktop Layout */}
-      <div className="hidden md:flex md:items-center justify-center gap-3 lg:gap-4 xl:gap-6 py-4">
+      <div className="hidden md:flex md:items-center justify-center gap-3 lg:gap-4 xl:gap-6 py-6">
         {/* Category Dropdown */}
         <div className="relative" ref={desktopDropdownRef}>
           <button
             onClick={toggleDesktopCategoryDropdown}
-            className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all"
+            className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-gray-50 hover:from-purple-50 hover:to-indigo-50 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-200 hover:border-purple-300"
           >
-            <ImMenu className="text-lg text-gray-600" />
-            <span className="font-medium text-gray-800">Categories</span>
-            <IoMdArrowDropdownCircle className="text-xl text-gray-600" />
+            <ImMenu className="text-lg text-purple-600" />
+            <span className="font-semibold text-gray-800">Categories</span>
+            <IoMdArrowDropdownCircle className="text-xl text-purple-600" />
           </button>
 
           {isDesktopCategoryDropdownOpen && (
-            <ul className="absolute top-full left-0 mt-2 bg-white border rounded-lg shadow-lg z-50 w-48 max-h-60 overflow-y-auto">
+            <ul className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 w-48 max-h-60 overflow-y-auto">
               {categories.map((category, index) => (
                 <li
                   key={index}
-                  className="px-4 py-3 hover:bg-gray-100 cursor-pointer font-medium text-gray-700 border-b border-gray-100 last:border-b-0"
+                  className="px-5 py-4 hover:bg-gradient-to-r hover:from-purple-50 hover:to-indigo-50 cursor-pointer font-semibold text-gray-700 border-b border-gray-100 last:border-b-0 transition-all duration-200 hover:text-purple-600"
                   onClick={() => handleCategorySelect(category)}
                 >
                   {category.name}
@@ -227,29 +227,29 @@ const Category = () => {
         </div>
 
         {/* Other Buttons */}
-        <button className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all">
+        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-blue-50 hover:from-blue-50 hover:to-blue-100 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-blue-200 hover:border-blue-300">
           <BiMale className="text-xl lg:text-2xl text-blue-600" />
-          <span className="font-medium text-gray-800">MEN</span>
+          <span className="font-semibold text-gray-800">MEN</span>
         </button>
-        <button className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all">
+        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-pink-50 hover:from-pink-50 hover:to-pink-100 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-pink-200 hover:border-pink-300">
           <BiFemale className="text-xl lg:text-2xl text-pink-600" />
-          <span className="font-medium text-gray-800">WOMEN</span>
+          <span className="font-semibold text-gray-800">WOMEN</span>
         </button>
-        <button className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all relative">
-          <span className="font-medium text-gray-800">NEW ARRIVAL</span>
+        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-red-50 hover:from-red-50 hover:to-orange-50 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all relative border border-red-200 hover:border-red-300">
+          <span className="font-semibold text-gray-800">NEW ARRIVAL</span>
           <MdOutlineFiberNew className="text-red-500 animate-bounce text-2xl absolute -top-2 -right-2" />
         </button>
-        <button className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all">
+        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-amber-50 hover:from-amber-50 hover:to-yellow-50 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-amber-200 hover:border-amber-300">
           <TbFlame className="text-xl lg:text-2xl text-amber-500" />
-          <span className="font-medium text-gray-800">OFFERS</span>
+          <span className="font-semibold text-gray-800">OFFERS</span>
         </button>
-        <button className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all">
+        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-green-50 hover:from-green-50 hover:to-emerald-50 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-green-200 hover:border-green-300">
           <FaShippingFast className="text-xl lg:text-2xl text-green-600" />
-          <span className="font-medium text-gray-800">TRACK ORDER</span>
+          <span className="font-semibold text-gray-800">TRACK ORDER</span>
         </button>
-        <button className="flex items-center gap-2 px-4 py-2 lg:px-6 lg:py-3 bg-white hover:bg-gray-100 hover:scale-105 duration-200 rounded-lg shadow-md hover:shadow-lg transition-all">
+        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-gray-50 hover:from-gray-50 hover:to-slate-50 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-gray-200 hover:border-gray-300">
           <CgProfile className="text-xl lg:text-2xl text-gray-600" />
-          <span className="font-medium text-gray-800">LOGIN / REGISTER</span>
+          <span className="font-semibold text-gray-800">LOGIN / REGISTER</span>
         </button>
       </div>
     </div>

@@ -10,6 +10,7 @@ const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const dropdownRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -42,7 +43,7 @@ const Navbar = () => {
 
   const handleSearch = () => {
     if (searchValue.trim()) {
-      console.log("Searching for:", searchValue);
+      console.log("Searching for:", searchValue, "in category:", selectedCategory);
       // Add your search logic here
     }
   };
@@ -59,7 +60,14 @@ const Navbar = () => {
     setIsDropdownOpen(!isDropdownOpen);
   };
 
+  const handleCategorySelect = (category) => {
+    setSelectedCategory(category.name);
+    setIsDropdownOpen(false);
+    console.log("Selected category:", category.value);
+  };
+
   const categories = [
+    { name: "All Categories", value: "all" },
     { name: "T-Shirts", value: "tshirts" },
     { name: "Shirts", value: "shirts" },
     { name: "Jeans", value: "jeans" },
@@ -68,7 +76,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gradient-to-r from-red-100 to-red-200 shadow-lg z-50">
+    <nav className="fixed top-0 left-0 w-full bg-pink-200 shadow-lg z-50">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Mobile Layout */}
         <div className="sm:hidden">
@@ -106,13 +114,34 @@ const Navbar = () => {
                   onChange={(e) => setSearchValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                 />
-                <button
-                  onClick={handleDropdownToggle}
-                  className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200"
-                >
-                  Category
-                  <IoMdArrowDropdownCircle className="text-lg" />
-                </button>
+                <div className="relative" ref={dropdownRef}>
+                  <button
+                    onClick={handleDropdownToggle}
+                    className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200 whitespace-nowrap"
+                  >
+                    <span className="truncate max-w-20">
+                      {selectedCategory === "All Categories" ? "Category" : selectedCategory}
+                    </span>
+                    <IoMdArrowDropdownCircle className={`text-lg transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
+                  </button>
+
+                  {/* Dropdown positioned to avoid clipping */}
+                  {isDropdownOpen && (
+                    <ul className="absolute top-full mt-1 right-0 w-48 bg-white border rounded-md shadow-lg z-[60] max-h-60 overflow-y-auto">
+                      {categories.map((category, index) => (
+                        <li
+                          key={index}
+                          className={`px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer transition-colors duration-150 ${
+                            selectedCategory === category.name ? 'bg-blue-50 text-blue-600' : ''
+                          }`}
+                          onClick={() => handleCategorySelect(category)}
+                        >
+                          {category.name}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
                 <button
                   onClick={handleSearch}
                   className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
@@ -120,27 +149,6 @@ const Navbar = () => {
                   <IoIosSearch className="h-5 w-4" />
                 </button>
               </div>
-
-              {/* Dropdown moved outside to prevent clipping */}
-              {isDropdownOpen && (
-                <ul
-                  ref={dropdownRef}
-                  className="absolute z-50 mt-1 right-0 w-40 bg-white border rounded-md shadow-lg max-h-60 overflow-y-auto"
-                >
-                  {categories.map((category, index) => (
-                    <li
-                      key={index}
-                      className="px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer"
-                      onClick={() => {
-                        setIsDropdownOpen(false);
-                        console.log("Selected category:", category.value);
-                      }}
-                    >
-                      {category.name}
-                    </li>
-                  ))}
-                </ul>
-              )}
             </div>
           </div>
 
@@ -183,7 +191,7 @@ const Navbar = () => {
 
           {/* Search Section */}
           <div className="flex items-center flex-1 max-w-md lg:max-w-lg xl:max-w-2xl mx-6">
-            <div className="flex items-center flex-1 bg-white rounded-l-lg shadow-md overflow-hidden">
+            <div className="flex items-center flex-1 bg-white rounded-l-lg  overflow-hidden">
               <input
                 className="flex-1 px-4 py-2 lg:py-3 text-sm lg:text-base outline-none placeholder-gray-500"
                 type="text"
@@ -197,22 +205,23 @@ const Navbar = () => {
             <div className="relative" ref={dropdownRef}>
               <button
                 onClick={handleDropdownToggle}
-                className="flex items-center gap-2 bg-yellow-200 px-4 py-2 lg:py-3 text-sm lg:text-base font-medium hover:bg-yellow-300 hover:scale-105 transition-all duration-200 whitespace-nowrap"
+                className="flex items-center gap-2 bg-yellow-200 px-4 py-2 lg:py-3 text-sm lg:text-base font-medium hover:bg-yellow-300 hover:scale-105 transition-all duration-200 whitespace-nowrap min-w-[140px] justify-between"
               >
-                Category
-                <IoMdArrowDropdownCircle className="text-lg lg:text-xl" />
+                <span className="truncate">
+                  {selectedCategory === "All Categories" ? "Category" : selectedCategory}
+                </span>
+                <IoMdArrowDropdownCircle className={`text-lg lg:text-xl transition-transform duration-200 ${isDropdownOpen ? 'rotate-180' : ''}`} />
               </button>
 
               {isDropdownOpen && (
-                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-50 w-40 lg:w-48 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-[60] w-48 lg:w-56 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                   {categories.map((category, index) => (
                     <li
                       key={index}
-                      className="px-4 py-2 lg:py-3 hover:bg-gray-100 cursor-pointer text-sm lg:text-base font-medium transition-colors duration-150 touch-manipulation"
-                      onClick={() => {
-                        setIsDropdownOpen(false);
-                        console.log("Selected category:", category.value);
-                      }}
+                      className={`px-4 py-2 lg:py-3 hover:bg-gray-100 cursor-pointer text-sm lg:text-base font-medium transition-colors duration-150 touch-manipulation ${
+                        selectedCategory === category.name ? 'bg-blue-50 text-blue-600' : ''
+                      }`}
+                      onClick={() => handleCategorySelect(category)}
                     >
                       {category.name}
                     </li>

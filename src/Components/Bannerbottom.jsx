@@ -10,20 +10,24 @@ const Brands = [
     img: "https://www.logo.wine/a/logo/Nike%2C_Inc./Nike%2C_Inc.-Logo.wine.svg",
   },
   {
+    label: "Levi's",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQW12vHNlJJHJyScs-NCdsKX4aaUPPmqKuKzQ&s",
+  },
+  {
     label: "Puma",
-    img: "https://www.citypng.com/public/uploads/preview/puma-black-logo-png-701751694774568gw2on2y0un.png",
+    img: "https://www.step.org.uk/app/uploads/2018/07/Puma-logo-PNG-Transparent-Background.png",
   },
   {
     label: "H & M",
-    img: "https://banner2.cleanpng.com/20181112/afs/kisspng-logo-hm-brand-clothing-portable-network-graphics-1713923233618.webp",
+    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRgJHaocOL5Kaq4xOVVpNFCDHSSITvwAl-8XQ&s",
   },
   {
     label: "Zara",
     img: "https://www.logo.wine/a/logo/Zara_(retailer)/Zara_(retailer)-Logo.wine.svg",
   },
   {
-    label:"Louis Philippe",
-    img:"https://images.seeklogo.com/logo-png/44/1/louis-philippe-logo-png_seeklogo-444256.png"
+    label: "Louis Philippe",
+    img: "https://images.seeklogo.com/logo-png/44/1/louis-philippe-logo-png_seeklogo-444256.png",
   },
   {
     label: "Gucci",
@@ -46,11 +50,11 @@ const Brands = [
 const categories = [
   {
     label: "T-shirt",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4TaVso39YlrNU8Sd9Bnqs7YKVz2hfhwhvjw&s",
+    img: "https://img.freepik.com/premium-photo/black-plain-shortsleeve-cotton-t-shirt-template-isolated-white-background_41929-3076.jpg",
   },
   {
     label: "InnerWear",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDRsyWhfQTwxUlA8en6ws4LMP4lo667ARRfg&s",
+    img: "https://media.istockphoto.com/id/2156465403/photo/black-cotton-shorts-trousers-mockup-isolated-on-white-background-top-view-front-view-clothes.jpg?s=612x612&w=0&k=20&c=tI9fEHQDYeUd8BwM8zDmiK8fsaLubqyeCOysIm0-TTo=",
   },
   {
     label: "Jeans",
@@ -58,7 +62,7 @@ const categories = [
   },
   {
     label: "Trouser",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTljNlUkbP0fBHAZMH3d8vBYWvRygXS1zxzPg&s",
+    img: "https://st3.depositphotos.com/4709981/36013/i/450/depositphotos_360131744-stock-photo-white-pants-isolated-white-background.jpg",
   },
   {
     label: "OverSized T-shirt",
@@ -66,23 +70,23 @@ const categories = [
   },
   {
     label: "Formal Shirt",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVJDbh17CMomStMshpCYRRo8G4d7jD3PnyMg&s",
+    img: "https://thestiffcollarcoupons.wordpress.com/wp-content/uploads/2014/01/men-formal-shirt.jpg",
   },
   {
     label: "Check Shirt",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5iXTlgY2_ccwzKao2dV0TNxaLzF7lY7O5Yw&s",
+    img: "https://thumbs.dreamstime.com/b/men-s-shirt-isolated-white-background-plain-woven-classic-summer-indigo-pink-big-check-clipping-path-included-cotton-332195674.jpg",
   },
   {
     label: "Tops",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTek0OIQBC225eh_v5aGFU6w4noUQVkw_Wz3w&s",
+    img: "https://i.etsystatic.com/11829525/r/il/be163e/6202886725/il_fullxfull.6202886725_9lzn.jpg",
   },
   {
     label: "Suit",
-    img: "https://cdn.shopify.com/s/files/1/0044/8033/5936/files/red-aari-work-salwar-kameez-neckline-rose-pattern-designer-dupatta-cotton-unstitched-808.jpg",
+    img: "https://tiimg.tistatic.com/fp/1/002/800/ladies-suit-with-pajami-714.jpg",
   },
   {
     label: "Saari",
-    img: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT2fGMKTsVGwsjBxrBFKaLEq9LKun0cQBZPiA&s",
+    img: "https://png.pngtree.com/png-clipart/20250126/original/pngtree-a-designer-saree-in-deep-blue-with-silver-sequins-png-image_20333532.png",
   },
   {
     label: "Skirt",
@@ -106,40 +110,39 @@ const Bannerbottom = () => {
     const container = brandScrollRef.current;
     let animationFrameId;
     let scrollSpeed = 1;
+    let direction = 1;
 
     const scroll = () => {
       if (container) {
-        container.scrollLeft += scrollSpeed;
-        const singleSetWidth = Brands.length * 216;
-        if (container.scrollLeft >= singleSetWidth) {
-          container.scrollLeft -= singleSetWidth;
+        container.scrollLeft += scrollSpeed * direction;
+        const maxScrollLeft = container.scrollWidth - container.clientWidth;
+
+        if (container.scrollLeft >= maxScrollLeft) {
+          direction = -1;
+        } else if (container.scrollLeft <= 0) {
+          direction = 1;
         }
       }
       animationFrameId = requestAnimationFrame(scroll);
     };
 
-    scroll();
-    return () => cancelAnimationFrame(animationFrameId);
+    animationFrameId = requestAnimationFrame(scroll);
+
+    return () => {
+      cancelAnimationFrame(animationFrameId);
+    };
   }, []);
 
   return (
-    <div className="px-4 md:px-40 py-40  w-full">
+    <div className="px-4 md:px-40 py-40 w-full">
       {/* Categories */}
       <div className="flex flex-wrap justify-between items-center mb-6">
         <p className="text-xl md:text-2xl font-bold">Shop By Categories</p>
         <div className="flex items-center gap-4 mt-3 md:mt-0">
           <button className="font-semibold text-sm md:text-base">See All</button>
           <div className="flex gap-2">
-            <IoIosArrowDropleftCircle
-              size={35}
-              onClick={scrollLeft}
-              className="cursor-pointer"
-            />
-            <IoIosArrowDroprightCircle
-              size={35}
-              onClick={scrollRight}
-              className="cursor-pointer"
-            />
+            <IoIosArrowDropleftCircle size={35} onClick={scrollLeft} className="cursor-pointer" />
+            <IoIosArrowDroprightCircle size={35} onClick={scrollRight} className="cursor-pointer" />
           </div>
         </div>
       </div>
@@ -151,12 +154,12 @@ const Bannerbottom = () => {
         {categories.map((item, index) => (
           <div
             key={index}
-            className="min-w-[160px] md:min-w-[200px] bg-white rounded-full shadow-md flex flex-col items-center p-4 hover:shadow-2xl"
+            className="min-w-[160px] md:min-w-[200px] rounded-full bg-transparent flex flex-col items-center p-4"
           >
             <img
               src={item.img}
               alt={item.label}
-              className="h-24 w-24 md:h-32 md:w-32 rounded-full hover:scale-110 transition-transform"
+              className="h-24 w-24 md:h-32 md:w-32 bg-transparent hover:scale-110 transition-transform"
             />
             <p className="mt-2 text-sm md:text-base font-semibold">{item.label}</p>
           </div>
@@ -173,12 +176,12 @@ const Bannerbottom = () => {
           {[...Brands, ...Brands, ...Brands].map((item, index) => (
             <div
               key={index}
-              className="min-w-[150px] md:min-w-[180px] h-32 md:h-40 mx-2 md:mx-3 bg-white rounded-full flex items-center justify-center shadow"
+              className="min-w-[150px] md:min-w-[200px] h-32 md:h-40 bg-white flex items-center justify-center"
             >
               <img
                 src={item.img}
                 alt={item.label}
-                className="max-h-24 md:max-h-32 object-contain p-2"
+                className="max-h-24 md:max-h-32 pl-1 pr-1 bg-transparent object-contain"
               />
             </div>
           ))}

@@ -18,6 +18,7 @@ module.exports = {
       },
       animation: {
         scrollPingPong: 'scrollPingPong 2s ease-in-out infinite',
+         hang: 'hang 2s ease-in-out infinite',
       },
     },
   },
