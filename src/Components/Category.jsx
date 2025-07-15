@@ -107,7 +107,8 @@ const Category = () => {
   };
 
   return (
-    <div className="mt-23 mb-2.5 sm:mt-20 md:mt-28 lg:mt-23 w-full bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-md px-4 backdrop-blur-sm">
+  <div className="mt-23 mb-2.5 sm:mt-20 md:mt-28 lg:mt-23 w-full bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-md px-4 backdrop-blur-sm relative z-50">
+
       {/* Mobile Layout */}
       <div className="md:hidden" ref={mobileMenuRef}>
         {/* Mobile Menu Toggle Button */}
@@ -212,7 +213,7 @@ const Category = () => {
           </button>
 
           {isDesktopCategoryDropdownOpen && (
-            <ul className="absolute top-full left-0 mt-2 bg-white border border-gray-200 rounded-xl shadow-2xl z-50 w-48 max-h-60 overflow-y-auto">
+            <ul className="absolute top-full left-0 mt-2 bg-white border border-gray-200 outline-none rounded-xl shadow-2xl z-50 w-48 max-h-60 overflow-y-auto">
               {categories.map((category, index) => (
                 <li
                   key={index}

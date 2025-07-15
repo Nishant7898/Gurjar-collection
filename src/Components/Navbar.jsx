@@ -76,7 +76,7 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-pink-200 shadow-lg z-50">
+    <nav className="fixed top-0 left-0 w-full bg-pink-200 shadow-lg z-100">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Mobile Layout */}
         <div className="sm:hidden">
@@ -214,7 +214,7 @@ const Navbar = () => {
               </button>
 
               {isDropdownOpen && (
-                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-[60] w-48 lg:w-56 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-[100] w-48 lg:w-56 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                   {categories.map((category, index) => (
                     <li
                       key={index}
