@@ -43,23 +43,16 @@ const images = [
 const BrandsBottom = () => {
   return (
     <div className="flex flex-wrap justify-center items-center gap-6 px-4 sm:px-10 md:px-20 lg:px-40 py-6">
-      <div className="relative text-center rounded-md p-2 max-w-[300px] sm:max-w-[350px]">
-        <img
-          src="https://saadaa.in/cdn/shop/files/81.jpg?v=1729237929&width=600"
-          className="h-[250px] w-full object-cover rounded-md hover:scale-95 transition-transform"
-        />
-        <IoMdHeartEmpty className="absolute top-4 right-4 text-xl text-white" />
-        <p className="font-bold mt-2">Formal Shirt</p>
-        <p className="font-bold text-red-600">₹999</p>
-        <div className="flex justify-center mt-2 flex-row items-center gap-2">
-          <button className="bg-orange-500 flex items-center gap-2 rounded-md font-semibold hover:scale-95 text-white p-2">
-            Buy Now
-          </button>
-          <HiMiniShoppingCart className="bg-gray-300 text-black w-10 h-10 p-2 rounded-md" />
-        </div>
-      </div>
-
-      {images.map((item, idx) => (
+      {[
+        {
+          id: 1,
+          Name: "Formal Shirt",
+          img: "https://saadaa.in/cdn/shop/files/81.jpg?v=1729237929&width=600",
+          price: 999,
+          desc: "Men Light Blue Formal Shirt",
+        },
+        ...images,
+      ].map((item, idx) => (
         <div
           key={idx}
           className="relative text-center rounded-md p-2 max-w-[300px] sm:max-w-[350px]"
@@ -71,11 +64,16 @@ const BrandsBottom = () => {
           />
           <IoMdHeartEmpty className="absolute top-4 right-4 text-xl text-white" />
           <p className="font-semibold mt-2">{item.Name}</p>
+
           <p className="text-red-600 font-bold">₹{item.price}</p>
+
           <div className="flex justify-center mt-2 flex-row items-center gap-2">
             <button className="bg-orange-500 flex items-center gap-2 rounded-md font-semibold hover:scale-95 text-white p-2">
-              Add To Cart
+              {idx === 0 ? "Buy Now" : "Add To Cart"}
             </button>
+            {idx === 0 && (
+              <HiMiniShoppingCart className="bg-gray-300 text-black w-10 h-10 p-2 rounded-md" />
+            )}
           </div>
         </div>
       ))}
