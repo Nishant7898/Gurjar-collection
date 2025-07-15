@@ -20,7 +20,7 @@ const Womenproducts = () => {
   };
 
   return (
-    <div className="h-1/2 pl-50 pr-50 px-10 mt-20">
+    <div className="h-1/2 w-full pl-50 pr-50 px-10 mt-20">
       {/* Header */}
       <div className="flex items-center justify-between font-semibold text-xl mb-6">
         <p>For Women</p>

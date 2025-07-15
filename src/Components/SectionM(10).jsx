@@ -20,7 +20,7 @@ const MenProducts = () => {
     });
   };
   return (
-    <div className="h-1/2 pl-50 pr-50 px-10 mt-20">
+    <div className="h-1/2 w-full pl-50 pr-50  mt-20">
       {/* Header */}
       <div className="flex items-center justify-between font-semibold text-xl mb-6">
         <p>For Men</p>
@@ -41,7 +41,7 @@ const MenProducts = () => {
       <div className="overflow-hidden mt-20">
         <div
           ref={scrollRef}
-          className="grid grid-rows-2 grid-flow-col gap-6 w-max scroll-smooth"
+          className="grid grid-rows-2 grid-flow-col gap-3 w-max scroll-smooth"
         >
           {/* 1st poduct.............------------------------->>>>>>>>>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
