@@ -53,7 +53,7 @@ const Womenproducts = () => {
         >
           {/* 1st poduct.............------------------------->>>>>>>>>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/71cWGXjSesL._SY741_.jpg"
                 className="w-full h-full  transition-opacity duration-500 group-hover:opacity-0"
@@ -71,9 +71,12 @@ const Womenproducts = () => {
             </div>
 
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">Product 1 Description</p>
+              <p className="opacity-80">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ex
+                alias quod nulla sed doloribus non labore, modi deserunt ad
+              </p>
               <p className="text-red-600 font-bold text-lg">₹999</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -82,7 +85,7 @@ const Womenproducts = () => {
           {/* 2nd product----------------------------------------->>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/81LN4PQiuHL._SY741_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -99,16 +102,20 @@ const Womenproducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">Product 2 Description</p>
+              <p className="opacity-80">
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Ullam
+                officia facilis odio iusto nulla. Inventore placeat amet
+                nesciunt dolor, facere neque. 
+              </p>
               <p className="text-red-600 font-bold text-lg">₹899</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
           </div>
           {/* 3rd product.........------------------------->>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61TcnMgHv4L._SY741_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -125,12 +132,12 @@ const Womenproducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">
+              <p className="opacity-80">
                 Dream Beauty Fashion Women's Sweet Heart Neck Puff/Balloon
                 Bishop Sleeve
               </p>
               <p className="text-red-600 font-bold text-lg">₹1199</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -138,7 +145,7 @@ const Womenproducts = () => {
 
           {/* 4th product.........------------------------------>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61-e58B8BiL._SX679_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -155,12 +162,12 @@ const Womenproducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold ">
+              <p className="opacity-80">
                 FRAULEIN Women's Flared Pleated Maxi Skirt High Waist A-Line
                 with Pockets and Belt Accessories
               </p>
               <p className="text-red-600 font-bold text-lg">₹749</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -168,7 +175,7 @@ const Womenproducts = () => {
           {/* 5th product--------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61UY0CyxUtL._SY741_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -185,11 +192,11 @@ const Womenproducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">
+              < p className="opacity-80">
                 KOTTY Women's Relaxed Jeans
               </p>
               <p className="text-red-600 font-bold text-lg">₹679</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -197,7 +204,7 @@ const Womenproducts = () => {
           {/* 6th product................---------------------------------------------->>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/61wT6z1pBPL._SY879_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -214,13 +221,13 @@ const Womenproducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">
+              <p className="opacity-80">
                 GRECIILOOKS Tailored Trousers for Women | Women Trousers |
                 Women's High-Waisted Pant | Women Trousers Pants | Korean
                 Trousers for Women
               </p>
               <p className="text-red-600 font-bold text-lg">₹890</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>

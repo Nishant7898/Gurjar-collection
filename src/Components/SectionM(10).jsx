@@ -45,7 +45,7 @@ const MenProducts = () => {
         >
           {/* 1st poduct.............------------------------->>>>>>>>>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://images.meesho.com/images/products/305708885/m9ppd_512.webp"
                 className="w-full h-full  transition-opacity duration-500 group-hover:opacity-0"
@@ -63,11 +63,11 @@ const MenProducts = () => {
             </div>
 
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold ">
+              <p className="fopacity-80  ">
                 Elanpro Brand cotton Plain shirts for men
               </p>
               <p className="text-red-600 font-bold text-lg">₹999</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -76,7 +76,7 @@ const MenProducts = () => {
           {/* 2nd product----------------------------------------->>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/41Dw3Jc7CTL._SX300_SY300_QL70_FMwebp_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -93,16 +93,16 @@ const MenProducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">JAI TEXTILES Men's Cotton Slim Fit Casual Printed Checkered Stylish Latest Shirt</p>
+              <p className="opacity-80  "> Men's Cotton Slim Fit Casual Printed Checkered Stylish Latest Shirt</p>
               <p className="text-red-600 font-bold text-lg">₹399</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
           </div>
           {/* 3rd product.........------------------------->>>>>>>>>>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/71eUwDk8z+L._SY879_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -119,11 +119,11 @@ const MenProducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">
+              <p className="opacity-80 ">
              Allen Solly Men's Cotton Regular Fit Polo T-Shirt
               </p>
               <p className="text-red-600 font-bold text-lg">₹699</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -131,7 +131,7 @@ const MenProducts = () => {
 
           {/* 4th product.........------------------------------>>> */}
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://m.media-amazon.com/images/I/51sOrVBx9LL._SY679_.jpg"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -148,12 +148,12 @@ const MenProducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold ">
+              <p className="opacity-80  ">
                 FRAULEIN Women's Flared Pleated Maxi Skirt High Waist A-Line
                 with Pockets and Belt Accessories
               </p>
               <p className="text-red-600 font-bold text-lg">₹749</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -161,7 +161,7 @@ const MenProducts = () => {
           {/* 5th product--------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://offduty.in/cdn/shop/products/ff2def08-93ae-4984-89e8-8352dea110da_1800x1800.jpg?v=1676893036"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -178,11 +178,11 @@ const MenProducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">
+              <p className="opacity-80 ">
       Blue Stone Wash Baggy Fit Cargo Men Jeans
               </p>
-              <p className="text-red-600 font-bold text-lg">₹1779</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <p className="text-red-600 font-semibold ">₹1779</p>
+              <button className="mt-2px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500  text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
@@ -190,7 +190,7 @@ const MenProducts = () => {
           {/* 6th product................---------------------------------------------->>>>>> */}
 
           <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[300px] h-[250px]">
+            <div className="relative w-[400px] h-[250px]">
               <img
                 src="https://images.meesho.com/images/products/446118957/qv1ua_512.webp"
                 className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
@@ -207,11 +207,11 @@ const MenProducts = () => {
               <HeartIcon className="absolute -top-0 right-0" />
             </div>
             <div className="p-4 flex flex-col justify-between w-full">
-              <p className="font-semibold text-sm">
+              <p className="opacity-80 ">
                Men's Black Baggy Trousers in Cotton Lycra – Comfortable & Stylish Casual Wear 
               </p>
               <p className="text-red-600 font-bold text-lg">₹890</p>
-              <button className="mt-2 px-3 py-2 bg-red-500 text-white rounded hover:bg-black">
+              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
                 Add To Cart
               </button>
             </div>
