@@ -5,7 +5,7 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { BiCartAdd } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { HiMenu, HiX } from "react-icons/hi";
-import logo from "../assets/logo.png";
+import logo from "../assets/Logo.png";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
