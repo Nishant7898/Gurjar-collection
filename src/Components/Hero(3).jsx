@@ -4,7 +4,7 @@ import {
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 
-// Vertical Carousel 1
+// Image arrays remain unchanged
 const images1 = [
   "https://cmsimages.shoppersstop.com/Wrogn_web_7cefbb23f5/Wrogn_web_7cefbb23f5.png",
   "https://cmsimages.shoppersstop.com/USPA_web_dfb93d3559/USPA_web_dfb93d3559.png",
@@ -12,7 +12,6 @@ const images1 = [
   "https://cmsimages.shoppersstop.com/jeans_web_5f73a85a24/jeans_web_5f73a85a24.png",
 ];
 
-// Horizontal Carousel
 const images2 = [
   "https://images-eu.ssl-images-amazon.com/images/G/31/INSLGW/af_pc_1x._CB792409181_.jpg",
   "https://cdn.dribbble.com/userupload/10866321/file/original-117dd32f2ec57d55305d528be0fc170b.jpg?resize=1504x1034&vertical=center",
@@ -21,7 +20,6 @@ const images2 = [
   "https://i.fbcd.co/products/resized/resized-750-500/dff0bca857016f16cdbeee90df63ca85a71d720995c927c584fc9642ad4bb49e.jpg",
 ];
 
-// Vertical Carousel 3
 const images3 = [
   "https://wforwoman.com/cdn/shop/files/Curation_-4_1.jpg?v=1750144510&width=535",
   "https://media.istockphoto.com/id/494854447/photo/fashion-shop-window-with-mannequin-with-red-sign-50-off.jpg?s=612x612&w=is&k=20&c=iZvhV09M7ZIetoUGcPxb5L6EoZ2LDzXUQwK_97eSUDo=",
@@ -30,19 +28,18 @@ const images3 = [
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/collage-clothes-on-sale-poster-template-ml8f3zd6415179.jpg",
 ];
 
-// Vertical Carousel 4
 const images4 = [
   "https://cdn.dribbble.com/userupload/30977009/file/original-d565eede788dd39f637feca93807f0a6.jpg?resize=1200x800&vertical=center",
   "https://media.istockphoto.com/id/1271568102/photo/a-banner-in-a-clothing-store-informing-about-the-ongoing-sale-hanging-on-a-brick-wall-and.jpg?s=1024x1024&w=is&k=20&c=hHMA_UfFt1NWoHKfRsOrlmUNAIvE6MwLx3nAs8qkfqw=",
 ];
 
 const images5 = [
-"https://s7ap1.scene7.com/is/image/adityabirlafashion/LP_Hero%20Banner-FTOS-formals-%20M?resMode=sharp2&wid=375&hei=414",
-  "https://celio.in/cdn/shop/files/EOSS_Banner_3.0_Mobile.jpg?v=1748585716"
+  "https://s7ap1.scene7.com/is/image/adityabirlafashion/LP_Hero%20Banner-FTOS-formals-%20M?resMode=sharp2&wid=375&hei=414",
+  "https://celio.in/cdn/shop/files/EOSS_Banner_3.0_Mobile.jpg?v=1748585716",
 ];
 
 const Hero = () => {
-  //1st Banner---------------------------------------------------------------------------------------------------------->>
+  // All useState and useEffect hooks remain unchanged
   const [currentIndex1, setCurrentIndex1] = useState(0);
   const [isTransitioning1, setIsTransitioning1] = useState(false);
   const [direction1, setDirection1] = useState(1);
@@ -65,7 +62,6 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [direction1]);
 
-  //2nd mid banner..........---------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [horizontalIndex, setHorizontalIndex] = useState(0);
   const scrollRef = useRef(null);
   useEffect(() => {
@@ -101,7 +97,6 @@ const Hero = () => {
     }
   };
 
-  //3rd left side banner--------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [currentIndex3, setCurrentIndex3] = useState(0);
   const [isTransitioning3, setIsTransitioning3] = useState(false);
   const [direction3, setDirection3] = useState(1);
@@ -124,7 +119,6 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [direction3]);
 
-  // 4th mini bottom banner----------------------------------------------------------------------------------->>>>>>>>>>>>>>>
   const [currentIndex4, setCurrentIndex4] = useState(0);
   const [isTransitioning4, setIsTransitioning4] = useState(false);
   const [direction4, setDirection4] = useState(1);
@@ -147,7 +141,6 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [direction4]);
 
-  // 5th mini bottom wear ------------------------------------------------------------>>>>>>>
   const [currentindex5, setcurrentindex5] = useState(0);
   const [isTransitioning5, setisTransitioning5] = useState(false);
   const [direction5, setdirection5] = useState(1);
@@ -171,21 +164,17 @@ const Hero = () => {
   }, [direction5]);
 
   return (
-    <div className="w-full h-1/2 flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-2 sm:py-4">
+    <div className="w-full flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-2 sm:py-4 overflow-x-auto">
       {/* Main Container */}
-      <div className="flex flex-col lg:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-full">
+      <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-[900px] sm:w-[960px] md:w-full min-w-[600px]">
         {/* Left Column - First Carousel */}
-        <div className="w-full lg:w-[280px] xl:w-[320px] 2xl:w-[350px] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
+        <div className="w-[30%] sm:w-[30%] md:w-[240px] lg:w-[280px] xl:w-[320px] 2xl:w-[350px] h-[300px] sm:h-[250px] md:h-[350px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] min-w-[120px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
             className="flex flex-col"
             style={{
-              transform: `translateY(-${
-                currentIndex1 * (100 / images1.length)
-              }%)`,
+              transform: `translateY(-${currentIndex1 * (100 / images1.length)}%)`,
               height: `${images1.length * 100}%`,
-              transition: isTransitioning1
-                ? "transform 1s ease-in-out"
-                : "none",
+              transition: isTransitioning1 ? "transform 1s ease-in-out" : "none",
             }}
           >
             {images1.map((img, index) => (
@@ -208,10 +197,10 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Middle Column - Contains main carousel and bottom mini carousels */}
-        <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 flex-1">
+    {/* 2nd middle----------------------------------------->>>>>>>>>>>>>>>>>> */}
+        <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-[40%] sm:w-[40%] md:w-[400px] lg:w-auto flex-1 min-w-[160px]">
           {/* Main Horizontal Carousel */}
-          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[320px] xl:h-[350px] 2xl:h-[400px] w-full overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
+          <div className="relative h-[190px] sm:h-[200px] md:h-[250px] lg:h-[320px] xl:h-[350px] 2xl:h-[400px] w-full overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
             {/* Dots indicator */}
             <div className="absolute bottom-2 sm:bottom-3 left-1/2 transform -translate-x-1/2 z-10 flex gap-1 sm:gap-2 items-center">
               {images2.map((_, index) => (
@@ -235,10 +224,7 @@ const Hero = () => {
               ))}
             </div>
 
-            <div
-              ref={scrollRef}
-              className="flex overflow-x-hidden scroll-smooth h-full"
-            >
+            <div ref={scrollRef} className="flex overflow-x-hidden scroll-smooth h-full">
               {images2.map((img, index) => (
                 <div
                   key={index}
@@ -259,19 +245,15 @@ const Hero = () => {
           </div>
 
           {/* Bottom Mini Carousels */}
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5">
+          <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5">
             {/* 4th banner */}
-            <div className="h-[120px] sm:h-[140px] md:h-[160px] lg:h-[170px] xl:h-[180px] w-full overflow-hidden rounded-md bg-white shadow-sm">
+            <div className="h-[100px] sm:h-[120px] md:h-[140px] lg:h-[170px] xl:h-[180px] w-[50%] min-w-[80px] overflow-hidden rounded-md bg-white shadow-sm">
               <div
                 className="flex flex-col"
                 style={{
-                  transform: `translateY(-${
-                    currentIndex4 * (100 / images4.length)
-                  }%)`,
+                  transform: `translateY(-${currentIndex4 * (100 / images4.length)}%)`,
                   height: `${images4.length * 100}%`,
-                  transition: isTransitioning4
-                    ? "transform 1s ease-in-out"
-                    : "none",
+                  transition: isTransitioning4 ? "transform 1s ease-in-out" : "none",
                 }}
               >
                 {images4.map((img, index) => (
@@ -295,17 +277,13 @@ const Hero = () => {
             </div>
 
             {/* 5th banner */}
-            <div className="h-[120px] sm:h-[140px] md:h-[160px] lg:h-[170px] xl:h-[180px] w-full overflow-hidden rounded-md bg-white shadow-sm">
+            <div className="h-[100px] sm:h-[120px] md:h-[140px] lg:h-[170px] xl:h-[180px] w-[50%] min-w-[80px] overflow-hidden rounded-md bg-white shadow-sm">
               <div
                 className="flex flex-col"
                 style={{
-                  transform: `translateY(-${
-                    currentindex5 * (100 / images5.length)
-                  }%)`,
+                  transform: `translateY(-${currentindex5 * (100 / images5.length)}%)`,
                   height: `${images5.length * 100}%`,
-                  transition: isTransitioning5
-                    ? "transform 1s ease-in-out"
-                    : "none",
+                  transition: isTransitioning5 ? "transform 1s ease-in-out" : "none",
                 }}
               >
                 {images5.map((img, index) => (
@@ -330,18 +308,14 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Column - Third Carousel */}
-        <div className="w-full lg:w-[320px] xl:w-[380px] 2xl:w-[450px] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
+     {/* 3rd banner------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+        <div className="w-[30%] sm:w-[30%] md:w-[240px] lg:w-[320px] xl:w-[380px] 2xl:w-[450px] h-[300px] sm:h-[250px] md:h-[350px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] min-w-[120px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
             className="flex flex-col"
             style={{
-              transform: `translateY(-${
-                currentIndex3 * (100 / images3.length)
-              }%)`,
+              transform: `translateY(-${currentIndex3 * (100 / images3.length)}%)`,
               height: `${images3.length * 100}%`,
-              transition: isTransitioning3
-                ? "transform 1s ease-in-out"
-                : "none",
+              transition: isTransitioning3 ? "transform 1s ease-in-out" : "none",
             }}
           >
             {images3.map((img, index) => (
@@ -357,7 +331,7 @@ const Hero = () => {
                   loading="lazy"
                 />
                 <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
-                  Buy Now
+               Buy Now
                 </button>
               </div>
             ))}
