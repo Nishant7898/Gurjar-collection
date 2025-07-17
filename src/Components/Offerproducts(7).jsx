@@ -89,7 +89,7 @@ const LimitedOffer = () => {
   }, []);
 
   return (
-    <div className="px-8 md:pl-60  md:pr-60 py-5 w-full bg-gray-50">
+    <div className="px-4 md:px-60 py-5 w-full bg-gray-50">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold">Limited Time Offer</h2>
         <div className="flex gap-4 items-center text-red-600 font-semibold hover:text-red-700">
@@ -107,13 +107,13 @@ const LimitedOffer = () => {
         {images1.map((item, index) => (
           <div
             key={index}
-            className="flex-shrink-0 flex bg-white shadow-lg rounded-lg p-2 overflow-hidden transition-transform hover:scale-[1.02] w-[48%] md:w-[550px] sm:w-[90vw]"
+            className="flex-shrink-0 flex flex-col md:flex-row bg-white shadow-lg rounded-lg p-2 overflow-hidden transition-transform hover:scale-[1.02] w-[90vw] md:w-[550px]"
           >
-            <div className="relative">
+            <div className="relative w-full md:w-auto">
               <img
                 src={item.img}
                 alt="Product"
-                className="h-[300px] w-[600px] md:w-[600px] sm:w-full object-cover rounded"
+                className="h-[220px] sm:h-[180px] md:h-[300px] w-full md:w-[600px] object-cover rounded"
               />
               <div className="absolute -rotate-45 top-6 -left-1 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-bold">
                 {item.discountPercent}% OFF
@@ -144,13 +144,14 @@ const LimitedOffer = () => {
                 />
               </div>
 
-              <p className="text-black bg-gray-400 w-40 flex items-center font-medium mt-2 px-2 py-1 rounded">
-                ⏰ {timeLeft[index] || "Loading..."}
-              </p>
-
-              <button className="mt-4 px-4 py-2 bg-red-500 text-white rounded hover:bg-black transition-colors duration-200">
-                Buy Now
-              </button>
+              <div className="mt-2 flex flex-col md:flex-row md:items-center md:justify-between gap-2">
+                <p className="text-black bg-gray-400 max-w-fit font-medium px-2 py-1 rounded text-sm">
+                  ⏰ {timeLeft[index] || "Loading..."}
+                </p>
+                <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-black transition-colors duration-200 text-sm w-fit">
+                  Buy Now
+                </button>
+              </div>
             </div>
           </div>
         ))}
