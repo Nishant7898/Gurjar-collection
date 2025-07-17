@@ -4,7 +4,6 @@ import {
   IoArrowForwardCircleOutline,
 } from "react-icons/io5";
 
-// Image arrays remain unchanged
 const images1 = [
   "https://cmsimages.shoppersstop.com/Wrogn_web_7cefbb23f5/Wrogn_web_7cefbb23f5.png",
   "https://cmsimages.shoppersstop.com/USPA_web_dfb93d3559/USPA_web_dfb93d3559.png",
@@ -15,7 +14,7 @@ const images1 = [
 const images2 = [
   "https://images-eu.ssl-images-amazon.com/images/G/31/INSLGW/af_pc_1x._CB792409181_.jpg",
   "https://cdn.dribbble.com/userupload/10866321/file/original-117dd32f2ec57d55305d528be0fc170b.jpg?resize=1504x1034&vertical=center",
-  "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_original/cararra-and-quill-gray-clothing-banner-template-qx3tsb79c73aac.webp",
+
   "https://img.freepik.com/premium-vector/colorful-big-sale-banner-design_8499-254.jpg",
   "https://i.fbcd.co/products/resized/resized-750-500/dff0bca857016f16cdbeee90df63ca85a71d720995c927c584fc9642ad4bb49e.jpg",
 ];
@@ -23,9 +22,7 @@ const images2 = [
 const images3 = [
   "https://wforwoman.com/cdn/shop/files/Curation_-4_1.jpg?v=1750144510&width=535",
   "https://media.istockphoto.com/id/494854447/photo/fashion-shop-window-with-mannequin-with-red-sign-50-off.jpg?s=612x612&w=is&k=20&c=iZvhV09M7ZIetoUGcPxb5L6EoZ2LDzXUQwK_97eSUDo=",
-  "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/colorful-fashion-collection-standee-banner-template-hrg96r22a1518c.jpg",
-  "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/ivory-and-black-discount-offer-facebook-post-template-jp7insa98f6e6d.jpg",
-  "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/collage-clothes-on-sale-poster-template-ml8f3zd6415179.jpg",
+
 ];
 
 const images4 = [
@@ -39,7 +36,7 @@ const images5 = [
 ];
 
 const Hero = () => {
-  // All useState and useEffect hooks remain unchanged
+  // Existing states
   const [currentIndex1, setCurrentIndex1] = useState(0);
   const [isTransitioning1, setIsTransitioning1] = useState(false);
   const [direction1, setDirection1] = useState(1);
@@ -163,10 +160,53 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [direction5]);
 
+  // New state and ref for horizontal auto-scroll
+  const containerRef = useRef(null);
+  const [scrollDirection, setScrollDirection] = useState(1);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect mobile screens
+  useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
+    };
+    
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Horizontal auto-scroll effect
+  useEffect(() => {
+    if (!isMobile || !containerRef.current) return;
+
+    const container = containerRef.current;
+    const interval = setInterval(() => {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      const maxScroll = scrollWidth - clientWidth;
+      
+      if (scrollDirection === 1 && scrollLeft >= maxScroll - 10) {
+        setScrollDirection(-1);
+      } else if (scrollDirection === -1 && scrollLeft <= 10) {
+        setScrollDirection(1);
+      } else {
+        container.scrollBy({ 
+          left: scrollDirection * 600, 
+          behavior: 'smooth' 
+        });
+      }
+    }, 2000);
+
+    return () => clearInterval(interval);
+  }, [scrollDirection, isMobile]);
+
   return (
-    <div className="w-full flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-2 sm:py-4 overflow-x-auto">
+    <div 
+      ref={containerRef}
+      className="w-full flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-2 sm:py-4 overflow-x-auto scrollbar-hide"
+    >
       {/* Main Container */}
-      <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-[900px] sm:w-[960px] md:w-full min-w-[600px]">
+      <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-[900px] sm:w-[960px] md:w-full min-w-[600px] md:min-w-0">
         {/* Left Column - First Carousel */}
         <div className="w-[30%] sm:w-[30%] md:w-[240px] lg:w-[280px] xl:w-[320px] 2xl:w-[350px] h-[300px] sm:h-[250px] md:h-[350px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] min-w-[120px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
@@ -186,10 +226,10 @@ const Hero = () => {
                 <img
                   src={img}
                   alt="slide"
-                  className="w-full h-full object-cover"
+                  className="w-full object-center  h-full md:object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
                   Buy Now
                 </button>
               </div>
@@ -197,7 +237,7 @@ const Hero = () => {
           </div>
         </div>
 
-    {/* 2nd middle----------------------------------------->>>>>>>>>>>>>>>>>> */}
+        {/* 2nd middle */}
         <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-[40%] sm:w-[40%] md:w-[400px] lg:w-auto flex-1 min-w-[160px]">
           {/* Main Horizontal Carousel */}
           <div className="relative h-[190px] sm:h-[200px] md:h-[250px] lg:h-[320px] xl:h-[350px] 2xl:h-[400px] w-full overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
@@ -233,7 +273,7 @@ const Hero = () => {
                   <img
                     src={img}
                     alt="slide"
-                    className="w-full h-full object-cover"
+                    className="w-full object-fill h-full md:object-cover"
                     loading="lazy"
                   />
                   <button className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
@@ -268,7 +308,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 sm:px-3 md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 w-[70%] md:w-[30%]  md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
                       Buy Now
                     </button>
                   </div>
@@ -298,7 +338,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 sm:px-3 md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs w-[70%] md:w-[30%] p-1 font-bold   mr-5   md:px-4 flex items-center text-center justify-center   md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
                       Order Now
                     </button>
                   </div>
@@ -308,7 +348,7 @@ const Hero = () => {
           </div>
         </div>
 
-     {/* 3rd banner------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
+        {/* 3rd banner */}
         <div className="w-[30%] sm:w-[30%] md:w-[240px] lg:w-[320px] xl:w-[380px] 2xl:w-[450px] h-[300px] sm:h-[250px] md:h-[350px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] min-w-[120px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
             className="flex flex-col"
@@ -330,7 +370,7 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 right-2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
                Buy Now
                 </button>
               </div>

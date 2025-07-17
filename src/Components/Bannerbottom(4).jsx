@@ -134,7 +134,7 @@ const Bannerbottom = () => {
   }, []);
 
   return (
-    <div className="px-4 md:px-40 py-40 w-full">
+    <div className="px-4 md:px-40 py-20 w-full">
       {/* Categories */}
       <div className="flex flex-wrap justify-between items-center mb-6">
         <p className="text-xl md:text-2xl font-bold">Shop By Categories</p>
