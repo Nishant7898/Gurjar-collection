@@ -12,7 +12,7 @@ import Offer from "../Components/Offerproducts(7)";
 import Largebanner from "../Components/MidBanner(8)";
 import Womenproducts from "../Components/SectionF(9)";
 import MenProducts from "../Components/SectionM(10)";
-import Latest from "../Components/Latest(10)";
+import Latest from "../Components/Latest(11)";
 
 const Home = () => {
   return (

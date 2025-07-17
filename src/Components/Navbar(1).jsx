@@ -87,7 +87,7 @@ const Navbar = () => {
         {/* Mobile Layout */}
         <div className="sm:hidden">
           {/* Top row - Logo and Menu Toggle */}
-          <div className="flex items-center justify-between py-3">
+          <div className="flex items-center  justify-between ">
             <div className="flex items-center">
               <img
                 src={logo}

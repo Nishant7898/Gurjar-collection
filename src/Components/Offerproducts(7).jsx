@@ -50,14 +50,14 @@ const LimitedOffer = () => {
 
   const scrollLeft = () => {
     scrollRef.current.scrollBy({
-      left: -550*3,
+      left: -540*3,
       behavior: "smooth", // ✅ fixed spelling
     });
   };
 
   const scrollRight = () => {
     scrollRef.current.scrollBy({
-      left: 550*3, // ✅ use 'left', not 'right'
+      left: 540*3, // ✅ use 'left', not 'right'
       behavior: "smooth",
     });
   };
@@ -106,7 +106,7 @@ const LimitedOffer = () => {
 {/* scorollButtons */}
       <div
         ref={scrollRef}
-        className="flex gap-6 overflow-x-auto scroll-smooth"
+        className="flex gap-1 overflow-x-auto outline-none scroll-smooth"
         style={{ scrollbarWidth: "none" }}
       >
         {images1.map((item, index) => (

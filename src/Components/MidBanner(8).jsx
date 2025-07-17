@@ -62,11 +62,9 @@ const Largebanner = () => {
 
   return (
     <div
-      className="h-[600px] relative top-10 flex w-full overflow-hidden animate-hang transform transition-all duration-500 ease-in-out"
+      className="h-[50vh] sm:h-[60vh]  md:h-[70vh] lg:h-[80vh] xl:h-[600px] relative top-4 sm:top-6 md:top-8 lg:top-10 flex w-full overflow-hidden animate-hang transform transition-all duration-500 ease-in-out"
       ref={scrollRef}
     >
-   
-      
       {banner.map((item, index) => (
         <div
           key={index}
@@ -75,7 +73,7 @@ const Largebanner = () => {
           <img
             src={item}
             loading="lazy"
-            className="w-full h-[700px] object-cover"
+            className="w-full   h-full object-cover"
             alt=""
           />
           
@@ -83,30 +81,30 @@ const Largebanner = () => {
           <div className="absolute inset-0 bg-black/30"></div>
           
           {/* Content Container */}
-          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4">
+          <div className="absolute inset-0 flex flex-col items-center justify-center text-center px-4 sm:px-6 md:px-8">
             {/* Banner Text */}
-            <div className="mb-8">
-              <h1 className="text-5xl md:text-6xl font-bold text-white mb-4 drop-shadow-2xl">
+            <div className="mb-4 sm:mb-6 md:mb-8">
+              <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-bold text-white mb-2 sm:mb-3 md:mb-4 drop-shadow-2xl">
                 {bannerTexts[index].title}
               </h1>
-              <p className="text-xl md:text-2xl text-white/90 mb-8 drop-shadow-lg">
+              <p className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl text-white/90 mb-4 sm:mb-6 md:mb-8 drop-shadow-lg">
                 {bannerTexts[index].subtitle}
               </p>
             </div>
             
             {/* Styled Button */}
-            <button className="relative overflow-hidden bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-8 py-4 rounded-full text-white font-bold text-lg transition-all duration-300 transform hover:scale-110 animate-bounce hover:animate-none shadow-2xl flex items-center gap-3 group/btn border-2 border-white/20">
+            <button className="relative overflow-hidden bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-full text-white font-bold text-sm sm:text-base md:text-lg transition-all duration-300 transform hover:scale-110 animate-bounce hover:animate-none shadow-2xl flex items-center gap-2 sm:gap-3 group/btn border-2 border-white/20">
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
               
               {/* Pulse ring effect */}
               <div className="absolute inset-0 rounded-full border-2 border-white/50 animate-ping"></div>
               
-              <ShoppingCart className="w-6 h-6 relative z-10 group-hover/btn:rotate-12 transition-transform duration-300" />
+              <ShoppingCart className="w-4 h-4 sm:w-5 sm:h-5 md:w-6 md:h-6 relative z-10 group-hover/btn:rotate-12 transition-transform duration-300" />
               <span className="relative z-10 tracking-wide">Shop Now!</span>
               
               {/* Arrow indicator */}
-              <div className="relative z-10 ml-2 transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-300">
+              <div className="relative z-10 ml-1 sm:ml-2 transform translate-x-0 group-hover/btn:translate-x-1 transition-transform duration-300">
                 →
               </div>
             </button>

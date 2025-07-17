@@ -1,7 +1,5 @@
-import React from "react";
-import { useRef } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
-import { HeartIcon } from "lucide-react";
+import React, { useRef } from "react";
+import { ChevronLeft, ChevronRight, HeartIcon } from "lucide-react";
 
 const MenProducts = () => {
   const scrollRef = useRef(null);
@@ -19,203 +17,116 @@ const MenProducts = () => {
       behavior: "smooth",
     });
   };
+
   return (
-    <div className="h-1/2 w-full pl-40 pr-40  mt-20">
+    <div className="w-full px-4 md:px-55 mt-20">
       {/* Header */}
-      <div className="flex items-center justify-between font-semibold text-xl mb-6">
+      <div className="flex  flex-col md:flex-row items-start md:items-center justify-between font-semibold text-xl mb-6 gap-4">
         <p>For Men</p>
-        <div className="flex text-red-600 gap-5">
+        <div className="flex  flex-wrap text-red-600 gap-4">
           <p>All</p>
           <p>Formal Shirt</p>
           <p>Check Shirt</p>
           <p>T-Shirt</p>
           <p>Jeans</p>
           <p>Trouser</p>
-          <div className="flex gap-2 text-black">
-            <ChevronLeft size={28} className="cursor-pointer" />
-            <ChevronRight size={28} className="cursor-pointer" />
+          <div className="hidden md:flex gap-2 text-black">
+            <ChevronLeft size={28} className="cursor-pointer" onClick={scrollLeft} />
+            <ChevronRight size={28} className="cursor-pointer" onClick={scrollRight} />
           </div>
         </div>
       </div>
 
-      <div className="overflow-hidden flex itesm-center justify-center mt-20">
+      {/* Product Grid */}
+      <div className="overflow-x-auto mt-10">
         <div
           ref={scrollRef}
-          className="grid grid-rows-2 grid-flow-col gap-3 w-max scroll-smooth"
+          className="grid grid-rows-2 grid-flow-col gap-3 w-max scroll-smooth md:grid"
         >
-          {/* 1st poduct.............------------------------->>>>>>>>>>>>>>>>>>> */}
-          <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
-              <img
-                src="https://images.meesho.com/images/products/305708885/m9ppd_512.webp"
-                className="w-full h-full  transition-opacity duration-500 group-hover:opacity-0"
-                alt="Front 1"
-              />
-              <img
-                src="https://images.meesho.com/images/products/305708885/mhrpp_512.webp"
-                className="w-full h-full  absolute top-0 left-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                alt="Back 1"
-              />
-              <button className="bg-yellow-500 absolute top-1 left-0 m-2 text-sm text-white px-2 py-1 rounded -rotate-45">
-                Favourite
-              </button>
-              <HeartIcon className="absolute -top-0 right-0" />
+          {/* PRODUCT CARD TEMPLATE */}
+          {[
+            {
+              front: "https://images.meesho.com/images/products/305708885/m9ppd_512.webp",
+              back: "https://images.meesho.com/images/products/305708885/mhrpp_512.webp",
+              tag: "Favourite",
+              tagColor: "bg-yellow-500",
+              title: "Elanpro Brand cotton Plain shirts for men",
+              price: "₹999",
+            },
+            {
+              front: "https://m.media-amazon.com/images/I/41Dw3Jc7CTL._SX300_SY300_QL70_FMwebp_.jpg",
+              back: "https://m.media-amazon.com/images/I/51bRodLQUvL.jpg",
+              tag: "New",
+              tagColor: "bg-red-600",
+              title: "Men's Cotton Slim Fit Casual Printed Checkered Stylish Latest Shirt",
+              price: "₹399",
+            },
+            {
+              front: "https://m.media-amazon.com/images/I/71eUwDk8z+L._SY879_.jpg",
+              back: "https://m.media-amazon.com/images/I/71vSLpVgZpL._SX569_.jpg",
+              tag: "-10%",
+              tagColor: "bg-red-600",
+              title: "Allen Solly Men's Cotton Regular Fit Polo T-Shirt",
+              price: "₹699",
+            },
+            {
+              front: "https://m.media-amazon.com/images/I/51sOrVBx9LL._SY679_.jpg",
+              back: "https://m.media-amazon.com/images/I/61QZdwSwX5L._SY550_.jpg",
+              tag: "Sold Out",
+              tagColor: "bg-gray-200 opacity-70",
+              title: "FRAULEIN Women's Flared Pleated Maxi Skirt with Pockets",
+              price: "₹749",
+            },
+            {
+              front:
+                "https://offduty.in/cdn/shop/products/ff2def08-93ae-4984-89e8-8352dea110da_1800x1800.jpg?v=1676893036",
+              back:
+                "https://offduty.in/cdn/shop/products/2751a72d-a4bd-49ee-9f65-a3736b281ec5_1800x1800.jpg?v=1676893041",
+              tag: "New",
+              tagColor: "bg-red-600",
+              title: "Blue Stone Wash Baggy Fit Cargo Men Jeans",
+              price: "₹1779",
+            },
+            {
+              front: "https://images.meesho.com/images/products/446118957/qv1ua_512.webp",
+              back: "https://images.meesho.com/images/products/446118957/tdhvv_512.webp",
+              tag: "New",
+              tagColor: "bg-red-600",
+              title: "Men's Black Baggy Trousers in Cotton Lycra – Comfortable & Stylish",
+              price: "₹890",
+            },
+          ].map((product, index) => (
+            <div
+              key={index}
+              className="group flex w-[85vw] md:w-[400px] h-[230px] md:h-[300px] bg-white shadow-lg rounded-lg overflow-hidden"
+            >
+              <div className="relative w-full md:w-[400px] h-[150px] md:h-[250px]">
+                <img
+                  src={product.front}
+                  className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
+                  alt={`Front ${index + 1}`}
+                />
+                <img
+                  src={product.back}
+                  className="w-full h-full object-cover absolute top-0 left-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
+                  alt={`Back ${index + 1}`}
+                />
+                <button
+                  className={`${product.tagColor} absolute top-1 left-0 m-2 text-sm text-white px-2 py-1 rounded -rotate-45`}
+                >
+                  {product.tag}
+                </button>
+                <HeartIcon className="absolute top-1 right-1" />
+              </div>
+              <div className="p-3 flex flex-col justify-between w-full text-sm">
+                <p className="opacity-80 line-clamp-2">{product.title}</p>
+                <p className="text-red-600 font-bold text-base">{product.price}</p>
+                <button className="mt-2 px-1 py-1  text-sm font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
+                  Add To Cart
+                </button>
+              </div>
             </div>
-
-            <div className="p-4 flex flex-col justify-between w-full">
-              <p className="fopacity-80  ">
-                Elanpro Brand cotton Plain shirts for men
-              </p>
-              <p className="text-red-600 font-bold text-lg">₹999</p>
-              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
-                Add To Cart
-              </button>
-            </div>
-          </div>
-
-          {/* 2nd product----------------------------------------->>>>>>>>>>>> */}
-
-          <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
-              <img
-                src="https://m.media-amazon.com/images/I/41Dw3Jc7CTL._SX300_SY300_QL70_FMwebp_.jpg"
-                className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
-                alt="Front 2"
-              />
-              <img
-                src="https://m.media-amazon.com/images/I/51bRodLQUvL.jpg"
-                className="w-full h-full object-cover absolute top-0 left-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                alt="Back 2"
-              />
-              <button className="bg-red-600 absolute top-0 left-0 m-2 text-sm text-white px-2 py-1 rounded -rotate-45">
-                New
-              </button>
-              <HeartIcon className="absolute -top-0 right-0" />
-            </div>
-            <div className="p-4 flex flex-col justify-between w-full">
-              <p className="opacity-80  "> Men's Cotton Slim Fit Casual Printed Checkered Stylish Latest Shirt</p>
-              <p className="text-red-600 font-bold text-lg">₹399</p>
-              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
-                Add To Cart
-              </button>
-            </div>
-          </div>
-          {/* 3rd product.........------------------------->>>>>>>>>>>> */}
-          <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
-              <img
-                src="https://m.media-amazon.com/images/I/71eUwDk8z+L._SY879_.jpg"
-                className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
-                alt="Front 3"
-              />
-              <img
-                src="https://m.media-amazon.com/images/I/71vSLpVgZpL._SX569_.jpg"
-                className="w-full h-full object-cover absolute top-0 left-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                alt="Back 3"
-              />
-              <button className="bg-red-600 absolute top-0 left-0 m-2 text-sm text-white px-2 py-1 rounded -rotate-45">
-                -10%
-              </button>
-              <HeartIcon className="absolute -top-0 right-0" />
-            </div>
-            <div className="p-4 flex flex-col justify-between w-full">
-              <p className="opacity-80 ">
-             Allen Solly Men's Cotton Regular Fit Polo T-Shirt
-              </p>
-              <p className="text-red-600 font-bold text-lg">₹699</p>
-              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
-                Add To Cart
-              </button>
-            </div>
-          </div>
-
-          {/* 4th product.........------------------------------>>> */}
-          <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
-              <img
-                src="https://m.media-amazon.com/images/I/51sOrVBx9LL._SY679_.jpg"
-                className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
-                alt="Front 4"
-              />
-              <img
-                src="https://m.media-amazon.com/images/I/61QZdwSwX5L._SY550_.jpg"
-                className="w-full h-full object-cover absolute top-0 left-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                alt="Back 4"
-              />
-              <button className="bg-gray-200 absolute top-0 left-0 m-2 text-sm  opacity-70 px-2 py-1 rounded -rotate-45">
-                Sold Out
-              </button>
-              <HeartIcon className="absolute -top-0 right-0" />
-            </div>
-            <div className="p-4 flex flex-col justify-between w-full">
-              <p className="opacity-80  ">
-                FRAULEIN Women's Flared Pleated Maxi Skirt High Waist A-Line
-                with Pockets and Belt Accessories
-              </p>
-              <p className="text-red-600 font-bold text-lg">₹749</p>
-              <button className="mt-2px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
-                Add To Cart
-              </button>
-            </div>
-          </div>
-          {/* 5th product--------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
-
-          <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
-              <img
-                src="https://offduty.in/cdn/shop/products/ff2def08-93ae-4984-89e8-8352dea110da_1800x1800.jpg?v=1676893036"
-                className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
-                alt="Front 5"
-              />
-              <img
-                src="https://offduty.in/cdn/shop/products/2751a72d-a4bd-49ee-9f65-a3736b281ec5_1800x1800.jpg?v=1676893041"
-                className="w-full h-full object-cover absolute top-0 left-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                alt="Back 5"
-              />
-              <button className="bg-red-600 absolute top-0 left-0 m-2 text-sm text-white px-2 py-1 rounded -rotate-45">
-                New
-              </button>
-              <HeartIcon className="absolute -top-0 right-0" />
-            </div>
-            <div className="p-4 flex flex-col justify-between w-full">
-              <p className="opacity-80 ">
-      Blue Stone Wash Baggy Fit Cargo Men Jeans
-              </p>
-              <p className="text-red-600 font-semibold ">₹1779</p>
-              <button className="mt-2px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500  text-white rounded hover:bg-black">
-                Add To Cart
-              </button>
-            </div>
-          </div>
-          {/* 6th product................---------------------------------------------->>>>>> */}
-
-          <div className="group flex w-[400px] h-[300px] bg-white shadow-lg rounded-lg overflow-hidden">
-            <div className="relative w-[400px] h-[250px]">
-              <img
-                src="https://images.meesho.com/images/products/446118957/qv1ua_512.webp"
-                className="w-full h-full object-cover transition-opacity duration-500 group-hover:opacity-0"
-                alt="Front 6"
-              />
-              <img
-                src="https://images.meesho.com/images/products/446118957/tdhvv_512.webp"
-                className="w-full h-full object-cover absolute top-0 left-0 opacity-0 transition-opacity duration-500 group-hover:opacity-100"
-                alt="Back 6"
-              />
-              <button className="bg-red-600 absolute top-0 left-0 m-2 text-sm text-white px-2 py-1 rounded -rotate-45">
-                New
-              </button>
-              <HeartIcon className="absolute -top-0 right-0" />
-            </div>
-            <div className="p-4 flex flex-col justify-between w-full">
-              <p className="opacity-80 ">
-               Men's Black Baggy Trousers in Cotton Lycra – Comfortable & Stylish Casual Wear 
-              </p>
-              <p className="text-red-600 font-bold text-lg">₹890</p>
-              <button className="mt-2 px-1 py-1 font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
-                Add To Cart
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     </div>
@@ -223,4 +134,3 @@ const MenProducts = () => {
 };
 
 export default MenProducts;
-

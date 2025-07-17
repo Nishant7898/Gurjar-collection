@@ -14,18 +14,17 @@ const images1 = [
 
 // Horizontal Carousel
 const images2 = [
-  
   "https://images-eu.ssl-images-amazon.com/images/G/31/INSLGW/af_pc_1x._CB792409181_.jpg",
   "https://cdn.dribbble.com/userupload/10866321/file/original-117dd32f2ec57d55305d528be0fc170b.jpg?resize=1504x1034&vertical=center",
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_original/cararra-and-quill-gray-clothing-banner-template-qx3tsb79c73aac.webp",
-  "http://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_original/linen-and-mischka-clothing-banner-template-8y8ujn4f8a9a68.webp",
-  "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/webp_thumbnail/gallery-and-gallery-men-clothing-banner-template-n6a070249c995f.webp",
+  "https://img.freepik.com/premium-vector/colorful-big-sale-banner-design_8499-254.jpg",
+  "https://i.fbcd.co/products/resized/resized-750-500/dff0bca857016f16cdbeee90df63ca85a71d720995c927c584fc9642ad4bb49e.jpg",
 ];
 
 // Vertical Carousel 3
 const images3 = [
   "https://wforwoman.com/cdn/shop/files/Curation_-4_1.jpg?v=1750144510&width=535",
-  "https://cmsimages.shoppersstop.com/Allen_solly_web_1e2d1b737d/Allen_solly_web_1e2d1b737d.png",
+  "https://media.istockphoto.com/id/494854447/photo/fashion-shop-window-with-mannequin-with-red-sign-50-off.jpg?s=612x612&w=is&k=20&c=iZvhV09M7ZIetoUGcPxb5L6EoZ2LDzXUQwK_97eSUDo=",
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/colorful-fashion-collection-standee-banner-template-hrg96r22a1518c.jpg",
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/ivory-and-black-discount-offer-facebook-post-template-jp7insa98f6e6d.jpg",
   "https://d3jmn01ri1fzgl.cloudfront.net/photoadking/compressed/collage-clothes-on-sale-poster-template-ml8f3zd6415179.jpg",
@@ -34,11 +33,12 @@ const images3 = [
 // Vertical Carousel 4
 const images4 = [
   "https://cdn.dribbble.com/userupload/30977009/file/original-d565eede788dd39f637feca93807f0a6.jpg?resize=1200x800&vertical=center",
-  "https://maxzoneclothing.com/cdn/shop/files/resize_maxzone_phone_banner_15_1024x1024.jpg?v=1751109317",
+  "https://media.istockphoto.com/id/1271568102/photo/a-banner-in-a-clothing-store-informing-about-the-ongoing-sale-hanging-on-a-brick-wall-and.jpg?s=1024x1024&w=is&k=20&c=hHMA_UfFt1NWoHKfRsOrlmUNAIvE6MwLx3nAs8qkfqw=",
 ];
+
 const images5 = [
-  "https://cdn.create.vista.com/downloads/e465ded5-8_1024.jpeg",
-  "https://pantproject.com/cdn/shop/products/all-weather-essential-cargo-shorts_c52c7e34-82cc-4592-b6ca-c47ead121d33_720x1080.jpg?v=1629193910",
+"https://s7ap1.scene7.com/is/image/adityabirlafashion/LP_Hero%20Banner-FTOS-formals-%20M?resMode=sharp2&wid=375&hei=414",
+  "https://celio.in/cdn/shop/files/EOSS_Banner_3.0_Mobile.jpg?v=1748585716"
 ];
 
 const Hero = () => {
@@ -64,6 +64,7 @@ const Hero = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, [direction1]);
+
   //2nd mid banner..........---------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [horizontalIndex, setHorizontalIndex] = useState(0);
   const scrollRef = useRef(null);
@@ -82,6 +83,7 @@ const Hero = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, []);
+
   const scroll = (dir) => {
     const total = images2.length;
     let newIndex = horizontalIndex;
@@ -98,8 +100,8 @@ const Hero = () => {
       });
     }
   };
-  //3rd left side banner--------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
+  //3rd left side banner--------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const [currentIndex3, setCurrentIndex3] = useState(0);
   const [isTransitioning3, setIsTransitioning3] = useState(false);
   const [direction3, setDirection3] = useState(1);
@@ -121,8 +123,8 @@ const Hero = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, [direction3]);
-  // 4th mini bottom banner----------------------------------------------------------------------------------->>>>>>>>>>>>>>>
 
+  // 4th mini bottom banner----------------------------------------------------------------------------------->>>>>>>>>>>>>>>
   const [currentIndex4, setCurrentIndex4] = useState(0);
   const [isTransitioning4, setIsTransitioning4] = useState(false);
   const [direction4, setDirection4] = useState(1);
@@ -144,6 +146,7 @@ const Hero = () => {
     }, 3000);
     return () => clearInterval(interval);
   }, [direction4]);
+
   // 5th mini bottom wear ------------------------------------------------------------>>>>>>>
   const [currentindex5, setcurrentindex5] = useState(0);
   const [isTransitioning5, setisTransitioning5] = useState(false);
@@ -168,11 +171,11 @@ const Hero = () => {
   }, [direction5]);
 
   return (
-    <div className="w-full h-1/2 flex flex-col gap-3 sm:gap-5 px-2 sm:px-4 xl:px-20 py-4">
-      {/* 1st banner..........................................---------------------------------................---------->>>>>>>> */}
-      {/* ..................................>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
-      <div className="flex flex-col xl:flex-row gap-3 sm:gap-5 w-full">
-        <div className="w-full xl:w-[350px] h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden rounded-lg  bg-white">
+    <div className="w-full h-1/2 flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-2 sm:py-4">
+      {/* Main Container */}
+      <div className="flex flex-col lg:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-full">
+        {/* Left Column - First Carousel */}
+        <div className="w-full lg:w-[280px] xl:w-[320px] 2xl:w-[350px] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
             className="flex flex-col"
             style={{
@@ -197,16 +200,18 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
                   Buy Now
                 </button>
               </div>
             ))}
           </div>
         </div>
-        {/* 2nd banner-------------------------------------------------------------------------..............................>>>>>>>> */}
-        <div className="flex flex-col gap-3 sm:gap-5 flex-1">
-          <div className="relative h-[250px] sm:h-[350px] lg:h-[400px] w-full overflow-hidden rounded-lg bg-white ">
+
+        {/* Middle Column - Contains main carousel and bottom mini carousels */}
+        <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 flex-1">
+          {/* Main Horizontal Carousel */}
+          <div className="relative h-[200px] sm:h-[250px] md:h-[300px] lg:h-[320px] xl:h-[350px] 2xl:h-[400px] w-full overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
             {/* Dots indicator */}
             <div className="absolute bottom-2 sm:bottom-3 left-1/2 transform -translate-x-1/2 z-10 flex gap-1 sm:gap-2 items-center">
               {images2.map((_, index) => (
@@ -221,9 +226,9 @@ const Hero = () => {
                       });
                     }
                   }}
-                  className={`transition-all text-xs duration-300 ${
+                  className={`transition-all duration-300 ${
                     index === horizontalIndex
-                      ? "w-6 h-2 sm:w-8 sm:h-3 bg-black rounded-full shadow-md"
+                      ? "w-4 h-2 sm:w-6 sm:h-2 md:w-8 md:h-3 bg-black rounded-full shadow-md"
                       : "w-2 h-2 sm:w-3 sm:h-3 bg-red-500 hover:bg-white/75 rounded-full"
                   }`}
                 />
@@ -245,7 +250,7 @@ const Hero = () => {
                     className="w-full h-full object-cover"
                     loading="lazy"
                   />
-                  <button className="absolute bottom-8 sm:bottom-12 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                  <button className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
                     Order Now
                   </button>
                 </div>
@@ -253,9 +258,10 @@ const Hero = () => {
             </div>
           </div>
 
-          {/* 4th banner-------------------------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
-          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3">
-            <div className="h-[140px] sm:h-[160px] lg:h-[180px] w-full sm:max-w-[350px] overflow-hidden rounded-md  bg-white">
+          {/* Bottom Mini Carousels */}
+          <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5">
+            {/* 4th banner */}
+            <div className="h-[120px] sm:h-[140px] md:h-[160px] lg:h-[170px] xl:h-[180px] w-full overflow-hidden rounded-md bg-white shadow-sm">
               <div
                 className="flex flex-col"
                 style={{
@@ -280,15 +286,16 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 sm:px-3 md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
                       Buy Now
                     </button>
                   </div>
                 ))}
               </div>
             </div>
-            {/* 5th banner-------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
-            <div className="h-[140px] sm:h-[160px] lg:h-[180px] w-full sm:max-w-[350px] overflow-hidden rounded-lg  bg-white">
+
+            {/* 5th banner */}
+            <div className="h-[120px] sm:h-[140px] md:h-[160px] lg:h-[170px] xl:h-[180px] w-full overflow-hidden rounded-md bg-white shadow-sm">
               <div
                 className="flex flex-col"
                 style={{
@@ -313,7 +320,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-3 sm:px-5 py-1 sm:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 sm:px-3 md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
                       Order Now
                     </button>
                   </div>
@@ -322,8 +329,9 @@ const Hero = () => {
             </div>
           </div>
         </div>
-        {/* 3rd banner-------------------------------------------------------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>> */}
-        <div className="w-full xl:w-[450px] h-[400px] sm:h-[500px] lg:h-[600px] overflow-hidden rounded-lg  bg-white">
+
+        {/* Right Column - Third Carousel */}
+        <div className="w-full lg:w-[320px] xl:w-[380px] 2xl:w-[450px] h-[300px] sm:h-[350px] md:h-[400px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
             className="flex flex-col"
             style={{
@@ -348,7 +356,7 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-6 sm:px-8 py-2 sm:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1/2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
                   Buy Now
                 </button>
               </div>
