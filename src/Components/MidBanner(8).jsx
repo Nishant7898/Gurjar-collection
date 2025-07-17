@@ -62,7 +62,7 @@ const Largebanner = () => {
 
   return (
     <div
-      className="h-[50vh] sm:h-[60vh]  md:h-[70vh] lg:h-[80vh] xl:h-[600px] relative top-4 sm:top-6 md:top-8 lg:top-10 flex w-full overflow-hidden animate-hang transform transition-all duration-500 ease-in-out"
+      className="h-[30vh]  sm:h-[60vh] sm:w-[60vw]  md:h-[70vh] lg:h-[80vh] xl:h-[600px] relative top-4 sm:top-6 md:top-8 lg:top-10 flex w-[100vw] overflow-hidden animate-hang transform transition-all duration-500 ease-in-out"
       ref={scrollRef}
     >
       {banner.map((item, index) => (
