@@ -50,14 +50,14 @@ const LimitedOffer = () => {
 
   const scrollLeft = () => {
     scrollRef.current.scrollBy({
-      left: -540*3,
-      behavior: "smooth", // ✅ fixed spelling
+      left: -540 * 3,
+      behavior: "smooth",
     });
   };
 
   const scrollRight = () => {
     scrollRef.current.scrollBy({
-      left: 540*3, // ✅ use 'left', not 'right'
+      left: 540 * 3,
       behavior: "smooth",
     });
   };
@@ -74,12 +74,8 @@ const LimitedOffer = () => {
           newTimeLeft[index] = "Offer Ended";
         } else {
           const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-          const hours = Math.floor(
-            (distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
-          );
-          const minutes = Math.floor(
-            (distance % (1000 * 60 * 60)) / (1000 * 60)
-          );
+          const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
           const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
           newTimeLeft[index] = `${days}d ${hours}h ${minutes}m ${seconds}s`;
@@ -93,42 +89,39 @@ const LimitedOffer = () => {
   }, []);
 
   return (
-    <div className="px-8 py-5 pl-50 pr-50 w-full bg-gray-50 h-1/2">
-      {/* Section Header */}
+    <div className="px-8 pl-60 pr-60 py-5 w-full bg-gray-50">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold">Limited Time Offer</h2>
         <div className="flex gap-4 items-center text-red-600 font-semibold hover:text-red-700">
-          <button className="text-xl ">See All</button>
+          <button className="text-xl">See All</button>
           <ChevronLeft onClick={scrollLeft} size={28} className="cursor-pointer" />
           <ChevronRight onClick={scrollRight} size={28} className="cursor-pointer" />
         </div>
       </div>
-{/* scorollButtons */}
+
       <div
         ref={scrollRef}
-        className="flex gap-1 overflow-x-auto outline-none scroll-smooth"
+        className="flex gap-4 overflow-x-auto outline-none scroll-smooth"
         style={{ scrollbarWidth: "none" }}
       >
         {images1.map((item, index) => (
           <div
             key={index}
-            className="flex-shrink-0 flex w-[48%] bg-white shadow-lg rounded-lg p-2 overflow-hidden transition-transform hover:scale-[1.02]"
+            className="flex-shrink-0 flex bg-white shadow-lg rounded-lg p-2 overflow-hidden transition-transform hover:scale-[1.02] w-[48%] md:w-[550px] sm:w-[90vw]"
           >
-       
             <div className="relative">
               <img
                 src={item.img}
                 alt="Product"
-                className="h-[300px] w-[500px] object-cover rounded"
+                className="h-[300px] w-[600px] md:w-[600px] sm:w-full object-cover rounded"
               />
-              <div className="absolute -rotate-45 top-6  -left-1 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-bold">
+              <div className="absolute -rotate-45 top-6 -left-1 bg-red-500 text-white px-2 py-1 rounded-md text-sm font-bold">
                 {item.discountPercent}% OFF
               </div>
               <Heart className="absolute top-1 right-1 text-2xl text-black cursor-pointer hover:text-red-500" />
             </div>
 
-            {/* Description & Details */}
-            <div className="p-4 flex flex-col justify-between">
+            <div className="p-4 flex flex-col justify-between w-full">
               <p className="font-semibold text-lg text-gray-800">{item.desc}</p>
               <p className="text-sm text-gray-500 line-through mt-1">
                 ₹{item.originalPrice}
@@ -146,9 +139,7 @@ const LimitedOffer = () => {
                 <div
                   className="h-full bg-green-500 transition-all duration-500"
                   style={{
-                    width: `${
-                      (item.RemainingStock / item.TotalStock) * 100
-                    }%`,
+                    width: `${(item.RemainingStock / item.TotalStock) * 100}%`,
                   }}
                 />
               </div>
