@@ -13,12 +13,30 @@ const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const dropdownRef = useRef(null);
+  const mobileMenuRef = useRef(null);
+  const categoryButtonRef = useRef(null); // New ref for the category button
 
   // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      // For category dropdown
+      if (
+        dropdownRef.current && 
+        !dropdownRef.current.contains(event.target) &&
+        // Add specific check for category button
+        event.target !== categoryButtonRef.current
+      ) {
         setIsDropdownOpen(false);
+      }
+      
+      // For mobile menu
+      if (
+        isMobileMenuOpen && 
+        mobileMenuRef.current && 
+        !mobileMenuRef.current.contains(event.target) &&
+        !event.target.closest('button[aria-label="Mobile menu toggle"]')
+      ) {
+        setIsMobileMenuOpen(false);
       }
     };
 
@@ -28,7 +46,7 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, []);
+  }, [isMobileMenuOpen]);
 
   // Close mobile menu when screen size changes
   useEffect(() => {
@@ -63,7 +81,8 @@ const Navbar = () => {
   const handleDropdownToggle = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    setIsDropdownOpen(!isDropdownOpen);
+    // FIX: Use functional update to ensure correct toggle behavior
+    setIsDropdownOpen(prev => !prev);
   };
 
   const handleCategorySelect = (category) => {
@@ -82,12 +101,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-blue-300 shadow-lg z-100">
+    <nav className="fixed top-0 left-0 w-full bg-blue-300 shadow-lg z-[100]">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
         {/* Mobile Layout */}
         <div className="sm:hidden">
           {/* Top row - Logo and Menu Toggle */}
-          <div className="flex items-center  justify-between ">
+          <div className="flex items-center justify-between py-2">
             <div className="flex items-center">
               <img
                 src={logo}
@@ -97,6 +116,7 @@ const Navbar = () => {
             </div>
 
             <button
+              aria-label="Mobile menu toggle"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-blue-300 transition-colors duration-200"
             >
@@ -111,7 +131,7 @@ const Navbar = () => {
           {/* Always visible search bar on mobile */}
           <div className="pb-3">
             <div className="relative">
-              <div className="flex items-center bg-white rounded-lg shadow-md overflow-hidden">
+              <div className={`flex items-center bg-white rounded-lg shadow-md ${isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'}`}>
                 <input
                   className="flex-1 px-3 py-2 text-sm outline-none placeholder-gray-500"
                   type="text"
@@ -122,6 +142,7 @@ const Navbar = () => {
                 />
                 <div className="relative" ref={dropdownRef}>
                   <button
+                    ref={categoryButtonRef} // Added ref to category button
                     onClick={handleDropdownToggle}
                     className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200 whitespace-nowrap"
                   >
@@ -139,7 +160,7 @@ const Navbar = () => {
 
                   {/* Dropdown positioned to avoid clipping */}
                   {isDropdownOpen && (
-                    <ul className="absolute top-full mt-1 right-0 w-48 bg-white border rounded-md shadow-lg z-[60] max-h-60 overflow-y-auto">
+                    <ul className="absolute top-full mt-1 right-0 w-48 bg-white border rounded-md shadow-lg z-[110] max-h-60 overflow-y-auto">
                       {categories.map((category, index) => (
                         <li
                           key={index}
@@ -166,11 +187,12 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu - Only for other items */}
+          {/* Mobile Menu */}
           <div
+            ref={mobileMenuRef}
             className={`${
               isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-            } overflow-hidden transition-all duration-300 ease-in-out`}
+            } overflow-hidden transition-all duration-300 ease-in-out bg-blue-300`}
           >
             <div className="pb-4">
               {/* Action Icons */}
@@ -218,6 +240,7 @@ const Navbar = () => {
 
             <div className="relative" ref={dropdownRef}>
               <button
+                ref={categoryButtonRef} // Added ref to category button
                 onClick={handleDropdownToggle}
                 className="flex items-center gap-2 bg-yellow-200 px-4 py-2 lg:py-3 text-sm lg:text-base font-medium hover:bg-yellow-300 hover:scale-105 transition-all duration-200 whitespace-nowrap min-w-[140px] justify-between"
               >
@@ -234,7 +257,7 @@ const Navbar = () => {
               </button>
 
               {isDropdownOpen && (
-                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-[100] w-48 lg:w-56 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
+                <ul className="absolute top-full mt-2 right-0 bg-white border rounded-md shadow-lg z-[110] w-48 lg:w-56 max-h-60 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100">
                   {categories.map((category, index) => (
                     <li
                       key={index}
@@ -259,7 +282,7 @@ const Navbar = () => {
               Search
             </button>
           </div>
-{/* icons............---------------------------------------------------------------------->>>>>>>> */}
+
           <div className="flex gap-4 lg:gap-6 flex-shrink-0">
             <button
               className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"

@@ -22,7 +22,6 @@ const images2 = [
 const images3 = [
   "https://wforwoman.com/cdn/shop/files/Curation_-4_1.jpg?v=1750144510&width=535",
   "https://media.istockphoto.com/id/494854447/photo/fashion-shop-window-with-mannequin-with-red-sign-50-off.jpg?s=612x612&w=is&k=20&c=iZvhV09M7ZIetoUGcPxb5L6EoZ2LDzXUQwK_97eSUDo=",
-
 ];
 
 const images4 = [
@@ -170,10 +169,10 @@ const Hero = () => {
     const checkIfMobile = () => {
       setIsMobile(window.innerWidth < 768);
     };
-    
+
     checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    return () => window.removeEventListener('resize', checkIfMobile);
+    window.addEventListener("resize", checkIfMobile);
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
   // Horizontal auto-scroll effect
@@ -184,15 +183,15 @@ const Hero = () => {
     const interval = setInterval(() => {
       const { scrollLeft, scrollWidth, clientWidth } = container;
       const maxScroll = scrollWidth - clientWidth;
-      
+
       if (scrollDirection === 1 && scrollLeft >= maxScroll - 10) {
         setScrollDirection(-1);
       } else if (scrollDirection === -1 && scrollLeft <= 10) {
         setScrollDirection(1);
       } else {
-        container.scrollBy({ 
-          left: scrollDirection * 600, 
-          behavior: 'smooth' 
+        container.scrollBy({
+          left: scrollDirection * 600,
+          behavior: "smooth",
         });
       }
     }, 2000);
@@ -201,7 +200,7 @@ const Hero = () => {
   }, [scrollDirection, isMobile]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
       className="w-full flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-2 sm:py-4 overflow-x-auto scrollbar-hide"
     >
@@ -212,9 +211,13 @@ const Hero = () => {
           <div
             className="flex flex-col"
             style={{
-              transform: `translateY(-${currentIndex1 * (100 / images1.length)}%)`,
+              transform: `translateY(-${
+                currentIndex1 * (100 / images1.length)
+              }%)`,
               height: `${images1.length * 100}%`,
-              transition: isTransitioning1 ? "transform 1s ease-in-out" : "none",
+              transition: isTransitioning1
+                ? "transform 1s ease-in-out"
+                : "none",
             }}
           >
             {images1.map((img, index) => (
@@ -229,7 +232,7 @@ const Hero = () => {
                   className="w-full object-center  h-full md:object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1   backdrop-blur-sm">
                   Buy Now
                 </button>
               </div>
@@ -264,7 +267,10 @@ const Hero = () => {
               ))}
             </div>
 
-            <div ref={scrollRef} className="flex overflow-x-hidden scroll-smooth h-full">
+            <div
+              ref={scrollRef}
+              className="flex overflow-x-hidden scroll-smooth h-full"
+            >
               {images2.map((img, index) => (
                 <div
                   key={index}
@@ -276,7 +282,7 @@ const Hero = () => {
                     className="w-full object-fill h-full md:object-cover"
                     loading="lazy"
                   />
-                  <button className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
+                  <button className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm">
                     Order Now
                   </button>
                 </div>
@@ -291,9 +297,13 @@ const Hero = () => {
               <div
                 className="flex flex-col"
                 style={{
-                  transform: `translateY(-${currentIndex4 * (100 / images4.length)}%)`,
+                  transform: `translateY(-${
+                    currentIndex4 * (100 / images4.length)
+                  }%)`,
                   height: `${images4.length * 100}%`,
-                  transition: isTransitioning4 ? "transform 1s ease-in-out" : "none",
+                  transition: isTransitioning4
+                    ? "transform 1s ease-in-out"
+                    : "none",
                 }}
               >
                 {images4.map((img, index) => (
@@ -308,7 +318,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 w-[70%] md:w-[30%]  md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 w-[70%] md:w-[30%]  md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
                       Buy Now
                     </button>
                   </div>
@@ -321,9 +331,13 @@ const Hero = () => {
               <div
                 className="flex flex-col"
                 style={{
-                  transform: `translateY(-${currentindex5 * (100 / images5.length)}%)`,
+                  transform: `translateY(-${
+                    currentindex5 * (100 / images5.length)
+                  }%)`,
                   height: `${images5.length * 100}%`,
-                  transition: isTransitioning5 ? "transform 1s ease-in-out" : "none",
+                  transition: isTransitioning5
+                    ? "transform 1s ease-in-out"
+                    : "none",
                 }}
               >
                 {images5.map((img, index) => (
@@ -338,7 +352,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs w-[70%] md:w-[30%] p-1 font-bold   mr-5   md:px-4 flex items-center text-center justify-center   md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border border-white backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs w-[70%] md:w-[30%] p-1 font-bold   mr-5   md:px-4 flex items-center text-center justify-center   md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
                       Order Now
                     </button>
                   </div>
@@ -353,9 +367,13 @@ const Hero = () => {
           <div
             className="flex flex-col"
             style={{
-              transform: `translateY(-${currentIndex3 * (100 / images3.length)}%)`,
+              transform: `translateY(-${
+                currentIndex3 * (100 / images3.length)
+              }%)`,
               height: `${images3.length * 100}%`,
-              transition: isTransitioning3 ? "transform 1s ease-in-out" : "none",
+              transition: isTransitioning3
+                ? "transform 1s ease-in-out"
+                : "none",
             }}
           >
             {images3.map((img, index) => (
@@ -370,8 +388,8 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 right-2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 border-2 border-white backdrop-blur-sm">
-               Buy Now
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 right-2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
+                  Buy Now
                 </button>
               </div>
             ))}

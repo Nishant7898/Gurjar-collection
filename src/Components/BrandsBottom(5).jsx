@@ -31,12 +31,18 @@ const images = [
     img: "https://assets.myntassets.com/w_412,q_60,dpr_2,fl_progressive/assets/images/28282918/2024/3/15/ae32aaf4-b7cb-452d-b066-eb28a5c118841710485348248CampusSutraMenRelaxedEasyWashTrousers1.jpg",
     desc: "Men Beige Relaxed Cotton Easy Wash Trousers",
   },
-
+   {
+    id: 6,
+    Name: "Jeans For Women",
+    price: "1,159.00",
+    img:"https://www.crimsouneclub.com/cdn/shop/files/FD2654_1.jpg?v=1748600435",
+    desc: "Blue Relaxed Fit Jeans For Women",
+  },
 ];
 
 const BrandsBottom = () => {
   return (
-    <div className="flex flex-wrap justify-center items-center gap-6 px-4 sm:px-10 md:px-20 lg:px-40 py-6">
+    <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-6 px-4 sm:px-10 md:px-20 lg:px-40 py-6">
       {[
         {
           id: 1,
@@ -58,9 +64,7 @@ const BrandsBottom = () => {
           />
           <IoMdHeartEmpty className="absolute top-4 right-4 text-xl text-white" />
           <p className="font-semibold mt-2">{item.Name}</p>
-
           <p className="text-red-600 font-bold">₹{item.price}</p>
-
           <div className="flex justify-center mt-2 flex-row items-center gap-2">
             <button className="bg-orange-500 flex items-center gap-2 rounded-md font-semibold hover:scale-95 text-white p-2">
               {idx === 0 ? "Buy Now" : "Add To Cart"}
