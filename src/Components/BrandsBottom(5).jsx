@@ -42,7 +42,7 @@ const images = [
 
 const BrandsBottom = () => {
   return (
-    <div className="grid grid-cols-2 md:flex md:flex-wrap justify-center items-center gap-6 px-4 sm:px-10 md:px-20 lg:px-40 py-6">
+    <div className="grid grid-cols-2   md:flex md:flex-wrap justify-center items-center gap-3 px-4 sm:px-10  lg:px-40 py-6">
       {[
         {
           id: 1,

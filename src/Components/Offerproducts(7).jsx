@@ -89,7 +89,7 @@ const LimitedOffer = () => {
   }, []);
 
   return (
-    <div className="px-4 md:px-60 py-5 w-full bg-gray-50">
+    <div className="px-4 md:px-40 py-5 w-full bg-gray-50">
       <div className="flex justify-between items-center mb-8">
         <h2 className="text-2xl font-bold">Limited Time Offer</h2>
         <div className="flex gap-4 items-center text-red-600 font-semibold hover:text-red-700">

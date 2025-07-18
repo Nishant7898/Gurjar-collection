@@ -6,6 +6,7 @@ import { BiCartAdd } from "react-icons/bi";
 import { CgProfile } from "react-icons/cg";
 import { HiMenu, HiX } from "react-icons/hi";
 import logo from "../assets/Logo.png";
+import { MdMic } from "react-icons/md";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -131,6 +132,7 @@ const Navbar = () => {
           {/* Always visible search bar on mobile */}
           <div className="pb-3">
             <div className="relative">
+                 
               <div className={`flex items-center bg-white rounded-lg shadow-md ${isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'}`}>
                 <input
                   className="flex-1 px-3 py-2 text-sm outline-none placeholder-gray-500"
@@ -140,7 +142,9 @@ const Navbar = () => {
                   onChange={(e) => setSearchValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                 />
+           
                 <div className="relative" ref={dropdownRef}>
+                  
                   <button
                     ref={categoryButtonRef} // Added ref to category button
                     onClick={handleDropdownToggle}
@@ -227,7 +231,9 @@ const Navbar = () => {
 
           {/* Search Section */}
           <div className="flex items-center flex-1 max-w-md lg:max-w-lg xl:max-w-2xl mx-6">
-            <div className="flex items-center flex-1 bg-white rounded-l-lg  overflow-hidden">
+
+            <div className="flex relative items-center flex-1 bg-white rounded-l-lg  overflow-hidden">
+ <p className="relative flex items-center justify-center ml-2 hover:text-red-600 text-cyan-600 font-bold text-2xl"><MdMic /></p>
               <input
                 className="flex-1 px-4 py-2 lg:py-3 text-sm lg:text-base outline-none placeholder-gray-500"
                 type="text"
@@ -236,6 +242,7 @@ const Navbar = () => {
                 onChange={(e) => setSearchValue(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
+               
             </div>
 
             <div className="relative" ref={dropdownRef}>
