@@ -7,8 +7,13 @@ import { MdOutlineFiberNew } from "react-icons/md";
 import { TbFlame } from "react-icons/tb";
 import { FaShippingFast } from "react-icons/fa";
 import { CgProfile } from "react-icons/cg";
-
+import { useNavigate } from "react-router";
 const Category = () => {
+  const navigate=useNavigate()
+  const handleclick=()=>{
+    navigate("/men")
+
+  }
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileCategoryDropdownOpen, setIsMobileCategoryDropdownOpen] =
     useState(false);
@@ -168,7 +173,7 @@ const Category = () => {
           <div className="grid grid-cols-2 gap-4">
             <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-blue-200 hover:border-blue-300">
               <BiMale className="text-xl text-blue-600" />
-              <span className="font-semibold text-gray-800">MEN</span>
+              <span onClick={handleclick} className="font-semibold text-gray-800">MEN</span>
             </button>
             <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-pink-200 hover:border-pink-300">
               <BiFemale className="text-xl text-pink-600" />
@@ -228,7 +233,7 @@ const Category = () => {
         </div>
 
         {/* Other Buttons */}
-        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-blue-50 hover:from-blue-50 hover:to-blue-100 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-blue-200 hover:border-blue-300">
+        <button onClick={handleclick} className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-blue-50 hover:from-blue-50 hover:to-blue-100 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-blue-200 hover:border-blue-300">
           <BiMale className="text-xl lg:text-2xl text-blue-600" />
           <span className="font-semibold text-gray-800">MEN</span>
         </button>

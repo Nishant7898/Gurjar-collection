@@ -7,37 +7,45 @@ import { CgProfile } from "react-icons/cg";
 import { HiMenu, HiX } from "react-icons/hi";
 import logo from "../assets/Logo.png";
 import { MdMic } from "react-icons/md";
+import Profiledropdown from "./profiledropdown";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
-  const categoryButtonRef = useRef(null); // New ref for the category button
+  const categoryButtonRef = useRef(null);
+  const profileRef = useRef(null);
 
-  // Close dropdown when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // For category dropdown
       if (
-        dropdownRef.current && 
+        dropdownRef.current &&
         !dropdownRef.current.contains(event.target) &&
-        // Add specific check for category button
         event.target !== categoryButtonRef.current
       ) {
         setIsDropdownOpen(false);
       }
-      
-      // For mobile menu
+
       if (
-        isMobileMenuOpen && 
-        mobileMenuRef.current && 
+        isMobileMenuOpen &&
+        mobileMenuRef.current &&
         !mobileMenuRef.current.contains(event.target) &&
         !event.target.closest('button[aria-label="Mobile menu toggle"]')
       ) {
         setIsMobileMenuOpen(false);
+      }
+
+      if (
+        showProfileDropdown &&
+        profileRef.current &&
+        !profileRef.current.contains(event.target)
+      ) {
+        setShowProfileDropdown(false);
       }
     };
 
@@ -47,9 +55,8 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [isMobileMenuOpen]);
+  }, [isMobileMenuOpen, showProfileDropdown]);
 
-  // Close mobile menu when screen size changes
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 640) {
@@ -63,13 +70,7 @@ const Navbar = () => {
 
   const handleSearch = () => {
     if (searchValue.trim()) {
-      console.log(
-        "Searching for:",
-        searchValue,
-        "in category:",
-        selectedCategory
-      );
-      // Add your search logic here
+      console.log("Searching for:", searchValue, "in category:", selectedCategory);
     }
   };
 
@@ -82,8 +83,7 @@ const Navbar = () => {
   const handleDropdownToggle = (e) => {
     e.preventDefault();
     e.stopPropagation();
-    // FIX: Use functional update to ensure correct toggle behavior
-    setIsDropdownOpen(prev => !prev);
+    setIsDropdownOpen((prev) => !prev);
   };
 
   const handleCategorySelect = (category) => {
@@ -104,16 +104,10 @@ const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 w-full bg-blue-300 shadow-lg z-[100]">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8">
-        {/* Mobile Layout */}
         <div className="sm:hidden">
-          {/* Top row - Logo and Menu Toggle */}
           <div className="flex items-center justify-between py-2">
             <div className="flex items-center">
-              <img
-                src={logo}
-                alt="Logo"
-                className="h-10 w-10 rounded-full object-cover"
-              />
+              <img src={logo} alt="Logo" className="h-10 w-10 rounded-full object-cover" />
             </div>
 
             <button
@@ -121,18 +115,12 @@ const Navbar = () => {
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-blue-300 transition-colors duration-200"
             >
-              {isMobileMenuOpen ? (
-                <HiX className="h-6 w-6" />
-              ) : (
-                <HiMenu className="h-6 w-6" />
-              )}
+              {isMobileMenuOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
             </button>
           </div>
 
-          {/* Always visible search bar on mobile */}
           <div className="pb-3">
             <div className="relative">
-                 
               <div className={`flex items-center bg-white rounded-lg shadow-md ${isDropdownOpen ? 'overflow-visible' : 'overflow-hidden'}`}>
                 <input
                   className="flex-1 px-3 py-2 text-sm outline-none placeholder-gray-500"
@@ -142,37 +130,25 @@ const Navbar = () => {
                   onChange={(e) => setSearchValue(e.target.value)}
                   onKeyPress={handleKeyPress}
                 />
-           
+
                 <div className="relative" ref={dropdownRef}>
-                  
                   <button
-                    ref={categoryButtonRef} // Added ref to category button
+                    ref={categoryButtonRef}
                     onClick={handleDropdownToggle}
                     className="flex items-center gap-1 bg-yellow-200 px-3 py-2 text-sm font-medium hover:bg-yellow-300 transition-colors duration-200 whitespace-nowrap"
                   >
                     <span className="truncate max-w-20">
-                      {selectedCategory === "All Categories"
-                        ? "Category"
-                        : selectedCategory}
+                      {selectedCategory === "All Categories" ? "Category" : selectedCategory}
                     </span>
-                    <IoMdArrowDropdownCircle
-                      className={`text-lg transition-transform duration-200 ${
-                        isDropdownOpen ? "rotate-180" : ""
-                      }`}
-                    />
+                    <IoMdArrowDropdownCircle className={`text-lg transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
                   </button>
 
-                  {/* Dropdown positioned to avoid clipping */}
                   {isDropdownOpen && (
                     <ul className="absolute top-full mt-1 right-0 w-48 bg-white border rounded-md shadow-lg z-[110] max-h-60 overflow-y-auto">
                       {categories.map((category, index) => (
                         <li
                           key={index}
-                          className={`px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer transition-colors duration-150 ${
-                            selectedCategory === category.name
-                              ? "bg-blue-50 text-blue-600"
-                              : ""
-                          }`}
+                          className={`px-4 py-2 text-sm hover:bg-gray-100 cursor-pointer transition-colors duration-150 ${selectedCategory === category.name ? "bg-blue-50 text-blue-600" : ""}`}
                           onClick={() => handleCategorySelect(category)}
                         >
                           {category.name}
@@ -181,6 +157,7 @@ const Navbar = () => {
                     </ul>
                   )}
                 </div>
+
                 <button
                   onClick={handleSearch}
                   className="px-4 py-2 bg-gray-600 text-white hover:bg-gray-700 transition-colors duration-200 text-sm font-medium"
@@ -191,15 +168,11 @@ const Navbar = () => {
             </div>
           </div>
 
-          {/* Mobile Menu */}
           <div
             ref={mobileMenuRef}
-            className={`${
-              isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"
-            } overflow-hidden transition-all duration-300 ease-in-out bg-blue-300`}
+            className={`${isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"} overflow-hidden transition-all duration-300 ease-in-out bg-blue-300`}
           >
             <div className="pb-4">
-              {/* Action Icons */}
               <div className="flex justify-center gap-8 pt-2">
                 <button className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200">
                   <AiOutlineHeart className="h-6 w-6" />
@@ -218,22 +191,16 @@ const Navbar = () => {
           </div>
         </div>
 
-        {/* Desktop Layout */}
         <div className="hidden sm:flex sm:items-center justify-between py-4">
-          {/* Logo */}
           <div className="flex items-center flex-shrink-0">
-            <img
-              className="h-12 w-12 lg:h-16 lg:w-16 rounded-full object-cover"
-              src={logo}
-              alt="Logo"
-            />
+            <img className="h-12 w-12 lg:h-16 lg:w-16 rounded-full object-cover" src={logo} alt="Logo" />
           </div>
 
-          {/* Search Section */}
           <div className="flex items-center flex-1 max-w-md lg:max-w-lg xl:max-w-2xl mx-6">
-
-            <div className="flex relative items-center flex-1 bg-white rounded-l-lg  overflow-hidden">
- <p className="relative flex items-center justify-center ml-2 hover:text-red-600 text-cyan-600 font-bold text-2xl"><MdMic /></p>
+            <div className="flex relative items-center flex-1 bg-white rounded-l-lg overflow-hidden">
+              <p className="relative flex items-center justify-center ml-2 hover:text-red-600 text-cyan-600 font-bold text-2xl">
+                <MdMic />
+              </p>
               <input
                 className="flex-1 px-4 py-2 lg:py-3 text-sm lg:text-base outline-none placeholder-gray-500"
                 type="text"
@@ -242,25 +209,16 @@ const Navbar = () => {
                 onChange={(e) => setSearchValue(e.target.value)}
                 onKeyPress={handleKeyPress}
               />
-               
             </div>
 
             <div className="relative" ref={dropdownRef}>
               <button
-                ref={categoryButtonRef} // Added ref to category button
+                ref={categoryButtonRef}
                 onClick={handleDropdownToggle}
                 className="flex items-center gap-2 bg-yellow-200 px-4 py-2 lg:py-3 text-sm lg:text-base font-medium hover:bg-yellow-300 hover:scale-105 transition-all duration-200 whitespace-nowrap min-w-[140px] justify-between"
               >
-                <span className="truncate">
-                  {selectedCategory === "All Categories"
-                    ? "Category"
-                    : selectedCategory}
-                </span>
-                <IoMdArrowDropdownCircle
-                  className={`text-lg lg:text-xl transition-transform duration-200 ${
-                    isDropdownOpen ? "rotate-180" : ""
-                  }`}
-                />
+                <span className="truncate">{selectedCategory === "All Categories" ? "Category" : selectedCategory}</span>
+                <IoMdArrowDropdownCircle className={`text-lg lg:text-xl transition-transform duration-200 ${isDropdownOpen ? "rotate-180" : ""}`} />
               </button>
 
               {isDropdownOpen && (
@@ -268,11 +226,7 @@ const Navbar = () => {
                   {categories.map((category, index) => (
                     <li
                       key={index}
-                      className={`px-4 py-2 lg:py-3 hover:bg-gray-100 cursor-pointer text-sm lg:text-base font-medium transition-colors duration-150 touch-manipulation ${
-                        selectedCategory === category.name
-                          ? "bg-blue-50 text-blue-600"
-                          : ""
-                      }`}
+                      className={`px-4 py-2 lg:py-3 hover:bg-gray-100 cursor-pointer text-sm lg:text-base font-medium transition-colors duration-150 touch-manipulation ${selectedCategory === category.name ? "bg-blue-50 text-blue-600" : ""}`}
                       onClick={() => handleCategorySelect(category)}
                     >
                       {category.name}
@@ -291,27 +245,32 @@ const Navbar = () => {
           </div>
 
           <div className="flex gap-4 lg:gap-6 flex-shrink-0">
-            <button
-              className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
-              title="Wishlist"
-            >
+            <button className="flex flex-col items-center gap-1 text-gray-700 transition-colors duration-200" title="Wishlist">
               <AiOutlineHeart className="h-6 w-6 lg:h-7 lg:w-7" />
               <span className="text-xs lg:text-sm font-medium">Wishlist</span>
             </button>
-            <button
-              className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
-              title="Cart"
-            >
+            <button className="flex flex-col items-center gap-1 text-gray-700 transition-colors duration-200" title="Cart">
               <BiCartAdd className="h-6 w-6 lg:h-7 lg:w-7" />
               <span className="text-xs lg:text-sm font-medium">Cart</span>
             </button>
-            <button
-              className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
-              title="Profile"
-            >
-              <CgProfile className="h-6 w-6 lg:h-7 lg:w-7" />
-              <span className="text-xs lg:text-sm font-medium">Profile</span>
-            </button>
+
+          
+            <div className="relative" ref={profileRef}>
+              <button
+                onClick={() => setShowProfileDropdown((prev) => !prev)}
+                className="flex flex-col items-center gap-1 text-gray-700 transition-colors duration-200"
+                title="Profile"
+              >
+                <CgProfile className="h-6 w-6 lg:h-7 lg:w-7" />
+                <span className="text-xs lg:text-sm font-medium">Profile</span>
+              </button>
+
+              {showProfileDropdown && (
+                <div className="absolute top-12 right-0 z-50">
+                  <Profiledropdown />
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
