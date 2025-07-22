@@ -33,7 +33,7 @@ const WomenSection = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-white py-30 px-50">
+    <div className="min-h-screen bg-white py-30 px-4 md:px-50">
       <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
         Explore Women's Fashion
       </h2>

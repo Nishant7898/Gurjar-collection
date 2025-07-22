@@ -75,7 +75,7 @@ const Tshirt = () => {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-2 w-full px-50 md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 w-full md:px-50 px-4 md:grid-cols-4 gap-6">
         {sorted.slice(0, visiblecount).map((item) => ( // Added slice to limit visible items
           <div
             key={item.id}

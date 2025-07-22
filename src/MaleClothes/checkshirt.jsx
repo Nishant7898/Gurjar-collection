@@ -58,7 +58,7 @@ const Checkshirtt = ({ id, desc, price,img }) => {
   });
 
   return (
-    <div className="min-h-screen px-50 py-8">
+    <div className="min-h-screen px-4 md:px-50 py-8">
       {/* Filter and Sort Controls */}
       <div className="flex flex-wrap gap-4 justify-between mb-8">
         {/* Filter Dropdown */}
