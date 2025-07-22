@@ -2,12 +2,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { IoMdArrowDropdownCircle } from "react-icons/io";
 import { IoIosSearch } from "react-icons/io";
 import { AiOutlineHeart } from "react-icons/ai";
-import { BiCartAdd } from "react-icons/bi";
+import { ShoppingBag } from "lucide-react";
 import { CgProfile } from "react-icons/cg";
 import { HiMenu, HiX } from "react-icons/hi";
 import logo from "../assets/Logo.png";
 import { MdMic } from "react-icons/md";
 import Profiledropdown from "./profiledropdown";
+import CartPopup from "./Cartpopup";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
@@ -15,11 +17,16 @@ const Navbar = () => {
   const [searchValue, setSearchValue] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
   const [showProfileDropdown, setShowProfileDropdown] = useState(false);
+  const [showCartDropdown, setShowCartDropdown] = useState(false);
 
   const dropdownRef = useRef(null);
   const mobileMenuRef = useRef(null);
   const categoryButtonRef = useRef(null);
   const profileRef = useRef(null);
+  const cartRef = useRef(null);
+
+  const items = useSelector((state) => state.cart.items);
+  const totalQuantity = items.reduce((total, item) => total + item.quantity, 0);
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -47,6 +54,14 @@ const Navbar = () => {
       ) {
         setShowProfileDropdown(false);
       }
+
+      if (
+        showCartDropdown &&
+        cartRef.current &&
+        !cartRef.current.contains(event.target)
+      ) {
+        setShowCartDropdown(false);
+      }
     };
 
     document.addEventListener("mousedown", handleClickOutside);
@@ -55,7 +70,7 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
       document.removeEventListener("touchstart", handleClickOutside);
     };
-  }, [isMobileMenuOpen, showProfileDropdown]);
+  }, [isMobileMenuOpen, showProfileDropdown, showCartDropdown]);
 
   useEffect(() => {
     const handleResize = () => {
@@ -178,10 +193,27 @@ const Navbar = () => {
                   <AiOutlineHeart className="h-6 w-6" />
                   <span className="text-xs font-medium">Wishlist</span>
                 </button>
-                <button className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200">
-                  <BiCartAdd className="h-6 w-6" />
-                  <span className="text-xs font-medium">Cart</span>
-                </button>
+                <div className="relative" ref={cartRef}>
+                  <button
+                    onClick={() => setShowCartDropdown((prev) => !prev)}
+                    className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200"
+                  >
+                    <div className="relative">
+                      <ShoppingBag className="h-6 w-6" />
+                      {totalQuantity > 0 && (
+                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                          {totalQuantity}
+                        </span>
+                      )}
+                    </div>
+                    <span className="text-xs font-medium">Cart</span>
+                  </button>
+                  {showCartDropdown && (
+                    <div className="absolute top-12 right-0 z-50">
+                      <CartPopup />
+                    </div>
+                  )}
+                </div>
                 <button className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200">
                   <CgProfile className="h-6 w-6" />
                   <span className="text-xs font-medium">Profile</span>
@@ -249,12 +281,28 @@ const Navbar = () => {
               <AiOutlineHeart className="h-6 w-6 lg:h-7 lg:w-7" />
               <span className="text-xs lg:text-sm font-medium">Wishlist</span>
             </button>
-            <button className="flex flex-col items-center gap-1 text-gray-700 transition-colors duration-200" title="Cart">
-              <BiCartAdd className="h-6 w-6 lg:h-7 lg:w-7" />
-              <span className="text-xs lg:text-sm font-medium">Cart</span>
-            </button>
-
-          
+            <div className="relative" ref={cartRef}>
+              <button
+                onClick={() => setShowCartDropdown((prev) => !prev)}
+                className="flex flex-col items-center gap-1 text-gray-700 transition-colors duration-200"
+                title="Cart"
+              >
+                <div className="relative">
+                  <ShoppingBag className="h-6 w-6 lg:h-7 lg:w-7" />
+                  {totalQuantity > 0 && (
+                    <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                      {totalQuantity}
+                    </span>
+                  )}
+                </div>
+                <span className="text-xs lg:text-sm font-medium">Cart</span>
+              </button>
+              {showCartDropdown && (
+                <div className="absolute top-12 right-0 z-50">
+                  <CartPopup />
+                </div>
+              )}
+            </div>
             <div className="relative" ref={profileRef}>
               <button
                 onClick={() => setShowProfileDropdown((prev) => !prev)}

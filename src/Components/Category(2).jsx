@@ -14,6 +14,10 @@ const Category = () => {
     navigate("/men")
 
   }
+  const navigate1=useNavigate()
+  const handleclick2=()=>{
+    navigate1("/Women")
+  }
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileCategoryDropdownOpen, setIsMobileCategoryDropdownOpen] =
     useState(false);
@@ -175,9 +179,9 @@ const Category = () => {
               <BiMale className="text-xl text-blue-600" />
               <span onClick={handleclick} className="font-semibold text-gray-800">MEN</span>
             </button>
-            <button className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-pink-200 hover:border-pink-300">
+            <button  className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-pink-50 to-pink-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-pink-200 hover:border-pink-300">
               <BiFemale className="text-xl text-pink-600" />
-              <span className="font-semibold text-gray-800">WOMEN</span>
+              <span onClick={handleclick2} className="font-semibold text-gray-800">WOMEN</span>
             </button>
           </div>
 
@@ -237,7 +241,7 @@ const Category = () => {
           <BiMale className="text-xl lg:text-2xl text-blue-600" />
           <span className="font-semibold text-gray-800">MEN</span>
         </button>
-        <button className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-pink-50 hover:from-pink-50 hover:to-pink-100 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-pink-200 hover:border-pink-300">
+        <button onClick={handleclick2} className="flex items-center gap-2 px-6 py-3 lg:px-8 lg:py-4 bg-gradient-to-r from-white to-pink-50 hover:from-pink-50 hover:to-pink-100 hover:scale-105 duration-300 rounded-xl shadow-lg hover:shadow-xl transition-all border border-pink-200 hover:border-pink-300">
           <BiFemale className="text-xl lg:text-2xl text-pink-600" />
           <span className="font-semibold text-gray-800">WOMEN</span>
         </button>
