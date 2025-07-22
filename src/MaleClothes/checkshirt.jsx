@@ -1,45 +1,42 @@
 import React, { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
+import { Heart, ListFilter } from "lucide-react";
 import Checkshirt from "../ClothesData(M)/Checkshirt";
-import { ListFilter } from "lucide-react";
 import { useDispatch } from "react-redux";
 import { addToCart } from "../Redux/Cartslice";
 
-
-const Checkshirtt = ({ id, desc, price,img }) => {
+const Checkshirtt = () => {
   const [selectedPrice, setSelectedPrice] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [visiblecount, setvisiblecount] = useState(12);
-  const [ismobile, setismobile] = useState(false);
+  const [ismobile, setismobile] = useState(window.innerWidth < 768);
   const dispatch = useDispatch();
-  
+
   const handleAddToCart = (item) => {
-    dispatch(addToCart({ 
-    
-      id: item.id, 
-      desc: item.desc, 
-      price: item.price, 
-      
-      quantity: 1 
-    }));
+    dispatch(
+      addToCart({
+        id: item.id,
+        desc: item.desc,
+        price: item.price,
+        quantity: 1,
+      })
+    );
   };
 
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 768;
       setismobile(mobile);
-      setvisiblecount(mobile ? 8 : 12); // reset count based on screen
+      setvisiblecount(mobile ? 8 : 12);
     };
-    window.addEventListener('resize', handleResize);
-    handleResize(); // initial check
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleLoadMore = () => {
     setvisiblecount((prev) => prev + (ismobile ? 4 : 6));
   };
 
-  // Filter logic
   const filtered = Checkshirt.filter((item) => {
     const price = parseInt(item.price.replace("₹", "").replace(",", ""));
     if (selectedPrice === "below500") return price < 500;
@@ -48,7 +45,6 @@ const Checkshirtt = ({ id, desc, price,img }) => {
     return true;
   });
 
-  // Sort logic
   const sorted = [...filtered].sort((a, b) => {
     const priceA = parseInt(a.price.replace("₹", "").replace(",", ""));
     const priceB = parseInt(b.price.replace("₹", "").replace(",", ""));
@@ -58,10 +54,9 @@ const Checkshirtt = ({ id, desc, price,img }) => {
   });
 
   return (
-    <div className="min-h-screen px-4 md:px-50 py-8">
+    <div className="min-h-screen px-4 py-30">
       {/* Filter and Sort Controls */}
       <div className="flex flex-wrap gap-4 justify-between mb-8">
-        {/* Filter Dropdown */}
         <div className="relative">
           <select
             onChange={(e) => setSelectedPrice(e.target.value)}
@@ -75,7 +70,6 @@ const Checkshirtt = ({ id, desc, price,img }) => {
           <ListFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
         </div>
 
-        {/* Sort Dropdown */}
         <div className="relative">
           <select
             onChange={(e) => setSortOrder(e.target.value)}
@@ -90,7 +84,7 @@ const Checkshirtt = ({ id, desc, price,img }) => {
       </div>
 
       {/* Product Grid */}
-      <div className="grid grid-cols-2 w-full md:grid-cols-4 gap-6">
+      <div className="grid grid-cols-2 w-full px-4 md:px-50 md:grid-cols-4 gap-6">
         {sorted.slice(0, visiblecount).map((item, index) => (
           <div
             key={item.id || `product-${index}`}
@@ -105,7 +99,7 @@ const Checkshirtt = ({ id, desc, price,img }) => {
             <img
               src={item.img}
               alt={item.desc}
-              className="w-full h-[300px] object-cover"
+              className="w-[300px] h-[300px] object-cover"
             />
 
             {/* Product Info */}
@@ -123,16 +117,16 @@ const Checkshirtt = ({ id, desc, price,img }) => {
                 {item.discount}
               </p>
             </div>
-            <button 
-              onClick={() => handleAddToCart(item)} 
-              className="mt-3 w-full mx-auto mb-4 bg-orange-600 font-bold text-white px-4 py-2 rounded-md hover:bg-gray-800 transition"
+            <button
+              onClick={() => handleAddToCart(item)}
+              className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition"
             >
               Add to Cart
             </button>
           </div>
         ))}
       </div>
-      
+
       {visiblecount < sorted.length && (
         <div className="text-center mt-10">
           <button

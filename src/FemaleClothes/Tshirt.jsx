@@ -108,7 +108,7 @@ const TshirtW = () => {
                 {item.discount}
               </p>
             </div>
-            <button className="mt-3 flex ml-[10vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition">
+            <button className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition">
               Add to Cart
             </button>
           </div>

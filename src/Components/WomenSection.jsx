@@ -26,7 +26,6 @@ const images = [
     path: "/womentshirt",
     subtitle: "Premium Wear",
   },
- 
 ];
 
 const WomenSection = () => {
@@ -42,7 +41,7 @@ const WomenSection = () => {
       <div className="mt-5 scroll-smooth  grid gap-8 grid-cols-1 sm:grid-cols-2 md:grid-cols-2">
         {images.map((item, index) => (
           <div
-            key={index} 
+            key={index}
             onClick={() => navigate(item.path)}
             className="cursor-pointer group relative  overflow-hidden rounded-2xl shadow-lg hover:shadow-xl transition"
           >
@@ -50,7 +49,8 @@ const WomenSection = () => {
               src={item.img}
               alt={item.Title}
               loading="lazy"
-              className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-[500px] object-cover opacity-0 group-hover:scale-105 transition-opacity duration-300"
+              onLoad={(e) => e.currentTarget.classList.remove("opacity-0")}
             />
 
             {/* Gradient Overlay */}

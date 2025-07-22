@@ -85,7 +85,8 @@ const MenSection = () => {
               src={item.img}
               alt={item.Title}
               loading="lazy"
-              className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-300"
+              className="w-full h-[500px] object-cover group-hover:scale-105 opacity-0 transition-opacity duration-300"
+              onLoad={(e)=>e.currentTarget.classList.remove("opacity-0")}
             />
 
             {/* Gradient Overlay */}
