@@ -49,6 +49,7 @@ const WomenSection = () => {
             <img
               src={item.img}
               alt={item.Title}
+              loading="lazy"
               className="w-full h-[500px] object-cover group-hover:scale-105 transition-transform duration-300"
             />
 

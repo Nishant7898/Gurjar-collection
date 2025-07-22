@@ -89,7 +89,7 @@ const TshirtW = () => {
             {/* Image */}
             <img
               src={item.img}
-              alt={item.name}
+              alt={item.Name}
               className="w-[300px] h-[300px] object-cover"
             />
 
