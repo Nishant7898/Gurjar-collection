@@ -1,7 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
 import Navbar from "./Components/Navbar(1)";
-import Profiledropdown from "./Components/profiledropdown";
+import Profiledropdown from ".//authpage/profiledropdown";
 import MenSection from "./Components/MenSection";
 import Tshirt from "./MaleClothes/Tshirt(M)";
 import Oversized from "./MaleClothes/oversizedshirt";
