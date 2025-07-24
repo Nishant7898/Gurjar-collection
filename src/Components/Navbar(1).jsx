@@ -7,11 +7,15 @@ import { CgProfile } from "react-icons/cg";
 import { HiMenu, HiX } from "react-icons/hi";
 import logo from "../assets/Logo.png";
 import { MdMic } from "react-icons/md";
-import Profiledropdown from "./profiledropdown";
+import Profiledropdown from "../authpage/profiledropdown";
 import CartPopup from "./Cartpopup";
 import { useSelector } from "react-redux";
-
+import { useNavigate } from "react-router-dom";
 const Navbar = () => {
+  const navigate=useNavigate()
+  const handleclick=()=>{
+    navigate("/")
+  }
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchValue, setSearchValue] = useState("");
@@ -52,7 +56,7 @@ const Navbar = () => {
         profileRef.current &&
         !profileRef.current.contains(event.target)
       ) {
-        setShowProfileDropdown(false);
+        setShowProfileDropdown(true);
       }
 
       if (
@@ -122,7 +126,7 @@ const Navbar = () => {
         <div className="sm:hidden">
           <div className="flex items-center justify-between py-2">
             <div className="flex items-center">
-              <img src={logo} alt="Logo" className="h-10 w-10 rounded-full object-cover" />
+              <img onClick={handleclick} src={logo} alt="Logo" className="h-10 w-10 rounded-full object-cover" />
             </div>
 
             <button
@@ -227,10 +231,11 @@ const Navbar = () => {
             </div>
           </div>
         </div>
+        {/* desktop-------------------------------------------------------------------->>>>>>>>>>>>>>>> */}
 
         <div className="hidden sm:flex sm:items-center justify-between py-4">
           <div className="flex items-center flex-shrink-0">
-            <img className="h-12 w-12 lg:h-16 lg:w-16 rounded-full object-cover" src={logo} alt="Logo" />
+            <img onClick={handleclick} className="h-12 w-12 lg:h-16 lg:w-16 rounded-full object-cover" src={logo} alt="Logo" />
           </div>
 
           <div className="flex items-center flex-1 max-w-md lg:max-w-lg xl:max-w-2xl mx-6">

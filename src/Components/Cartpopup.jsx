@@ -1,16 +1,26 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromCart, incrementQuantity, decrementQuantity } from "../Redux/Cartslice";
+import {
+  removeFromCart,
+  incrementQuantity,
+  decrementQuantity,
+} from "../Redux/Cartslice";
+import { useNavigate } from "react-router-dom";
 
 const CartPopup = () => {
+  const navigate = useNavigate();
+  const handleclick = () => {
+    navigate("/login");
+  };
   const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
   const totalAmount = items.reduce((total, item) => {
-    const price = typeof item.price === 'string' 
-      ? parseFloat(item.price.replace('₹', '').replace(',', '')) 
-      : item.price;
-    return total + (price * item.quantity);
+    const price =
+      typeof item.price === "string"
+        ? parseFloat(item.price.replace("₹", "").replace(",", ""))
+        : item.price;
+    return total + price * item.quantity;
   }, 0);
 
   const handleIncrement = (id) => {
@@ -26,24 +36,40 @@ const CartPopup = () => {
   };
 
   const getItemPrice = (item) => {
-    return typeof item.price === 'string' 
-      ? parseFloat(item.price.replace('₹', '').replace(',', '')) 
+    return typeof item.price === "string"
+      ? parseFloat(item.price.replace("₹", "").replace(",", ""))
       : item.price;
   };
 
   return (
     <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto max-h-[80vh] bg-white rounded-lg shadow-xl p-4 z-50 border overflow-y-auto fixed right-4 top-20 sm:top-24 sm:right-6 md:right-10 lg:right-12 xl:right-16 transition-all duration-300">
-      <h2 className="font-bold text-lg mb-3 text-gray-800 border-b pb-2">Shopping Cart</h2>
+      <h2 className="font-bold text-lg mb-3 text-gray-800 border-b pb-2">
+        Shopping Cart
+      </h2>
 
       {items.length === 0 ? (
         <div className="text-center py-8">
           <div className="text-gray-400 mb-2">
-            <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-              <path fillRule="evenodd" d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM8 16a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
+            <svg
+              className="w-16 h-16 mx-auto"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
+              <path
+                fillRule="evenodd"
+                d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM8 16a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2z"
+                clipRule="evenodd"
+              />
             </svg>
           </div>
           <p className="text-gray-500 font-medium">Your cart is empty</p>
-          <p className="text-gray-400 text-sm">Add some products to get started</p>
+          <p className="text-gray-400 text-sm">Login To See your Cart</p>
+          <button
+            className=" bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-semibold py-2 mt-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md text-sm"
+            onClick={handleclick}
+          >
+            Login
+          </button>
         </div>
       ) : (
         <>
@@ -51,7 +77,10 @@ const CartPopup = () => {
             {items.map((item, index) => {
               const itemPrice = getItemPrice(item);
               return (
-                <div key={item.id || `cart-item-${index}`} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
+                <div
+                  key={item.id || `cart-item-${index}`}
+                  className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg"
+                >
                   <div className="w-12 h-12 flex-shrink-0">
                     <img
                       src={item.img || "/placeholder-image.png"}
@@ -64,10 +93,15 @@ const CartPopup = () => {
                   </div>
 
                   <div className="flex-1 min-w-0">
-                    <p className="font-medium text-sm text-gray-800 truncate" title={item.desc}>
+                    <p
+                      className="font-medium text-sm text-gray-800 truncate"
+                      title={item.desc}
+                    >
                       {item.desc}
                     </p>
-                    <p className="text-xs text-gray-600 mb-1">₹{itemPrice.toFixed(2)}</p>
+                    <p className="text-xs text-gray-600 mb-1">
+                      ₹{itemPrice.toFixed(2)}
+                    </p>
 
                     <div className="flex items-center gap-2">
                       <button

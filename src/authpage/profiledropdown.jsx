@@ -7,6 +7,9 @@ const Profiledropdown = () => {
 const handleclick=()=>{
   navigate("/login")
 }
+const handleclick1=()=>{
+  navigate("/signup")
+}
   const menuItems = [
     { icon: Heart, label: 'My Wishlist',  },
     { icon: ShoppingBag, label: 'Order History',  },
@@ -36,7 +39,7 @@ const handleclick=()=>{
             LOGIN
           </button>
           <span className='flex items-center text-gray-400 font-medium text-sm'>/</span>
-          <button className='flex-1 border-2 border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white font-semibold py-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 text-sm'>
+          <button onClick={handleclick1} className='flex-1 border-2 border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white font-semibold py-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 text-sm'>
             SIGNUP
           </button>
 
