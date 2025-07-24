@@ -214,10 +214,15 @@ const Navbar = () => {
                     </div>
                   )}
                 </div>
-                <button className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200">
+                <button onClick={()=>setShowProfileDropdown((prev)=>!prev)} className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200">
                   <CgProfile className="h-6 w-6" />
                   <span className="text-xs font-medium">Profile</span>
                 </button>
+                  {showProfileDropdown && (
+    <div className="absolute top-12 right-0 z-50">
+      <Profiledropdown />
+    </div>
+  )}
               </div>
             </div>
           </div>

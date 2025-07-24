@@ -1,7 +1,12 @@
 import React from 'react';
 import { Heart, ShoppingBag, ShoppingCart, Gift, Percent, Bookmark, User, LogOut, Shirt } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 
 const Profiledropdown = () => {
+  const navigate=useNavigate()
+const handleclick=()=>{
+  navigate("/login")
+}
   const menuItems = [
     { icon: Heart, label: 'My Wishlist',  },
     { icon: ShoppingBag, label: 'Order History',  },
@@ -27,13 +32,14 @@ const Profiledropdown = () => {
       {/* Login/Signup Buttons */}
       <div className='p-4 bg-gray-50 border-b border-gray-100'>
         <div className='flex gap-2'>
-          <button className='flex-1 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-semibold py-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md text-sm'>
+          <button onClick={handleclick} className='flex-1 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-semibold py-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md text-sm'>
             LOGIN
           </button>
           <span className='flex items-center text-gray-400 font-medium text-sm'>/</span>
           <button className='flex-1 border-2 border-rose-600 text-rose-600 hover:bg-rose-600 hover:text-white font-semibold py-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 text-sm'>
             SIGNUP
           </button>
+
         </div>
       </div>
 

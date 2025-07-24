@@ -6,7 +6,6 @@ const CartPopup = () => {
   const items = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  // Calculate total amount - fix price parsing
   const totalAmount = items.reduce((total, item) => {
     const price = typeof item.price === 'string' 
       ? parseFloat(item.price.replace('₹', '').replace(',', '')) 
@@ -26,7 +25,6 @@ const CartPopup = () => {
     dispatch(removeFromCart(id));
   };
 
-  // Helper function to get price as number
   const getItemPrice = (item) => {
     return typeof item.price === 'string' 
       ? parseFloat(item.price.replace('₹', '').replace(',', '')) 
@@ -34,9 +32,9 @@ const CartPopup = () => {
   };
 
   return (
-    <div className="w-72 h-auto max-h-[70vh] sm:w-80 bg-white rounded-lg shadow-xl p-4 z-50 border">
+    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto max-h-[80vh] bg-white rounded-lg shadow-xl p-4 z-50 border overflow-y-auto fixed right-4 top-20 sm:top-24 sm:right-6 md:right-10 lg:right-12 xl:right-16 transition-all duration-300">
       <h2 className="font-bold text-lg mb-3 text-gray-800 border-b pb-2">Shopping Cart</h2>
-      
+
       {items.length === 0 ? (
         <div className="text-center py-8">
           <div className="text-gray-400 mb-2">
@@ -49,13 +47,11 @@ const CartPopup = () => {
         </div>
       ) : (
         <>
-          {/* Items List */}
           <div className="max-h-60 overflow-y-auto mb-4 space-y-3">
             {items.map((item, index) => {
               const itemPrice = getItemPrice(item);
               return (
                 <div key={item.id || `cart-item-${index}`} className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg">
-                  {/* Product Image */}
                   <div className="w-12 h-12 flex-shrink-0">
                     <img
                       src={item.img || "/placeholder-image.png"}
@@ -67,14 +63,12 @@ const CartPopup = () => {
                     />
                   </div>
 
-                  {/* Product Details */}
                   <div className="flex-1 min-w-0">
                     <p className="font-medium text-sm text-gray-800 truncate" title={item.desc}>
                       {item.desc}
                     </p>
                     <p className="text-xs text-gray-600 mb-1">₹{itemPrice.toFixed(2)}</p>
 
-                    {/* Quantity Controls */}
                     <div className="flex items-center gap-2">
                       <button
                         onClick={() => handleDecrement(item.id)}
@@ -95,7 +89,6 @@ const CartPopup = () => {
                     </div>
                   </div>
 
-                  {/* Item Total & Remove Button */}
                   <div className="text-right flex-shrink-0">
                     <p className="text-sm font-semibold text-green-600 mb-1">
                       ₹{(itemPrice * item.quantity).toFixed(2)}
@@ -112,7 +105,6 @@ const CartPopup = () => {
             })}
           </div>
 
-          {/* Total Amount */}
           <div className="border-t pt-3 bg-gray-50 -mx-4 px-4 py-3 rounded-b-lg">
             <div className="flex justify-between items-center mb-3">
               <span className="font-bold text-lg text-gray-800">Total:</span>
@@ -120,8 +112,7 @@ const CartPopup = () => {
                 ₹{totalAmount.toFixed(2)}
               </span>
             </div>
-            
-            {/* Action Buttons */}
+
             <div className="space-y-2">
               <button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
                 Proceed to Checkout
