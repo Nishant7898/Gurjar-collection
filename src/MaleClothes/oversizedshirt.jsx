@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Heart, ListFilter } from "lucide-react";
 import MenCollection from "../ClothesData(M)/MenCollection";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../Redux/Cartslice";
+import { addToCart } from "../Redux/cartslice";
 import { toast } from "react-toastify";
 
 const OversizedShirt = () => {

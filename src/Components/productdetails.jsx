@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../Redux/Cartslice";
+import { addToCart } from "../Redux/cartslice";
 import { toast } from "react-toastify";
 import { ArrowLeft, Heart, Star, Truck, Shield, RotateCcw } from "lucide-react";
 
