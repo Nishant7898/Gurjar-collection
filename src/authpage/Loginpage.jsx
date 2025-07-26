@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { Eye, EyeOff, Mail, Lock, ArrowRight } from "lucide-react";
-import { login } from "../Redux/AuthSlice";
+import { login } from "../Redux/authSlice";
 
 const Loginpage = () => {
   const [showPassword, setShowPassword] = useState(false);

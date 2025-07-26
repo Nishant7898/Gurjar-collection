@@ -1,7 +1,7 @@
 // src/app/store.js
-import authReducer from '../Redux/AuthSlice';     // Capital S
-import cartReducer from '../Redux/CartSlice';     // lowercase s  
-import productReducer from '../Redux/ProductSlice'; // Capital P and S
+import authReducer from '../Redux/authSlice';     
+import cartReducer from '../Redux/CartSlice';      
+import productReducer from '../Redux/ProductSlice'; 
 
 const store = configureStore({
   reducer: {
