@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-
 const getLocalStorageItem = (key) => {
   try {
     return JSON.parse(localStorage.getItem(key));
@@ -15,6 +14,7 @@ const initialState = {
   currentUser: getLocalStorageItem("currentUser") || null,
   loading: false,
   error: null,
+  isAuthenticated: !!getLocalStorageItem("currentUser"), // ✅ added
 };
 
 const authSlice = createSlice({
@@ -26,11 +26,11 @@ const authSlice = createSlice({
     },
     logout: (state) => {
       state.currentUser = null;
+      state.isAuthenticated = false; // ✅ update
       localStorage.removeItem("currentUser");
     },
     removeAccount: (state) => {
       if (state.currentUser) {
-        // Filter out the current user from the users list
         const updatedUsers = state.users.filter(
           (user) =>
             user.email !== state.currentUser.email &&
@@ -39,6 +39,7 @@ const authSlice = createSlice({
 
         state.users = updatedUsers;
         state.currentUser = null;
+        state.isAuthenticated = false; // ✅ update
 
         localStorage.setItem("users", JSON.stringify(updatedUsers));
         localStorage.removeItem("currentUser");
@@ -68,6 +69,7 @@ const authSlice = createSlice({
       .addCase("auth/login/fulfilled", (state, action) => {
         state.loading = false;
         state.currentUser = action.payload;
+        state.isAuthenticated = true; // ✅ update
         localStorage.setItem("currentUser", JSON.stringify(action.payload));
       })
       .addCase("auth/login/rejected", (state, action) => {
@@ -96,6 +98,10 @@ export const signup = (userData) => async (dispatch) => {
 
     const newUser = { email, phone, password };
     dispatch({ type: "auth/signup/fulfilled", payload: newUser });
+
+    // ✅ Optional: auto login after signup
+    dispatch({ type: "auth/login/fulfilled", payload: newUser });
+
     return newUser;
   } catch (error) {
     dispatch({ type: "auth/signup/rejected", payload: error.message });
