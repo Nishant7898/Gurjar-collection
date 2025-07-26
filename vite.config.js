@@ -7,7 +7,7 @@ export default defineConfig({
   plugins: [react(),tailwindcss()],
   resolve: {
     alias: {
-      '@redux': '/src/Redux', // Example alias, adjust as needed
+      '@redux': '/src/Redux', 
     },
   },
 })
