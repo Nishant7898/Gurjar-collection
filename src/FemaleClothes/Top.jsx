@@ -3,7 +3,7 @@ import { Heart, ListFilter } from "lucide-react";
 import Womencollection from "../ClothesData(M)/Womencollection";
 
 const Top = () => {
-  const skirt = Womencollection.filter(item => item.Category === "Tops");
+  const skirt = Womencollection.filter(item => item.category === "Tops");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [visiblecount, setvisiblecount] = useState(12);

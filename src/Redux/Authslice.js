@@ -1,188 +1,137 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from "@reduxjs/toolkit";
+
+// Helper to safely parse JSON
+const getLocalStorageItem = (key) => {
+  try {
+    return JSON.parse(localStorage.getItem(key));
+  } catch (error) {
+    console.error(`Error parsing ${key} from localStorage:`, error);
+    return null;
+  }
+};
 
 const initialState = {
-  user: null,
-  users: [], // Simulated database
-  isLoading: false,
+  users: getLocalStorageItem("users") || [],
+  currentUser: getLocalStorageItem("currentUser") || null,
+  loading: false,
   error: null,
-  message: null,
-  messageType: null, // 'success', 'error'
-  isAuthenticated: false,
 };
 
 const authSlice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
-    // Loading states
-    setLoading: (state, action) => {
-      state.isLoading = action.payload;
-    },
-    
-    // Message handling
-    setMessage: (state, action) => {
-      state.message = action.payload.message;
-      state.messageType = action.payload.type;
-      state.isLoading = false;
-    },
-    
-    clearMessage: (state) => {
-      state.message = null;
-      state.messageType = null;
-    },
-    
-    // User registration
-    registerUser: (state, action) => {
-      const newUser = {
-        id: Date.now(),
-        ...action.payload,
-        createdAt: new Date().toISOString(),
-      };
-      state.users.push(newUser);
-      state.message = 'Account created successfully! Please login with your credentials.';
-      state.messageType = 'success';
-      state.isLoading = false;
-    },
-    
-    // User login
-    loginStart: (state) => {
-      state.isLoading = true;
-      state.error = null;
-    },
-    
-    loginSuccess: (state, action) => {
-      state.user = action.payload;
-      state.isAuthenticated = true;
-      state.isLoading = false;
-      state.message = 'Login successful! Welcome back!';
-      state.messageType = 'success';
-      state.error = null;
-    },
-    
-    loginFailure: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.message = action.payload;
-      state.messageType = 'error';
-    },
-    
-    // User logout
-    logout: (state) => {
-      state.user = null;
-      state.isAuthenticated = false;
-      state.message = 'Logged out successfully';
-      state.messageType = 'success';
-    },
-    
-    // Clear error
     clearError: (state) => {
       state.error = null;
     },
-    
-    // Password reset
-    passwordResetRequest: (state) => {
-      state.isLoading = true;
+    logout: (state) => {
+      state.currentUser = null;
+      localStorage.removeItem("currentUser");
     },
-    
-    passwordResetSuccess: (state) => {
-      state.isLoading = false;
-      state.message = 'Password reset link sent to your email!';
-      state.messageType = 'success';
+    removeAccount: (state) => {
+      if (state.currentUser) {
+        // Filter out the current user from the users list
+        const updatedUsers = state.users.filter(
+          (user) =>
+            user.email !== state.currentUser.email &&
+            user.phone !== state.currentUser.phone
+        );
+
+        state.users = updatedUsers;
+        state.currentUser = null;
+
+        localStorage.setItem("users", JSON.stringify(updatedUsers));
+        localStorage.removeItem("currentUser");
+      }
     },
-    
-    passwordResetFailure: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-      state.message = action.payload;
-      state.messageType = 'error';
-    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase("auth/signup/pending", (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase("auth/signup/fulfilled", (state, action) => {
+        state.loading = false;
+        state.users.push(action.payload);
+        localStorage.setItem("users", JSON.stringify(state.users));
+      })
+      .addCase("auth/signup/rejected", (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+
+      .addCase("auth/login/pending", (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase("auth/login/fulfilled", (state, action) => {
+        state.loading = false;
+        state.currentUser = action.payload;
+        localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      })
+      .addCase("auth/login/rejected", (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      });
   },
 });
 
-export const {
-  setLoading,
-  setMessage,
-  clearMessage,
-  registerUser,
-  loginStart,
-  loginSuccess,
-  loginFailure,
-  logout,
-  clearError,
-  passwordResetRequest,
-  passwordResetSuccess,
-  passwordResetFailure,
-} = authSlice.actions;
+// Thunk: signup
+export const signup = (userData) => async (dispatch) => {
+  dispatch({ type: "auth/signup/pending" });
+  try {
+    const { email, phone, password } = userData;
+    if (!email || !phone || !password) {
+      throw new Error("All fields are required");
+    }
+
+    const users = getLocalStorageItem("users") || [];
+    const userExists = users.some(
+      (user) => user.email === email || user.phone === phone
+    );
+    if (userExists) {
+      throw new Error("User already exists");
+    }
+
+    const newUser = { email, phone, password };
+    dispatch({ type: "auth/signup/fulfilled", payload: newUser });
+    return newUser;
+  } catch (error) {
+    dispatch({ type: "auth/signup/rejected", payload: error.message });
+    throw error;
+  }
+};
+
+// Thunk: login
+export const login = (credentials) => async (dispatch) => {
+  dispatch({ type: "auth/login/pending" });
+  try {
+    const { emailOrPhone, password } = credentials;
+    if (!emailOrPhone || !password) {
+      throw new Error("Email/phone and password are required");
+    }
+
+    const users = getLocalStorageItem("users") || [];
+    const user = users.find(
+      (user) =>
+        (user.email === emailOrPhone || user.phone === emailOrPhone) &&
+        user.password === password
+    );
+
+    if (!user) {
+      throw new Error("Invalid credentials");
+    }
+
+    dispatch({ type: "auth/login/fulfilled", payload: user });
+    return user;
+  } catch (error) {
+    dispatch({ type: "auth/login/rejected", payload: error.message });
+    throw error;
+  }
+};
+
+// Actions
+export const { clearError, logout, removeAccount } = authSlice.actions;
 
 export default authSlice.reducer;
-export const loginUser = (credentials) => async (dispatch, getState) => {
-  dispatch(loginStart());
-  
-  try {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    const { users } = getState().auth;
-    const user = users.find(u => 
-      u.email === credentials.email && u.password === credentials.password
-    );
-    
-    if (user) {
-      const { password, ...userWithoutPassword } = user;
-      dispatch(loginSuccess(userWithoutPassword));
-    } else {
-      dispatch(loginFailure('Invalid credentials. Please check your email and password.'));
-    }
-  } catch (error) {
-    dispatch(loginFailure('An error occurred during login. Please try again.'));
-  }
-};
-
-export const signupUser = (userData) => async (dispatch, getState) => {
-  dispatch(setLoading(true));
-  
-  try {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    const { users } = getState().auth;
-    
-    // Check if user already exists
-    if (users.find(u => u.email === userData.email)) {
-      dispatch(setMessage({
-        message: 'An account with this email already exists',
-        type: 'error'
-      }));
-      return false;
-    }
-    
-    dispatch(registerUser(userData));
-    return true;
-  } catch (error) {
-    dispatch(setMessage({
-      message: 'An error occurred during registration. Please try again.',
-      type: 'error'
-    }));
-    return false;
-  }
-};
-
-export const requestPasswordReset = (email) => async (dispatch, getState) => {
-  dispatch(passwordResetRequest());
-  
-  try {
-    // Simulate API delay
-    await new Promise(resolve => setTimeout(resolve, 1500));
-    
-    const { users } = getState().auth;
-    const userExists = users.find(u => u.email === email);
-    
-    if (userExists) {
-      dispatch(passwordResetSuccess());
-    } else {
-      dispatch(passwordResetFailure('No account found with this email address.'));
-    }
-  } catch (error) {
-    dispatch(passwordResetFailure('An error occurred. Please try again.'));
-  }
-};

@@ -14,9 +14,9 @@ const Category = () => {
     navigate("/men")
 
   }
-  const navigate1=useNavigate()
+
   const handleclick2=()=>{
-    navigate1("/Women")
+    navigate("/Women")
   }
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isMobileCategoryDropdownOpen, setIsMobileCategoryDropdownOpen] =
@@ -119,16 +119,16 @@ const Category = () => {
   <div className="mt-23 mb-2.5 sm:mt-20 md:mt-28 lg:mt-23 w-full bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-md px-4 backdrop-blur-sm relative z-50">
 
       {/* Mobile Layout */}
-      <div className="md:hidden" ref={mobileMenuRef}>
+      <div className="md:hidden py-10" ref={mobileMenuRef}   onClick={toggleMobileMenu}>
         {/* Mobile Menu Toggle Button */}
         <button
           onClick={toggleMobileMenu}
           aria-label="Mobile Menu"
           className="w-full flex items-center justify-between px-6 py-4 bg-gradient-to-r from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex  items-center gap-3">
             <ImMenu className="text-lg text-purple-600" />
-            <span className="font-bold text-gray-800 text-lg">Menu</span>
+            <span className="font-bold  text-gray-800 text-lg">Menu</span>
           </div>
           {isMobileMenuOpen ? (
             <HiChevronUp className="text-xl text-purple-600 transition-transform duration-300" />

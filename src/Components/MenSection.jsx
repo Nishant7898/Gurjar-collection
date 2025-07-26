@@ -29,7 +29,7 @@ const images = [
   {
     img: "https://images.unsplash.com/photo-1582552938357-32b906df40cb",
     Title: "Jeans",
-    path: "/men/jeans",
+    path: "/jeans",
     subtitle: "Denim Vibes",
   },
   {
@@ -46,8 +46,8 @@ const images = [
   },
   {
     img: "https://images.unsplash.com/photo-1728782741559-a7e8d68b6a84?q=80&w=764&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    Title: "Baggy Jeans",
-    path: "/men/Baggyjeans",
+    Title: "Jeans",
+    path: "/Baggyjeans",
     subtitle: "Relaxed fits",
   },
   {

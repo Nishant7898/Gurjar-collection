@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Heart, ListFilter } from "lucide-react";
-import Checkshirt from "../ClothesData(M)/Checkshirt";
-import { useDispatch } from "react-redux";
+import MenCollection from "../ClothesData(M)/MenCollection";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/Cartslice";
+import { toast } from "react-toastify";
 
-const Checkshirtt = () => {
+const Checkshirt = () => {
+  const checkshirt = MenCollection.filter(
+    (item) => item.category === "Check Shirt"
+  );
+
   const [selectedPrice, setSelectedPrice] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [visiblecount, setvisiblecount] = useState(12);
   const [ismobile, setismobile] = useState(window.innerWidth < 768);
-  const dispatch = useDispatch();
-
-  const handleAddToCart = (item) => {
-    dispatch(
-      addToCart({
-        id: item.id,
-        desc: item.desc,
-        price: item.price,
-        quantity: 1,
-      })
-    );
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -37,7 +30,7 @@ const Checkshirtt = () => {
     setvisiblecount((prev) => prev + (ismobile ? 4 : 6));
   };
 
-  const filtered = Checkshirt.filter((item) => {
+  const filtered = checkshirt.filter((item) => {
     const price = parseInt(item.price.replace("₹", "").replace(",", ""));
     if (selectedPrice === "below500") return price < 500;
     if (selectedPrice === "500to800") return price >= 500 && price <= 800;
@@ -53,6 +46,38 @@ const Checkshirtt = () => {
     return 0;
   });
 
+  // ------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.currentUser);
+  const handleAddToCart = (item) => {
+    if (!user) {
+      toast.warn("⚠️ Please log in to add items to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        id: item.id,
+        desc: item.desc,
+        price: item.price,
+        quantity: 1,
+      })
+    );
+
+    toast.success(
+      <div className="flex items-center gap-3">
+        <img src={item.img} alt={item.desc} className="w-10 h-10 rounded" />
+        <span>✅ {item.desc} added to cart</span>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 3000,
+      }
+    );
+  };
   return (
     <div className="min-h-screen px-4 py-30">
       {/* Filter and Sort Controls */}
@@ -67,7 +92,10 @@ const Checkshirtt = () => {
             <option value="500to800">₹500 - ₹800</option>
             <option value="above800">Above ₹800</option>
           </select>
-          <ListFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <ListFilter
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={18}
+          />
         </div>
 
         <div className="relative">
@@ -79,7 +107,10 @@ const Checkshirtt = () => {
             <option value="lowToHigh">Price: Low to High</option>
             <option value="highToLow">Price: High to Low</option>
           </select>
-          <ListFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <ListFilter
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={18}
+          />
         </div>
       </div>
 
@@ -141,4 +172,4 @@ const Checkshirtt = () => {
   );
 };
 
-export default Checkshirtt;
+export default Checkshirt;

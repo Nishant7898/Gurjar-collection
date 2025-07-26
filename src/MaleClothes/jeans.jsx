@@ -1,52 +1,86 @@
 import React, { useState, useEffect } from "react";
-import { Heart } from "lucide-react";
-import  Formal from "../ClothesData(M)/Formalshirt"
-import { ListFilter } from "lucide-react";
+import { Heart, ListFilter } from "lucide-react";
+import MenCollection from "../ClothesData(M)/MenCollection";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart } from "../Redux/Cartslice";
+import { toast } from "react-toastify";
 
-const Formalshirt = () => {
+const BaggyJeans = () => {
+  const Baggyjeans=MenCollection.filter(item=>item.category==='Baggy Jeans')
+
   const [selectedPrice, setSelectedPrice] = useState("");
   const [sortOrder, setSortOrder] = useState("");
   const [visiblecount, setvisiblecount] = useState(12);
-  const [ismobile, setismobile] = useState(window.innerWidth > 768);
+  const [ismobile, setismobile] = useState(window.innerWidth < 768);
 
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < 768;
       setismobile(mobile);
-      setvisiblecount(mobile ? 8 : 12); // reset count based on screen
+      setvisiblecount(mobile ? 8 : 12);
     };
-    window.addEventListener('resize', handleResize);
-    handleResize(); // initial check
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => window.removeEventListener("resize", handleResize);
   }, []);
 
   const handleLoadMore = () => {
     setvisiblecount((prev) => prev + (ismobile ? 4 : 6));
   };
 
-  // Filter logic
-  const filtered =Formal .filter((item) => {
-    const price = parseInt(item.price.replace("₹", ""));
+  const filtered = Baggyjeans.filter((item) => {
+    const price = parseInt(item.price.replace("₹", "").replace(",", ""));
     if (selectedPrice === "below500") return price < 500;
     if (selectedPrice === "500to800") return price >= 500 && price <= 800;
     if (selectedPrice === "above800") return price > 800;
     return true;
   });
 
-  // Sort logic
   const sorted = [...filtered].sort((a, b) => {
-    const priceA = parseInt(a.price.replace("₹", ""));
-    const priceB = parseInt(b.price.replace("₹", ""));
+    const priceA = parseInt(a.price.replace("₹", "").replace(",", ""));
+    const priceB = parseInt(b.price.replace("₹", "").replace(",", ""));
     if (sortOrder === "lowToHigh") return priceA - priceB;
     if (sortOrder === "highToLow") return priceB - priceA;
     return 0;
   });
 
+  // ------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+  const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.currentUser);
+  const handleAddToCart = (item) => {
+    if (!user) {
+      toast.warn("⚠️ Please log in to add items to cart!", {
+        position: "top-right",
+        autoClose: 3000,
+      });
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        id: item.id,
+        desc: item.desc,
+        price: item.price,
+        quantity: 1,
+      })
+    );
+
+    
+    toast.success(
+      <div className="flex items-center gap-3">
+        <img src={item.img} alt={item.desc} className="w-10 h-10 rounded" />
+        <span>✅ {item.desc} added to cart</span>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 3000,
+      }
+    );
+  };
   return (
     <div className="min-h-screen px-4 py-30">
       {/* Filter and Sort Controls */}
       <div className="flex flex-wrap gap-4 justify-between mb-8">
-        {/* Filter Dropdown */}
         <div className="relative">
           <select
             onChange={(e) => setSelectedPrice(e.target.value)}
@@ -57,10 +91,12 @@ const Formalshirt = () => {
             <option value="500to800">₹500 - ₹800</option>
             <option value="above800">Above ₹800</option>
           </select>
-          <ListFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <ListFilter
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={18}
+          />
         </div>
 
-        {/* Sort Dropdown */}
         <div className="relative">
           <select
             onChange={(e) => setSortOrder(e.target.value)}
@@ -70,15 +106,18 @@ const Formalshirt = () => {
             <option value="lowToHigh">Price: Low to High</option>
             <option value="highToLow">Price: High to Low</option>
           </select>
-          <ListFilter className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
+          <ListFilter
+            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            size={18}
+          />
         </div>
       </div>
 
       {/* Product Grid */}
       <div className="grid grid-cols-2 w-full px-4 md:px-50 md:grid-cols-4 gap-6">
-        {sorted.slice(0, visiblecount).map((item) => ( // Added slice to limit visible items
+        {sorted.slice(0, visiblecount).map((item, index) => (
           <div
-            key={item.id}
+            key={item.id || `product-${index}`}
             className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white"
           >
             {/* Heart Icon */}
@@ -89,7 +128,7 @@ const Formalshirt = () => {
             {/* Image */}
             <img
               src={item.img}
-              alt={item.name}
+              alt={item.desc}
               className="w-[300px] h-[300px] object-cover"
             />
 
@@ -108,12 +147,16 @@ const Formalshirt = () => {
                 {item.discount}
               </p>
             </div>
-            <button className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition">
+            <button
+              onClick={() => handleAddToCart(item)}
+              className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition"
+            >
               Add to Cart
             </button>
           </div>
         ))}
       </div>
+
       {visiblecount < sorted.length && (
         <div className="text-center mt-10">
           <button
@@ -128,4 +171,4 @@ const Formalshirt = () => {
   );
 };
 
-export default Formalshirt;
+export default BaggyJeans;

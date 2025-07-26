@@ -132,7 +132,7 @@ const Navbar = () => {
             <button
               aria-label="Mobile menu toggle"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-blue-300 transition-colors duration-200"
+              className="p-2  rounded-md text-gray-700 hover:text-gray-900 hover:bg-blue-300 transition-colors duration-200"
             >
               {isMobileMenuOpen ? <HiX className="h-6 w-6" /> : <HiMenu className="h-6 w-6" />}
             </button>

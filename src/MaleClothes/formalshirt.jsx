@@ -4,12 +4,9 @@ import MenCollection from "../ClothesData(M)/MenCollection";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/Cartslice";
 import { toast } from "react-toastify";
-import { useNavigate } from "react-router-dom";
 
-const Tshirtt = () => {
-  const navigate = useNavigate();
-
-  const tshirt = MenCollection.filter((item) => item.category === "T-Shirts");
+const Formalshirt = () => {
+  const formalshirt=MenCollection.filter(item=>item.category==='Formal Shirts')
 
   const [selectedPrice, setSelectedPrice] = useState("");
   const [sortOrder, setSortOrder] = useState("");
@@ -31,7 +28,7 @@ const Tshirtt = () => {
     setvisiblecount((prev) => prev + (ismobile ? 4 : 6));
   };
 
-  const filtered = tshirt.filter((item) => {
+  const filtered = formalshirt.filter((item) => {
     const price = parseInt(item.price.replace("₹", "").replace(",", ""));
     if (selectedPrice === "below500") return price < 500;
     if (selectedPrice === "500to800") return price >= 500 && price <= 800;
@@ -46,14 +43,6 @@ const Tshirtt = () => {
     if (sortOrder === "highToLow") return priceB - priceA;
     return 0;
   });
-
-  // Navigate to product details
-  const handleProductClick = (item) => {
-    const productId =
-      item.id || `tshirt-${item.desc?.replace(/\s+/g, "-").toLowerCase()}`;
-
-    navigate(`/product/${productId}`, { state: { product: item } });
-  };
 
   // ------------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
   const dispatch = useDispatch();
@@ -76,6 +65,7 @@ const Tshirtt = () => {
       })
     );
 
+    
     toast.success(
       <div className="flex items-center gap-3">
         <img src={item.img} alt={item.desc} className="w-10 h-10 rounded" />
@@ -87,7 +77,6 @@ const Tshirtt = () => {
       }
     );
   };
-
   return (
     <div className="min-h-screen px-4 py-30">
       {/* Filter and Sort Controls */}
@@ -136,17 +125,12 @@ const Tshirtt = () => {
               <Heart size={20} />
             </button>
 
-            {/* Image - Clickable */}
-            <div
-              onClick={() => handleProductClick(item)}
-              className="cursor-pointer"
-            >
-              <img
-                src={item.img}
-                alt={item.desc}
-                className="w-[300px] h-[300px] object-cover hover:scale-105 transition-transform duration-300"
-              />
-            </div>
+            {/* Image */}
+            <img
+              src={item.img}
+              alt={item.desc}
+              className="w-[300px] h-[300px] object-cover"
+            />
 
             {/* Product Info */}
             <div className="p-3">
@@ -187,4 +171,4 @@ const Tshirtt = () => {
   );
 };
 
-export default Tshirtt;
+export default Formalshirt;

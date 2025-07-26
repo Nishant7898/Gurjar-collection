@@ -6,14 +6,17 @@ import {
   decrementQuantity,
 } from "../Redux/Cartslice";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const CartPopup = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const items = useSelector((state) => state.cart.items);
+
   const handleclick = () => {
     navigate("/login");
   };
-  const items = useSelector((state) => state.cart.items);
-  const dispatch = useDispatch();
 
   const totalAmount = items.reduce((total, item) => {
     const price =
@@ -22,6 +25,12 @@ const CartPopup = () => {
         : item.price;
     return total + price * item.quantity;
   }, 0);
+
+  const getItemPrice = (item) => {
+    return typeof item.price === "string"
+      ? parseFloat(item.price.replace("₹", "").replace(",", ""))
+      : item.price;
+  };
 
   const handleIncrement = (id) => {
     dispatch(incrementQuantity(id));
@@ -32,13 +41,28 @@ const CartPopup = () => {
   };
 
   const handleRemove = (id) => {
+    const removedItem = items.find((item) => item.id === id);
     dispatch(removeFromCart(id));
-  };
-
-  const getItemPrice = (item) => {
-    return typeof item.price === "string"
-      ? parseFloat(item.price.replace("₹", "").replace(",", ""))
-      : item.price;
+    toast.error(
+      <div className="flex items-center gap-2">
+        <img
+          src={removedItem?.img || "/placeholder-image.png"}
+          alt="removed"
+          className="w-10 h-10 object-cover border rounded"
+        />
+        <div>
+          <p className="font-semibold text-sm">Removed:</p>
+          <p className="text-xs">{removedItem?.desc}</p>
+        </div>
+      </div>,
+      {
+        position: "top-right",
+        autoClose: 3000,
+        hideProgressBar: false,
+        pauseOnHover: true,
+        draggable: true,
+      }
+    );
   };
 
   return (
