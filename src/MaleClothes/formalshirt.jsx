@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Heart, ListFilter } from "lucide-react";
 import MenCollection from "../ClothesData(M)/MenCollection";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../Redux/CartSlice";
+import { addToCart } from "../Redux/cartSlice";
 import { toast } from "react-toastify";
 
 const Formalshirt = () => {
