@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logout, removeAccount } from "../Redux/authSlice";
+import { logout, removeAccount } from "../Redux/AuthSlice";
 import {
   Heart,
   ShoppingBag,
