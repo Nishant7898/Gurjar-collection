@@ -1,6 +1,6 @@
 // src/app/store.js
-import authReducer from '../Redux/authSlice.js';     
-import cartReducer from '../Redux/cartslice.js';      
+import authReducer from '../Redux/AuthSlice.js';     
+import cartReducer from '../Redux/Cartslice.js';      
 import productReducer from '../Redux/ProductSlice.js'; 
 
 const store = configureStore({
