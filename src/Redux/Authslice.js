@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-// Helper to safely parse JSON
+
 const getLocalStorageItem = (key) => {
   try {
     return JSON.parse(localStorage.getItem(key));
