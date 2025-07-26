@@ -1,14 +1,15 @@
 // src/app/store.js
-import { configureStore } from "@reduxjs/toolkit";
-import cartReducer from "../Redux/Cartslice";
-import authReducer from "../Redux/authSlice";
-import productSlice from "../Redux/ProductSlice"
-export const store = configureStore({
+import { configureStore } from '@reduxjs/toolkit';
+import authReducer from '../Redux/authSlice.js'; // Add .js extension
+import cartReducer from '../Redux/Cartslice.js'; // Add .js extension if needed
+import productReducer from '../Redux/ProductSlice.js'; // Add .js extension if needed
+
+const store = configureStore({
   reducer: {
-    cart: cartReducer,
     auth: authReducer,
-    product:productSlice,
- 
-    
+    cart: cartReducer,
+    product: productReducer,
   },
 });
+
+export default store;
