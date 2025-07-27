@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import Mencollection from "../ClothesData(M)/MenCollection";
-import Womencollection from "../ClothesData(M)/Womencollection";
+import Mencollection from "../ClothesData/MenCollection";
+import Womencollection from "../ClothesData/Womencollection";
 
 // Combine and normalize data
 const allproducts = [...Mencollection, ...Womencollection].map((item, index) => ({

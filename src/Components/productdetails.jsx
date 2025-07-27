@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../Redux/cartslice";
+import { addToCart } from "../Redux/Cartslice";
+import { addToWishlist, removeFromWishlist } from "../Redux/Wishlistslice";
 import { toast } from "react-toastify";
 import { ArrowLeft, Heart, Star, Truck, Shield, RotateCcw } from "lucide-react";
 
@@ -10,13 +11,14 @@ const ProductDetails = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const dispatch = useDispatch();
-  
-  // Get product from location state or find by ID from your product slice
+
+  // Product from location state or Redux state
   const allProducts = useSelector((state) => state.product?.allproducts) || [];
-  const product = location.state?.product || allProducts.find(p => p.id === id);
-  
+  const product = location.state?.product || allProducts.find((p) => p.id === id);
+
   const user = useSelector((state) => state.auth.currentUser);
-  
+  const wishlist = useSelector((state) => state.wishlist);
+
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
@@ -26,7 +28,7 @@ const ProductDetails = () => {
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Product not found</h2>
-          <button 
+          <button
             onClick={() => navigate(-1)}
             className="bg-orange-600 text-white px-6 py-2 rounded-lg hover:bg-orange-700 transition"
           >
@@ -37,6 +39,28 @@ const ProductDetails = () => {
     );
   }
 
+  // Check if product is wishlisted
+  const isWishlisted = wishlist.some((item) => item.id === product.id);
+
+  // Toggle wishlist add/remove
+  const toggleWishlist = () => {
+    if (!user) {
+      toast.warn("⚠️ Please log in to manage wishlist!", {
+        position: "top-right",
+      });
+      return;
+    }
+
+    if (isWishlisted) {
+      dispatch(removeFromWishlist(product));
+      toast.info("Removed from wishlist", { position: "top-right" });
+    } else {
+      dispatch(addToWishlist(product));
+      toast.success("Added to wishlist", { position: "top-right" });
+    }
+  };
+
+  // Add to cart handler
   const handleAddToCart = () => {
     if (!user) {
       toast.warn("⚠️ Please log in to add items to cart!", {
@@ -79,12 +103,13 @@ const ProductDetails = () => {
   const productImages = product.images || [product.img];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
+    <div className="min-h-screen bg-gray-50 py-14">
       <div className="max-w-7xl mx-auto px-4">
         {/* Back Button */}
-        <button 
+        <button
           onClick={() => navigate(-1)}
           className="flex items-center gap-2 text-gray-600 hover:text-gray-800 mb-6 transition"
+          aria-label="Go back"
         >
           <ArrowLeft size={20} />
           <span>Back</span>
@@ -93,18 +118,27 @@ const ProductDetails = () => {
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
             {/* Image Section */}
-            <div className="space-y-4">
-              <div className="relative">
-                <img 
-                  src={productImages[selectedImage]} 
-                  alt={product.desc}
-                  className="w-full h-[500px] object-cover rounded-lg"
+            <div className="space-y-4 relative">
+              <img
+                src={productImages[selectedImage]}
+                alt={product.desc}
+                className="w-full h-[500px] object-cover rounded-lg"
+              />
+              {/* Wishlist Heart Toggle */}
+              <button
+                onClick={toggleWishlist}
+                className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-orange-400"
+                aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                type="button"
+              >
+                <Heart
+                  size={24}
+                  color={isWishlisted ? "red" : "gray"}
+                  fill={isWishlisted ? "red" : "none"}
+                  strokeWidth={2.5}
                 />
-                <button className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition">
-                  <Heart size={20} className="text-gray-400" />
-                </button>
-              </div>
-              
+              </button>
+
               {/* Thumbnail Images */}
               {productImages.length > 1 && (
                 <div className="flex gap-2 overflow-x-auto">
@@ -115,7 +149,7 @@ const ProductDetails = () => {
                       alt={`${product.desc} ${index + 1}`}
                       onClick={() => setSelectedImage(index)}
                       className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition ${
-                        selectedImage === index ? 'border-orange-500' : 'border-gray-200'
+                        selectedImage === index ? "border-orange-500" : "border-gray-200"
                       }`}
                     />
                   ))}
@@ -138,7 +172,7 @@ const ProductDetails = () => {
                     </span>
                   )}
                 </div>
-                
+
                 {/* Rating */}
                 <div className="flex items-center gap-2 mb-4">
                   <div className="flex items-center">
@@ -160,9 +194,10 @@ const ProductDetails = () => {
                       onClick={() => setSelectedSize(size)}
                       className={`px-4 py-2 border rounded-lg font-medium transition ${
                         selectedSize === size
-                          ? 'border-orange-500 bg-orange-50 text-orange-600'
-                          : 'border-gray-300 hover:border-gray-400'
+                          ? "border-orange-500 bg-orange-50 text-orange-600"
+                          : "border-gray-300 hover:border-gray-400"
                       }`}
+                      type="button"
                     >
                       {size}
                     </button>
@@ -177,6 +212,8 @@ const ProductDetails = () => {
                   <button
                     onClick={() => setQuantity(Math.max(1, quantity - 1))}
                     className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition"
+                    aria-label="Decrease quantity"
+                    type="button"
                   >
                     -
                   </button>
@@ -186,6 +223,8 @@ const ProductDetails = () => {
                   <button
                     onClick={() => setQuantity(quantity + 1)}
                     className="px-3 py-1 border border-gray-300 rounded hover:bg-gray-50 transition"
+                    aria-label="Increase quantity"
+                    type="button"
                   >
                     +
                   </button>
@@ -197,10 +236,11 @@ const ProductDetails = () => {
                 <button
                   onClick={handleAddToCart}
                   className="w-full bg-orange-600 text-white py-3 rounded-lg font-semibold hover:bg-orange-700 transition"
+                  type="button"
                 >
                   Add to Cart
                 </button>
-                <button className="w-full border border-orange-600 text-orange-600 py-3 rounded-lg font-semibold hover:bg-orange-50 transition">
+                <button className="w-full border border-orange-600 text-orange-600 py-3 rounded-lg font-semibold hover:bg-orange-50 transition" type="button">
                   Buy Now
                 </button>
               </div>
@@ -227,10 +267,18 @@ const ProductDetails = () => {
               <div className="border-t pt-6">
                 <h3 className="text-lg font-semibold mb-3">Product Details</h3>
                 <div className="space-y-2 text-gray-600">
-                  <p><span className="font-medium">Category:</span> {product.category}</p>
-                  <p><span className="font-medium">Material:</span> 100% Cotton</p>
-                  <p><span className="font-medium">Care:</span> Machine wash cold</p>
-                  <p><span className="font-medium">Fit:</span> Regular fit</p>
+                  <p>
+                    <span className="font-medium">Category:</span> {product.category}
+                  </p>
+                  <p>
+                    <span className="font-medium">Material:</span> 100% Cotton
+                  </p>
+                  <p>
+                    <span className="font-medium">Care:</span> Machine wash cold
+                  </p>
+                  <p>
+                    <span className="font-medium">Fit:</span> Regular fit
+                  </p>
                 </div>
               </div>
             </div>

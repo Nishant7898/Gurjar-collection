@@ -4,18 +4,23 @@ import {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
-} from "../Redux/cartslice";
+} from "../Redux/Cartslice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 const CartPopup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const items = useSelector((state) => state.cart.items);
 
-  const handleclick = () => {
+  const items = useSelector((state) => state.cart.items);
+  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated || false);
+
+  const handleClickLogin = () => {
     navigate("/login");
+  };
+
+  const handleViewCart = () => {
+    navigate("/cart");
   };
 
   const totalAmount = items.reduce((total, item) => {
@@ -32,23 +37,25 @@ const CartPopup = () => {
       : item.price;
   };
 
-  const handleIncrement = (id) => {
-    dispatch(incrementQuantity(id));
+  // Updated handlers to accept id and size
+  const handleIncrement = (id, size) => {
+    dispatch(incrementQuantity({ id, size }));
   };
 
-  const handleDecrement = (id) => {
-    dispatch(decrementQuantity(id));
+  const handleDecrement = (id, size) => {
+    dispatch(decrementQuantity({ id, size }));
   };
 
-  const handleRemove = (id) => {
-    const removedItem = items.find((item) => item.id === id);
-    dispatch(removeFromCart(id));
+  const handleRemove = (id, size) => {
+    const removedItem = items.find((item) => item.id === id && item.size === size);
+    dispatch(removeFromCart({ id, size }));
     toast.error(
       <div className="flex items-center gap-2">
         <img
           src={removedItem?.img || "/placeholder-image.png"}
           alt="removed"
           className="w-10 h-10 object-cover border rounded"
+          loading="lazy"
         />
         <div>
           <p className="font-semibold text-sm">Removed:</p>
@@ -58,12 +65,11 @@ const CartPopup = () => {
       {
         position: "top-right",
         autoClose: 3000,
-        hideProgressBar: false,
-        pauseOnHover: true,
-        draggable: true,
       }
     );
   };
+
+  
 
   return (
     <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-auto max-h-[80vh] bg-white rounded-lg shadow-xl p-4 z-50 border overflow-y-auto fixed right-4 top-20 sm:top-24 sm:right-6 md:right-10 lg:right-12 xl:right-16 transition-all duration-300">
@@ -71,14 +77,20 @@ const CartPopup = () => {
         Shopping Cart
       </h2>
 
-      {items.length === 0 ? (
+      {!isAuthenticated ? (
+        <div className="text-center py-8">
+          <p className="text-gray-500 font-medium mb-2">Please log in to see your cart.</p>
+          <button
+            className="bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-semibold py-2 mt-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md text-sm"
+            onClick={handleClickLogin}
+          >
+            Login
+          </button>
+        </div>
+      ) : items.length === 0 ? (
         <div className="text-center py-8">
           <div className="text-gray-400 mb-2">
-            <svg
-              className="w-16 h-16 mx-auto"
-              fill="currentColor"
-              viewBox="0 0 20 20"
-            >
+            <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
               <path
                 fillRule="evenodd"
                 d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM8 16a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2z"
@@ -87,13 +99,6 @@ const CartPopup = () => {
             </svg>
           </div>
           <p className="text-gray-500 font-medium">Your cart is empty</p>
-          <p className="text-gray-400 text-sm">Login To See your Cart</p>
-          <button
-            className=" bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-semibold py-2 mt-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md text-sm"
-            onClick={handleclick}
-          >
-            Login
-          </button>
         </div>
       ) : (
         <>
@@ -102,17 +107,19 @@ const CartPopup = () => {
               const itemPrice = getItemPrice(item);
               return (
                 <div
-                  key={item.id || `cart-item-${index}`}
+                  key={`${item.id}-${item.size}` || `cart-item-${index}`}
                   className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg"
                 >
                   <div className="w-12 h-12 flex-shrink-0">
                     <img
                       src={item.img || "/placeholder-image.png"}
-                      alt={item.desc}
+                      alt={item.desc || "Product image"}
                       className="w-full h-full object-cover rounded border"
                       onError={(e) => {
+                        e.target.onerror = null; // prevent infinite loop
                         e.target.src = "/placeholder-image.png";
                       }}
+                      loading="lazy"
                     />
                   </div>
 
@@ -121,26 +128,24 @@ const CartPopup = () => {
                       className="font-medium text-sm text-gray-800 truncate"
                       title={item.desc}
                     >
-                      {item.desc}
+                      {item.desc} {item.size && ` - Size: ${item.size}`}
                     </p>
-                    <p className="text-xs text-gray-600 mb-1">
-                      ₹{itemPrice.toFixed(2)}
-                    </p>
+                    <p className="text-xs text-gray-600 mb-1">₹{itemPrice.toFixed(2)}</p>
 
                     <div className="flex items-center gap-2">
                       <button
-                        onClick={() => handleDecrement(item.id)}
+                        onClick={() => handleDecrement(item.id, item.size)}
                         disabled={item.quantity <= 1}
                         className="w-6 h-6 flex items-center justify-center bg-white hover:bg-gray-100 disabled:bg-gray-100 disabled:text-gray-400 border rounded text-sm font-bold transition-colors"
+                        aria-label={`Decrease quantity of ${item.desc}, size ${item.size}`}
                       >
                         -
                       </button>
-                      <span className="text-sm font-medium px-2 min-w-[2rem] text-center">
-                        {item.quantity}
-                      </span>
+                      <span className="text-sm font-medium px-2 min-w-[2rem] text-center">{item.quantity}</span>
                       <button
-                        onClick={() => handleIncrement(item.id)}
+                        onClick={() => handleIncrement(item.id, item.size)}
                         className="w-6 h-6 flex items-center justify-center bg-white hover:bg-gray-100 border rounded text-sm font-bold transition-colors"
+                        aria-label={`Increase quantity of ${item.desc}, size ${item.size}`}
                       >
                         +
                       </button>
@@ -152,8 +157,9 @@ const CartPopup = () => {
                       ₹{(itemPrice * item.quantity).toFixed(2)}
                     </p>
                     <button
-                      onClick={() => handleRemove(item.id)}
+                      onClick={() => handleRemove(item.id, item.size)}
                       className="text-xs text-red-500 hover:text-red-700 hover:underline transition-colors"
+                      aria-label={`Remove ${item.desc} size ${item.size} from cart`}
                     >
                       Remove
                     </button>
@@ -166,16 +172,17 @@ const CartPopup = () => {
           <div className="border-t pt-3 bg-gray-50 -mx-4 px-4 py-3 rounded-b-lg">
             <div className="flex justify-between items-center mb-3">
               <span className="font-bold text-lg text-gray-800">Total:</span>
-              <span className="font-bold text-xl text-green-600">
-                ₹{totalAmount.toFixed(2)}
-              </span>
+              <span className="font-bold text-xl text-green-600">₹{totalAmount.toFixed(2)}</span>
             </div>
 
             <div className="space-y-2">
               <button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
                 Proceed to Checkout
               </button>
-              <button className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors">
+              <button
+                onClick={handleViewCart}
+                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors"
+              >
                 View Cart
               </button>
             </div>

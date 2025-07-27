@@ -5,34 +5,38 @@ const images = [
   {
     img: "https://images.unsplash.com/photo-1630079632812-ad825086ac4e?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     Title: "Tops",
-    path: "/tops",
+    path: "/women/Tops",
     subtitle: "From ₹799",
   },
   {
     img: "https://images.unsplash.com/photo-1597983073750-16f5ded1321f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     Title: "Salwar Suit",
-    path: "/Suit",
+    path: "/women/Salwar-Suits",
     subtitle: "Upto 50% OFF",
   },
   {
     img: "https://images.unsplash.com/photo-1646054224885-f978f5798312?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
     Title: "Skirts",
-    path: "/Skirts",
+    path: "/women/Skirts",
     subtitle: "New Collection",
   },
   {
     img: "https://images.unsplash.com/photo-1511550521256-8526928a8af5?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    Title: "T-shirt",
-    path: "/womentshirt",
+    Title: "T-shirts",
+    path: "/women/T-Shirts",
     subtitle: "Premium Wear",
   },
 ];
 
 const WomenSection = () => {
   const navigate = useNavigate();
+  const handleclick=()=>{
+    navigate("/")
+  }
 
   return (
     <div className="min-h-screen bg-white py-30 px-4 md:px-50">
+     <button className="bg-orange-600 p-2 absolute left-2 rounded-md font-bold text-white" onClick={handleclick}>Home</button>
       <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
         Explore Women's Fashion
       </h2>

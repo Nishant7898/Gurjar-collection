@@ -272,11 +272,6 @@ const Mencollection = [
   },
 ];
 
-// Log to check for duplicates
-console.log("Mencollection IDs:", Mencollection.map((item) => item.id));
-console.log(
-  "Duplicate IDs:",
-  Mencollection.filter((item, index, arr) => arr.findIndex((i) => i.id === item.id) !== index).map((item) => item.id)
-);
+
 
 export default Object.freeze(Mencollection); // Freeze for stability

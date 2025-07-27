@@ -44,7 +44,7 @@ const Womencollection = [
     price: "499",
     discount: "29% off", // Calculated: (699 - 499) / 699 * 100
     MRP: "699",
-    category: "Salwar Suits",
+    category: "Salwar-Suits",
     sizes: ["S", "M", "L", "XL"],
   },
 ];
