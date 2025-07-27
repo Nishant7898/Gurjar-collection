@@ -1,9 +1,9 @@
 // src/app/store.js
 import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../Redux/authSlice.js';     
-import cartReducer from '../Redux/Cartslice.js';      
-import productReducer from '../Redux/ProductSlice.js'; 
-import wishlistReducer from '../Redux/Wishlistslice.js'
+import cartReducer from '../Redux/cartSlice.js';      
+import productReducer from '../Redux/productSlice.js'; 
+import wishlistReducer from '../Redux/wishlistSlice.js'
 
 const store = configureStore({
   reducer: {
