@@ -1,6 +1,6 @@
 // src/app/store.js
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../Redux/Authslice.js';     
+import authReducer from '../Redux/authSlice.js';     
 import cartReducer from '../Redux/Cartslice.js';      
 import productReducer from '../Redux/ProductSlice.js'; 
 import wishlistReducer from '../Redux/Wishlistslice.js'
