@@ -4,7 +4,7 @@ import {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
-} from "../Redux/CartSlice";
+} from "../Redux/cartslice";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
