@@ -3,14 +3,14 @@ import { configureStore } from '@reduxjs/toolkit';
 import authReducer from '../Redux/authSlice.js';     
 import cartReducer from '../Redux/cartSlice.js';      
 import productReducer from '../Redux/productSlice.js'; 
-import wishlistReducer from '../Redux/wishlistSlice.js'
+import WishlistReducer from '../Redux/WishlistSlice.js'
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     cart: cartReducer,
     product: productReducer,
-    wishlist:wishlistReducer,
+    wishlist:WishlistReducer,
   },
 });
 
