@@ -5,76 +5,106 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/cartslice";
 import { toast } from "react-toastify";
 import Womencollection from "../ClothesData/Womencollection";
+import { addToWishlist, removeFromWishlist } from "../Redux/wishlistSlice";
 
-const ProductGrid = ({ items, visiblecount, handleLoadMore, ismobile, handleProductClick, handleAddToCart }) => (
-  <>
-    <div className="grid grid-cols-2 w-full px-4 md:px-50 md:grid-cols-4 gap-6">
-      {items.slice(0, visiblecount).map((item) => (
-        <div
-          key={item.id}
-          className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white"
-        >
-          {/* Heart Icon */}
-          <button className="absolute top-1 right-3 text-gray-400 p-1 z-10">
-            <Heart size={20} />
-          </button>
+const ProductGrid = ({
+  items,
+  visiblecount,
+  handleLoadMore,
+  ismobile,
+  handleProductClick,
+  handleAddToCart,
+}) => {
+  const wishlist = useSelector((state) => state.wishlist);
+  const dispatch = useDispatch();
 
-          {/* Image - Clickable */}
+  const isWishlisted = (id) => wishlist.some((item) => item.id === id);
+
+  const handleToggleWishlist = (item) => {
+    if (isWishlisted(item.id)) {
+      dispatch(removeFromWishlist(item));
+      toast.info("Removed from Wishlist", { position: "top-right", autoClose: 2000 });
+    } else {
+      dispatch(addToWishlist(item));
+      toast.success("Added to Wishlist", { position: "top-right", autoClose: 2000 });
+    }
+  };
+
+  return (
+    <>
+      <div className="grid grid-cols-2 w-full px-4 md:px-50 md:grid-cols-4 gap-6">
+        {items.slice(0, visiblecount).map((item) => (
           <div
-            onClick={() => handleProductClick(item)}
-            className="cursor-pointer"
+            key={item.id}
+            className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white"
           >
-            <img
-              src={item.img}
-              alt={item.desc} // Changed to item.desc for consistency
-              loading="lazy"
-              className="w-[300px] h-[300px] object-cover hover:scale-105 transition-transform duration-300"
-            />
-          </div>
+            {/* Heart Icon (Wishlist) */}
+            <button
+              className="absolute top-1 right-3 p-1 z-10"
+              onClick={() => handleToggleWishlist(item)}
+              aria-label="Toggle wishlist"
+              style={{ background: "none", border: "none", cursor: "pointer" }}
+            >
+              <Heart
+                color={isWishlisted(item.id) ? "red" : "gray"}
+                fill={isWishlisted(item.id) ? "red" : "none"}
+                size={20}
+                strokeWidth={2.5}
+              />
+            </button>
 
-          {/* Product Info */}
-          <div className="p-3">
-            <p className="font-semibold text-lg">{item.desc}</p>
-            <span className="mt-5 flex flex-row">
-              <p className="text-green-600 font-semibold text-md mt-1">
-                {item.price}{" "}
-                <span className="line-through font-semibold text-gray-400">
-                  {item.MRP}
-                </span>
-              </p>
-            </span>
-            <p className="text-red-500 font-semibold text-sm">
-              {item.discount}
-            </p>
-          </div>
+            {/* Image - Clickable */}
+            <div onClick={() => handleProductClick(item)} className="cursor-pointer">
+              <img
+                src={item.img}
+                alt={item.desc}
+                loading="lazy"
+                className="w-[300px] h-[300px] object-cover hover:scale-105 transition-transform duration-300"
+              />
+            </div>
 
-          {/* Add to Cart Button */}
+            {/* Product Info */}
+            <div className="p-3">
+              <p className="font-semibold text-lg">{item.desc}</p>
+              <span className="mt-5 flex flex-row">
+                <p className="text-green-600 font-semibold text-md mt-1">
+                  {item.price}
+                  <span className="line-through font-semibold text-gray-400 ml-2">
+                    {item.MRP}
+                  </span>
+                </p>
+              </span>
+              <p className="text-red-500 font-semibold text-sm">{item.discount}</p>
+            </div>
+
+            {/* Add to Cart Button */}
+            <button
+              onClick={() => handleAddToCart(item)}
+              className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition"
+            >
+              Add to Cart
+            </button>
+          </div>
+        ))}
+      </div>
+
+      {/* Load More Button */}
+      {visiblecount < items.length && (
+        <div className="text-center mt-10">
           <button
-            onClick={() => handleAddToCart(item)}
-            className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition"
+            onClick={handleLoadMore}
+            className="bg-gray-800 text-white px-6 py-2 rounded hover:bg-orange-600 transition"
           >
-            Add to Cart
+            Load More
           </button>
         </div>
-      ))}
-    </div>
-
-    {/* Load More Button */}
-    {visiblecount < items.length && (
-      <div className="text-center mt-10">
-        <button
-          onClick={handleLoadMore}
-          className="bg-gray-800 text-white px-6 py-2 rounded hover:bg-orange-600 transition"
-        >
-          Load More
-        </button>
-      </div>
-    )}
-  </>
-);
+      )}
+    </>
+  );
+};
 
 const Femalesection = () => {
-  const { category } = useParams(); // Get category from URL
+  const { category } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.currentUser);
@@ -156,7 +186,9 @@ const Femalesection = () => {
     Tops: Womencollection.filter((item) => item.category === "Tops"),
     "T-Shirts": Womencollection.filter((item) => item.category === "T-Shirts"),
     Skirts: Womencollection.filter((item) => item.category === "Skirts"),
-    "Salwar-Suits": Womencollection.filter((item) => item.category === "Salwar-Suits"),
+    "Salwar-Suits": Womencollection.filter(
+      (item) => item.category === "Salwar-Suits"
+    ),
   };
 
   // Use all products if no category is selected, otherwise filter by selected category
