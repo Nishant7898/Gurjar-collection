@@ -1,7 +1,7 @@
 // src/components/ProductCard.jsx
 import React from "react";
 import { useDispatch } from "react-redux";
-import { addtoCart } from "../Redux/Cartslice";
+import { addtoCart } from "../Redux/cartslice";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();

@@ -21,7 +21,7 @@ const CartList = () => {
           >
             <span>{item.name}</span>
             <button
-              onClick={() => dispatch(removeFromCart(item.id))} // ✅ Fixed
+              onClick={() => dispatch(removeFromCart(item.id))} 
               className="text-red-500 hover:text-red-700 transition"
             >
               Remove
