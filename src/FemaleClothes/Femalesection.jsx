@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/cartslice";
 import { toast } from "react-toastify";
 import Womencollection from "../ClothesData/Womencollection";
-import { addToWishlist, removeFromWishlist } from "../Redux/wishlistSlice";
+import { addToWishlist, removeFromWishlist } from "../Redux/Wishlistslice";
 
 const ProductGrid = ({
   items,

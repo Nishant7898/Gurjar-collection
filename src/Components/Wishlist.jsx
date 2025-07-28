@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromWishlist } from "../Redux/wishlistSlice";
+import { removeFromWishlist } from "../Redux/Wishlistslice";
 import { toast } from "react-toastify";
 
 const WishlistItem = memo(({ item, onRemove }) => (

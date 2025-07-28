@@ -4,7 +4,7 @@ import { Heart, ListFilter } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/cartslice"; // Your cart slice
-import { addToWishlist, removeFromWishlist } from "../Redux/wishlistSlice";
+import { addToWishlist, removeFromWishlist } from "../Redux/Wishlistslice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
