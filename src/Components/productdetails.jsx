@@ -14,10 +14,10 @@ const ProductDetails = () => {
 
   // Product from location state or Redux state
   const allProducts = useSelector((state) => state.product?.allproducts) || [];
-  const product = location.state?.product || allProducts.find((p) => p.id === id);
+  const product = location.state?.product || allProducts.find((p) => p.id === parseInt(id)) || allProducts.find((p) => p.id === id);
 
-  const user = useSelector((state) => state.auth.currentUser);
-  const wishlist = useSelector((state) => state.wishlist);
+  const user = useSelector((state) => state.auth?.currentUser);
+  const wishlist = useSelector((state) => state.wishlist) || [];
 
   const [selectedSize, setSelectedSize] = useState("");
   const [quantity, setQuantity] = useState(1);
@@ -25,7 +25,7 @@ const ProductDetails = () => {
 
   if (!product) {
     return (
-      <div className="min-h-screen flex items-center justify-center">
+      <div className="min-h-screen flex items-center justify-center pt-20">
         <div className="text-center">
           <h2 className="text-2xl font-bold text-gray-800 mb-4">Product not found</h2>
           <button
@@ -85,6 +85,7 @@ const ProductDetails = () => {
         price: product.price,
         quantity: quantity,
         size: selectedSize,
+        img: product.img
       })
     );
 
@@ -103,7 +104,7 @@ const ProductDetails = () => {
   const productImages = product.images || [product.img];
 
   return (
-    <div className="min-h-screen bg-gray-50 py-14">
+    <div className="min-h-screen bg-gray-50 pt-20 pb-8">
       <div className="max-w-7xl mx-auto px-4">
         {/* Back Button */}
         <button
@@ -116,39 +117,41 @@ const ProductDetails = () => {
         </button>
 
         <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 p-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 p-4 md:p-6">
             {/* Image Section */}
             <div className="space-y-4 relative">
-              <img
-                src={productImages[selectedImage]}
-                alt={product.desc}
-                className="w-full h-[500px] object-cover rounded-lg"
-              />
-              {/* Wishlist Heart Toggle */}
-              <button
-                onClick={toggleWishlist}
-                className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-orange-400"
-                aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
-                type="button"
-              >
-                <Heart
-                  size={24}
-                  color={isWishlisted ? "red" : "gray"}
-                  fill={isWishlisted ? "red" : "none"}
-                  strokeWidth={2.5}
+              <div className="relative">
+                <img
+                  src={productImages[selectedImage]}
+                  alt={product.desc}
+                  className="w-full h-[300px] sm:h-[400px] lg:h-[500px] object-cover rounded-lg"
                 />
-              </button>
+                {/* Wishlist Heart Toggle */}
+                <button
+                  onClick={toggleWishlist}
+                  className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-orange-400"
+                  aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                  type="button"
+                >
+                  <Heart
+                    size={24}
+                    color={isWishlisted ? "red" : "gray"}
+                    fill={isWishlisted ? "red" : "none"}
+                    strokeWidth={2.5}
+                  />
+                </button>
+              </div>
 
               {/* Thumbnail Images */}
               {productImages.length > 1 && (
-                <div className="flex gap-2 overflow-x-auto">
+                <div className="flex gap-2 overflow-x-auto pb-2">
                   {productImages.map((img, index) => (
                     <img
                       key={index}
                       src={img}
                       alt={`${product.desc} ${index + 1}`}
                       onClick={() => setSelectedImage(index)}
-                      className={`w-20 h-20 object-cover rounded-lg cursor-pointer border-2 transition ${
+                      className={`w-16 h-16 sm:w-20 sm:h-20 object-cover rounded-lg cursor-pointer border-2 transition flex-shrink-0 ${
                         selectedImage === index ? "border-orange-500" : "border-gray-200"
                       }`}
                     />
@@ -158,13 +161,13 @@ const ProductDetails = () => {
             </div>
 
             {/* Product Info Section */}
-            <div className="space-y-6">
+            <div className="space-y-4 lg:space-y-6">
               <div>
-                <h1 className="text-3xl font-bold text-gray-800 mb-2">{product.desc}</h1>
-                <div className="flex items-center gap-4 mb-4">
-                  <span className="text-3xl font-bold text-green-600">{product.price}</span>
+                <h1 className="text-2xl lg:text-3xl font-bold text-gray-800 mb-2">{product.desc}</h1>
+                <div className="flex items-center gap-4 mb-4 flex-wrap">
+                  <span className="text-2xl lg:text-3xl font-bold text-green-600">{product.price}</span>
                   {product.MRP && product.MRP !== product.price && (
-                    <span className="text-xl text-gray-400 line-through">{product.MRP}</span>
+                    <span className="text-lg lg:text-xl text-gray-400 line-through">{product.MRP}</span>
                   )}
                   {product.discount && (
                     <span className="bg-red-100 text-red-600 px-2 py-1 rounded text-sm font-semibold">
@@ -192,7 +195,7 @@ const ProductDetails = () => {
                     <button
                       key={size}
                       onClick={() => setSelectedSize(size)}
-                      className={`px-4 py-2 border rounded-lg font-medium transition ${
+                      className={`px-3 py-2 sm:px-4 border rounded-lg font-medium transition ${
                         selectedSize === size
                           ? "border-orange-500 bg-orange-50 text-orange-600"
                           : "border-gray-300 hover:border-gray-400"
@@ -246,7 +249,7 @@ const ProductDetails = () => {
               </div>
 
               {/* Features */}
-              <div className="border-t pt-6">
+              <div className="border-t pt-4 lg:pt-6">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div className="flex items-center gap-2 text-gray-600">
                     <Truck size={20} />
@@ -264,11 +267,11 @@ const ProductDetails = () => {
               </div>
 
               {/* Product Details */}
-              <div className="border-t pt-6">
+              <div className="border-t pt-4 lg:pt-6">
                 <h3 className="text-lg font-semibold mb-3">Product Details</h3>
-                <div className="space-y-2 text-gray-600">
+                <div className="space-y-2 text-gray-600 text-sm lg:text-base">
                   <p>
-                    <span className="font-medium">Category:</span> {product.category}
+                    <span className="font-medium">Category:</span> {product.category || "Fashion"}
                   </p>
                   <p>
                     <span className="font-medium">Material:</span> 100% Cotton

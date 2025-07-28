@@ -72,7 +72,7 @@ const Profiledropdown = () => {
     <div className="border border-gray-200 rounded-lg shadow-xl flex flex-col bg-white w-[320px] max-h-[500px] overflow-hidden">
       {/* Header Section */}
       <div className="bg-gradient-to-r from-orange-50 to-red-50 p-5 text-center border-b border-gray-100">
-        <div className="w-14 h-14 bg-gradient-to-r from-rose-500 to-pink-600 rounded-full mx-auto mb-3 flex items-center justify-center">
+        <div className="w-14 h-14 bg-gradient-to-r from-orange-500 to-orange-600 rounded-full mx-auto mb-3 flex items-center justify-center">
           <Shirt className="w-7 h-7 text-white" />
         </div>
         <h1 className="font-bold text-xl text-gray-800 mb-2">
