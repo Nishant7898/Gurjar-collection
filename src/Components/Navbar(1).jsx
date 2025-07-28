@@ -307,7 +307,7 @@ const Navbar = () => {
                     <span className="text-xs font-medium">Wishlist</span>
                   </button>
                 </div>
-                {/* Cart - improved touch targets */}
+          
                 <div className="relative" ref={cartRef}>
                   <button
                     onClick={() => togglePopup("cart")}
@@ -534,7 +534,7 @@ const Navbar = () => {
       )}
 {isMobile && openPopup === "cart" && (
   <div
-    className="fixed inset-0 z-[200] flex items-center justify-center bg-black bg-opacity-50"
+    className="fixed inset-0  z-[200] flex items-center justify-center bg-black bg-opacity-50"
     role="dialog"
     aria-modal="true"
     onClick={(e) => {
@@ -554,7 +554,7 @@ const Navbar = () => {
     <div
       ref={cartPopupRef}
       id="cart-popup-mobile"
-      className="relative w-[90%] max-w-sm max-h-[90vh] overflow-y-auto rounded-xl shadow-xl p-4"
+      className="relative w-[90%] max-w-sm m overflow-y-auto rounded-xl shadow-xl p-4"
       onClick={(e) => e.stopPropagation()}
     >
    
