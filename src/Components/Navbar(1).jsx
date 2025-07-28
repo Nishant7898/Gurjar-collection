@@ -565,14 +565,14 @@ const Navbar = () => {
 
       {isMobile && openPopup === "profile" && (
         <div
-          className="fixed inset-0 z-[200] flex items-center justify-center px-3 sm:px-4 bg-black bg-opacity-50"
+          className="fixed inset-0 z-[200] flex items-center justify-center px-3 sm:px-4 bg-black "
           role="dialog"
           aria-modal="true"
         >
           <div 
             ref={profilePopupRef}
             id="profile-popup-mobile"
-            className="bg-white rounded-lg shadow-xl w-full max-w-xs sm:max-w-sm max-h-[80vh] sm:max-h-[85vh] overflow-y-auto overflow-x-hidden p-3 sm:p-4 relative break-words"
+            className=" rounded-lg shadow-xl w-full max-w-xs sm:max-w-sm max-h-[80vh] sm:max-h-[85vh] overflow-y-auto overflow-x-hidden p-3 sm:p-4 relative break-words"
           >
             <button
               onClick={() => setOpenPopup(null)}

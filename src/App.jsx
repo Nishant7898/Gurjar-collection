@@ -17,8 +17,9 @@ import Signup from "./authpage/Signuppage";
 
 import Femalesection from "./FemaleClothes/Femalesection";
 import Malesection from "./MaleClothes/Malesection";
-import CartPopup from "./Components/Cartpopup";
+
 import Wishlist from "./Components/Wishlist";
+import CartList from "./Components/Cartlist";
 
 function App() {
   return (
@@ -32,9 +33,9 @@ function App() {
           <Routes>
             {/* ------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>> */}
             <Route path="/" element={<Home />} />
-            <Route path="/cart" element={<CartPopup/>}/>
+         
             <Route path="/wishlist" element={<Wishlist/>}/>
-        
+        <Route path="/cart" element={<CartList/>}/>
 
             <Route path="/product/:id" element={<ProductDetails />} />
             {/* Women Clothes Section--------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>> */}

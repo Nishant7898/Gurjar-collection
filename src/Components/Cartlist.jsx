@@ -1,10 +1,11 @@
 // src/features/cart/CartList.jsx
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removefromCart } from "../Redux/Cartslice";
+import { removeFromCart } from "../Redux/cartslice"; // ✅ Correct import
 
 const CartList = () => {
-  const cartItems = useSelector((state) => state.cart.cartItems);
+ const cartItems = useSelector((state) => state.cart?.items || []);
+
   const dispatch = useDispatch();
 
   return (
@@ -14,11 +15,14 @@ const CartList = () => {
         <p>No items in cart.</p>
       ) : (
         cartItems.map((item) => (
-          <div key={item.id} className="flex items-center justify-between p-2 border-b">
+          <div
+            key={item.id}
+            className="flex items-center justify-between p-2 border-b"
+          >
             <span>{item.name}</span>
             <button
-              onClick={() => dispatch(removefromCart(item.id))}
-              className="text-red-500"
+              onClick={() => dispatch(removeFromCart(item.id))} // ✅ Fixed
+              className="text-red-500 hover:text-red-700 transition"
             >
               Remove
             </button>
