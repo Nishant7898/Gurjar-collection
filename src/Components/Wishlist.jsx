@@ -1,11 +1,10 @@
-// src/components/Wishlist.jsx
 import React, { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromWishlist } from "../Redux/wishlistSlice";
 import { toast } from "react-toastify";
 
 const WishlistItem = memo(({ item, onRemove }) => (
-  <div className="flex flex-col sm:flex-row gap-4 items-center border-b pb-4 last:border-b-0">
+  <div className="flex flex-col overflow-y-auto sm:flex-row gap-4 items-center border-b pb-4 last:border-b-0">
     <img
       src={item.img}
       alt={item.name || item.desc}
@@ -23,6 +22,7 @@ const WishlistItem = memo(({ item, onRemove }) => (
       }}
       className="mt-2 sm:mt-0 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 rounded px-3 py-1 text-sm font-semibold transition"
       aria-label={`Remove ${item.name || item.desc} from wishlist`}
+      type="button"
     >
       Remove
     </button>
@@ -38,7 +38,7 @@ const Wishlist = () => {
   };
 
   return (
-    <main className="py-[15vh] px-4 max-w-4xl mx-auto min-h-[60vh] flex flex-col">
+    <main className="py-[15vh] overflow-y-auto px-4 max-w-4xl mx-auto min-h-[60vh] flex flex-col">
       <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 text-center sm:text-left">
         My Wishlist
       </h2>

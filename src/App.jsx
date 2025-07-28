@@ -4,6 +4,7 @@ import Navbar from "./Components/Navbar(1)";
 import Profiledropdown from ".//authpage/profiledropdown";
 import MenSection from "./Components/MenSection";
 
+
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -33,7 +34,7 @@ function App() {
             <Route path="/" element={<Home />} />
             <Route path="/cart" element={<CartPopup/>}/>
             <Route path="/wishlist" element={<Wishlist/>}/>
-           
+        
 
             <Route path="/product/:id" element={<ProductDetails />} />
             {/* Women Clothes Section--------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>> */}

@@ -1,8 +1,10 @@
+// src/Components/Bannerbottom.jsx
 import React, { useRef, useEffect } from "react";
 import {
   IoIosArrowDropleftCircle,
   IoIosArrowDroprightCircle,
 } from "react-icons/io";
+import { useNavigate } from "react-router-dom";
 
 const Brands = [
   {
@@ -95,6 +97,7 @@ const categories = [
 ];
 
 const Bannerbottom = () => {
+  const navigate = useNavigate();
   const categoryScrollRef = useRef(null);
   const brandScrollRef = useRef(null);
 
@@ -154,7 +157,8 @@ const Bannerbottom = () => {
         {categories.map((item, index) => (
           <div
             key={index}
-            className="min-w-[160px] md:min-w-[200px] rounded-full bg-transparent flex flex-col items-center p-4"
+            className="min-w-[160px] md:min-w-[200px] rounded-full bg-transparent flex flex-col items-center p-4 cursor-pointer"
+            onClick={() => navigate(`/category/${encodeURIComponent(item.label)}`)}
           >
             <img
               src={item.img}

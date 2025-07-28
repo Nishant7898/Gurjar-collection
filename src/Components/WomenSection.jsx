@@ -29,14 +29,11 @@ const images = [
 ];
 
 const WomenSection = () => {
-  const navigate = useNavigate();
-  const handleclick=()=>{
-    navigate("/")
-  }
+
 
   return (
     <div className="min-h-screen bg-white py-30 px-4 md:px-50">
-     <button className="bg-orange-600 p-2 absolute left-2 rounded-md font-bold text-white" onClick={handleclick}>Home</button>
+  
       <h2 className="text-4xl font-bold text-center text-gray-800 mb-10">
         Explore Women's Fashion
       </h2>

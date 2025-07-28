@@ -3,8 +3,8 @@ import React, { useState, useEffect } from "react";
 import { Heart, ListFilter } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../Redux/Cartslice"; // Your cart slice
-import { addToWishlist, removeFromWishlist } from "../Redux/Wishlistslice";
+import { addToCart } from "../Redux/cartslice"; // Your cart slice
+import { addToWishlist, removeFromWishlist } from "../Redux/wishlistSlice";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -255,9 +255,9 @@ const Malesection = () => {
       </div>
 
       {/* Filter and Sort Controls */}
-      <div className="flex flex-wrap gap-4 justify-between mb-8 max-w-[400px] mx-auto md:mx-0">
+      <div className="flex flex-wrap gap-4 justify-between mb-8">
         {/* Filter Dropdown */}
-        <div className="relative w-full md:w-auto">
+        <div className="relative  w-full md:w-auto">
           <select
             onChange={(e) => setSelectedPrice(e.target.value)}
             value={selectedPrice}
