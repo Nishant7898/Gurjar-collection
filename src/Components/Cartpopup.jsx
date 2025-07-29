@@ -5,10 +5,12 @@ import {
   incrementQuantity,
   decrementQuantity,
 } from '../Redux/cartslice';
+import { toast } from 'react-toastify';
 
 const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   const calculateTotal = () => {
     return cartItems.reduce(
@@ -52,7 +54,6 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
         ) : (
           <div className="space-y-4">
             {cartItems.map((item) => {
-              console.log('Image URL:', item.img); // Debug image URL
               const price = Number(item.price) || 0;
               const totalPrice = price * item.quantity;
 
@@ -69,13 +70,12 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
                         className="w-full h-full object-cover"
                         onError={(e) => {
                           console.error(`Failed to load image: ${item.img}`);
-                          // Hide the broken image and show placeholder
                           e.target.style.display = 'none';
                           e.target.nextElementSibling.style.display = 'flex';
                         }}
                       />
                     ) : null}
-                    <div 
+                    <div
                       className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-200"
                       style={{ display: item.img ? 'none' : 'flex' }}
                     >
@@ -135,7 +135,9 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
                   <div className="flex flex-col items-end justify-between">
                     <button
                       onClick={() =>
-                        dispatch(removeFromCart({ id: item.id, size: item.size }))
+                        dispatch(
+                          removeFromCart({ id: item.id, size: item.size })
+                        )
                       }
                       className="text-gray-500 hover:text-red-500"
                     >
@@ -171,7 +173,13 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
         </div>
         <div className="space-y-2">
           <button
-            onClick={onCheckout}
+            onClick={() => {
+              if (!isAuthenticated) {
+                toast.error("Please log in to checkout");
+                return;
+              }
+              onCheckout();
+            }}
             disabled={cartItems.length === 0}
             className={`w-full py-3 rounded font-medium ${
               cartItems.length === 0
@@ -182,7 +190,13 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
             Checkout
           </button>
           <button
-            onClick={onViewCart}
+            onClick={() => {
+              if (!isAuthenticated) {
+                toast.error("Please log in to view your cart");
+                return;
+              }
+              onViewCart();
+            }}
             disabled={cartItems.length === 0}
             className={`w-full py-3 rounded font-medium border-2 ${
               cartItems.length === 0
