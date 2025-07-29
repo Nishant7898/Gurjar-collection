@@ -1,194 +1,199 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
-} from "../Redux/cartslice";
-import { useNavigate } from "react-router-dom";
-import { toast } from "react-toastify";
+} from '../Redux/cartslice';
 
-const CartPopup = () => {
-  const navigate = useNavigate();
+const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
+  const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
 
-  const items = useSelector((state) => state.cart.items);
-  const isAuthenticated = useSelector((state) => state.auth?.isAuthenticated || false);
-
-  const handleClickLogin = () => {
-    navigate("/login");
-  };
-
-  const handleViewCart = () => {
-    navigate("/cart");
-  };
-
-  const totalAmount = items.reduce((total, item) => {
-    const price =
-      typeof item.price === "string"
-        ? parseFloat(item.price.replace("₹", "").replace(",", ""))
-        : item.price;
-    return total + price * item.quantity;
-  }, 0);
-
-  const getItemPrice = (item) => {
-    return typeof item.price === "string"
-      ? parseFloat(item.price.replace("₹", "").replace(",", ""))
-      : item.price;
-  };
-
-  // Updated handlers to accept id and size
-  const handleIncrement = (id, size) => {
-    dispatch(incrementQuantity({ id, size }));
-  };
-
-  const handleDecrement = (id, size) => {
-    dispatch(decrementQuantity({ id, size }));
-  };
-
-  const handleRemove = (id, size) => {
-    const removedItem = items.find((item) => item.id === id && item.size === size);
-    dispatch(removeFromCart({ id, size }));
-    toast.error(
-      <div className="flex items-center gap-2">
-        <img
-          src={removedItem?.img || "/placeholder-image.png"}
-          alt="removed"
-          className="w-10 h-10 object-cover border rounded"
-          loading="lazy"
-        />
-        <div>
-          <p className="font-semibold text-sm">Removed:</p>
-          <p className="text-xs">{removedItem?.desc}</p>
-        </div>
-      </div>,
-      {
-        position: "top-right",
-        autoClose: 3000,
-      }
+  const calculateTotal = () => {
+    return cartItems.reduce(
+      (total, item) => total + Number(item.price) * item.quantity,
+      0
     );
   };
 
-  
-
   return (
-    <div className="w-full max-w-xs sm:max-w-sm md:max-w-md lg:max-w-lg xl:max-w-xl h-[80vh] max-h-[80vh] bg-white rounded-lg shadow-xl p-4 z-50 border overflow-y-auto fixed right-4 top-20 sm:top-24 sm:right-6 md:right-10 lg:right-12 xl:right-16 transition-all duration-300">
-      <h2 className="font-bold text-lg mb-3 text-gray-800 border-b pb-2">
-        Shopping Cart
-      </h2>
-
-      {!isAuthenticated ? (
-        <div className="text-center py-8">
-          <p className="text-gray-500 font-medium mb-2">Please log in to see your cart.</p>
-          <button
-            className="bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-700 hover:to-pink-700 text-white font-semibold py-2 mt-2 px-3 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-md text-sm"
-            onClick={handleClickLogin}
+    <div className="flex flex-col h-full">
+      {/* Header */}
+      <div className="p-4 border-b flex justify-between items-center">
+        <h2 className="text-xl font-bold">Your Cart ({cartItems.length})</h2>
+        <button
+          onClick={onClose}
+          className="text-gray-500 hover:text-gray-700"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            Login
-          </button>
-        </div>
-      ) : items.length === 0 ? (
-        <div className="text-center py-8">
-          <div className="text-gray-400 mb-2">
-            <svg className="w-16 h-16 mx-auto" fill="currentColor" viewBox="0 0 20 20">
-              <path
-                fillRule="evenodd"
-                d="M10 2L3 7v11a2 2 0 002 2h10a2 2 0 002-2V7l-7-5zM8 16a1 1 0 100-2 1 1 0 000 2zm4 0a1 1 0 100-2 1 1 0 000 2z"
-                clipRule="evenodd"
-              />
-            </svg>
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+
+      {/* Cart Items */}
+      <div className="flex-1 overflow-y-auto p-4">
+        {cartItems.length === 0 ? (
+          <div className="text-center py-8">
+            <p className="text-gray-500">Your cart is empty</p>
           </div>
-          <p className="text-gray-500 font-medium">Your cart is empty</p>
-        </div>
-      ) : (
-        <>
-          <div className="max-h-60 overflow-y-auto mb-4 space-y-3">
-            {items.map((item, index) => {
-              const itemPrice = getItemPrice(item);
+        ) : (
+          <div className="space-y-4">
+            {cartItems.map((item) => {
+              console.log('Image URL:', item.img); // Debug image URL
+              const price = Number(item.price) || 0;
+              const totalPrice = price * item.quantity;
+
               return (
                 <div
-                  key={`${item.id}-${item.size}` || `cart-item-${index}`}
-                  className="flex items-center gap-3 p-2 bg-gray-50 rounded-lg"
+                  key={`${item.id}-${item.size}`}
+                  className="flex border-b pb-4"
                 >
-                  <div className="w-12 h-12 flex-shrink-0">
-                    <img
-                      src={item.img || "/placeholder-image.png"}
-                      alt={item.desc || "Product image"}
-                      className="w-full h-full object-cover rounded border"
-                      onError={(e) => {
-                        e.target.onerror = null; // prevent infinite loop
-                        e.target.src = "/placeholder-image.png";
-                      }}
-                      loading="lazy"
-                    />
-                  </div>
-
-                  <div className="flex-1 min-w-0">
-                    <p
-                      className="font-medium text-sm text-gray-800 truncate"
-                      title={item.desc}
+                  <div className="w-24 h-24 bg-gray-100 rounded overflow-hidden">
+                    {item.img ? (
+                      <img
+                        src={item.img}
+                        alt={item.desc || 'Product image'}
+                        className="w-full h-full object-cover"
+                        onError={(e) => {
+                          console.error(`Failed to load image: ${item.img}`);
+                          // Hide the broken image and show placeholder
+                          e.target.style.display = 'none';
+                          e.target.nextElementSibling.style.display = 'flex';
+                        }}
+                      />
+                    ) : null}
+                    <div 
+                      className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-200"
+                      style={{ display: item.img ? 'none' : 'flex' }}
                     >
-                      {item.desc} {item.size && ` - Size: ${item.size}`}
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-8 w-8"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                        />
+                      </svg>
+                    </div>
+                  </div>
+                  <div className="ml-4 flex-1">
+                    <h3 className="font-medium">{item.desc}</h3>
+                    {item.size && (
+                      <p className="text-gray-500 text-sm">Size: {item.size}</p>
+                    )}
+                    <p className="text-gray-800 font-medium mt-1">
+                      ${price.toFixed(2)}
                     </p>
-                    <p className="text-xs text-gray-600 mb-1">₹{itemPrice.toFixed(2)}</p>
-
-                    <div className="flex items-center gap-2">
+                    <div className="flex items-center mt-2">
                       <button
-                        onClick={() => handleDecrement(item.id, item.size)}
+                        onClick={() =>
+                          dispatch(
+                            decrementQuantity({ id: item.id, size: item.size })
+                          )
+                        }
+                        className={`w-8 h-8 rounded flex items-center justify-center text-white font-medium ${
+                          item.quantity <= 1
+                            ? 'bg-gray-300 cursor-not-allowed'
+                            : 'bg-orange-500 hover:bg-orange-600'
+                        }`}
                         disabled={item.quantity <= 1}
-                        className="w-6 h-6 flex items-center justify-center bg-white hover:bg-gray-100 disabled:bg-gray-100 disabled:text-gray-400 border rounded text-sm font-bold transition-colors"
-                        aria-label={`Decrease quantity of ${item.desc}, size ${item.size}`}
                       >
                         -
                       </button>
-                      <span className="text-sm font-medium px-2 min-w-[2rem] text-center">{item.quantity}</span>
+                      <span className="mx-2 font-medium">{item.quantity}</span>
                       <button
-                        onClick={() => handleIncrement(item.id, item.size)}
-                        className="w-6 h-6 flex items-center justify-center bg-white hover:bg-gray-100 border rounded text-sm font-bold transition-colors"
-                        aria-label={`Increase quantity of ${item.desc}, size ${item.size}`}
+                        onClick={() =>
+                          dispatch(
+                            incrementQuantity({ id: item.id, size: item.size })
+                          )
+                        }
+                        className="w-8 h-8 bg-orange-500 hover:bg-orange-600 text-white rounded flex items-center justify-center font-medium"
                       >
                         +
                       </button>
                     </div>
                   </div>
-
-                  <div className="text-right flex-shrink-0">
-                    <p className="text-sm font-semibold text-green-600 mb-1">
-                      ₹{(itemPrice * item.quantity).toFixed(2)}
-                    </p>
+                  <div className="flex flex-col items-end justify-between">
                     <button
-                      onClick={() => handleRemove(item.id, item.size)}
-                      className="text-xs text-red-500 hover:text-red-700 hover:underline transition-colors"
-                      aria-label={`Remove ${item.desc} size ${item.size} from cart`}
+                      onClick={() =>
+                        dispatch(removeFromCart({ id: item.id, size: item.size }))
+                      }
+                      className="text-gray-500 hover:text-red-500"
                     >
-                      Remove
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                        />
+                      </svg>
                     </button>
+                    <p className="font-medium">${totalPrice.toFixed(2)}</p>
                   </div>
                 </div>
               );
             })}
           </div>
+        )}
+      </div>
 
-          <div className="border-t pt-3 bg-gray-50 -mx-4 px-4 py-3 rounded-b-lg">
-            <div className="flex justify-between items-center mb-3">
-              <span className="font-bold text-lg text-gray-800">Total:</span>
-              <span className="font-bold text-xl text-green-600">₹{totalAmount.toFixed(2)}</span>
-            </div>
-
-            <div className="space-y-2">
-              <button className="w-full bg-orange-600 hover:bg-orange-700 text-white font-medium py-2 px-4 rounded-lg transition-colors">
-                Proceed to Checkout
-              </button>
-              <button
-                onClick={handleViewCart}
-                className="w-full bg-gray-200 hover:bg-gray-300 text-gray-700 font-medium py-2 px-4 rounded-lg transition-colors"
-              >
-                View Cart
-              </button>
-            </div>
-          </div>
-        </>
-      )}
+      {/* Footer */}
+      <div className="border-t p-4">
+        <div className="flex justify-between mb-4">
+          <span className="font-medium">Subtotal:</span>
+          <span className="font-bold">${calculateTotal().toFixed(2)}</span>
+        </div>
+        <div className="space-y-2">
+          <button
+            onClick={onCheckout}
+            disabled={cartItems.length === 0}
+            className={`w-full py-3 rounded font-medium ${
+              cartItems.length === 0
+                ? 'bg-gray-300 cursor-not-allowed'
+                : 'bg-orange-500 text-white hover:bg-orange-600'
+            }`}
+          >
+            Checkout
+          </button>
+          <button
+            onClick={onViewCart}
+            disabled={cartItems.length === 0}
+            className={`w-full py-3 rounded font-medium border-2 ${
+              cartItems.length === 0
+                ? 'text-gray-400 border-gray-300 cursor-not-allowed'
+                : 'text-orange-500 border-orange-500 hover:bg-orange-50'
+            }`}
+          >
+            View Cart
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

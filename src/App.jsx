@@ -4,7 +4,6 @@ import Navbar from "./Components/Navbar(1)";
 import Profiledropdown from ".//authpage/profiledropdown";
 import MenSection from "./Components/MenSection";
 
-
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -19,7 +18,8 @@ import Femalesection from "./FemaleClothes/Femalesection";
 import Malesection from "./MaleClothes/Malesection";
 
 import Wishlist from "./Components/Wishlist";
-import CartList from "./Components/Cartlist";
+
+import CartPopup from "./Components/Cartpopup";
 
 function App() {
   return (
@@ -33,9 +33,9 @@ function App() {
           <Routes>
             {/* ------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>> */}
             <Route path="/" element={<Home />} />
-         
-            <Route path="/wishlist" element={<Wishlist/>}/>
-        <Route path="/cart" element={<CartList/>}/>
+
+            <Route path="/wishlist" element={<Wishlist />} />
+            <Route path="/cart" element={<CartPopup />} />
 
             <Route path="/product/:id" element={<ProductDetails />} />
             {/* Women Clothes Section--------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>> */}

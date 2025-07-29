@@ -1,33 +1,68 @@
 import React, { memo } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromWishlist } from "../Redux/Wishlistslice";
-import { toast } from "react-toastify";
+import { removeFromWishlist } from "../Redux/Wishlistslice"; // Assuming you'll add this action\
+import { addToCart } from "../Redux/cartslice";
 
-const WishlistItem = memo(({ item, onRemove }) => (
-  <div className="flex flex-col overflow-y-auto sm:flex-row gap-4 items-center border-b pb-4 last:border-b-0">
-    <img
-      src={item.img}
-      alt={item.name || item.desc}
-      className="h-20 w-20 sm:h-16 sm:w-16 object-cover rounded shadow-sm"
-      loading="lazy"
-    />
-    <div className="flex-1 text-center sm:text-left">
-      <p className="font-medium text-gray-900 text-lg truncate">{item.name || item.desc}</p>
-      <p className="text-gray-600 text-sm mt-1">₹{item.price}</p>
+import { toast } from "react-toastify";
+import { ShoppingBag } from "lucide-react";
+
+const WishlistItem = memo(({ item, onRemove, onAddToCart }) => {
+  const price = typeof item.price === 'number' ? item.price : Number(item.price) || 0;
+  
+  return (
+    <div className="flex flex-col sm:flex-row gap-4 items-center border-b pb-6 last:border-b-0 group">
+      <div className="relative h-24 w-24 sm:h-28 sm:w-28 flex-shrink-0">
+        <img
+          src={item.img || '/placeholder-product.jpg'}
+          alt={item.name || item.desc || "Product"}
+          className="h-full w-full object-cover rounded-lg shadow-md"
+          loading="lazy"
+          onError={(e) => {
+            e.target.src = '/placeholder-product.jpg';
+          }}
+        />
+        {item.size && (
+          <span className="absolute top-2 left-2 bg-white text-xs font-medium px-2 py-1 rounded-full shadow">
+            {item.size}
+          </span>
+        )}
+      </div>
+      
+      <div className="flex-1 text-center sm:text-left">
+        <h3 className="font-medium text-gray-900 text-lg line-clamp-2">
+          {item.name || item.desc}
+        </h3>
+        <p className="text-orange-600 font-semibold mt-1 text-lg">
+          ₹{price.toLocaleString('en-IN')}
+        </p>
+      </div>
+      
+      <div className="flex gap-3 sm:flex-col sm:gap-2 w-full sm:w-auto">
+        <button
+          onClick={() => onAddToCart(item)}
+          className="flex items-center justify-center gap-1 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
+          aria-label={`Add ${item.name || item.desc} to cart`}
+          type="button"
+        >
+          <ShoppingBag className="h-4 w-4" />
+          <span>Add to Cart</span>
+        </button>
+        
+        <button
+          onClick={() => {
+            onRemove(item);
+            toast.info(`${item.name || item.desc} removed from wishlist.`);
+          }}
+          className="border border-gray-300 hover:border-red-500 hover:text-red-600 px-4 py-2 rounded-md text-sm font-medium transition-colors"
+          aria-label={`Remove ${item.name || item.desc} from wishlist`}
+          type="button"
+        >
+          Remove
+        </button>
+      </div>
     </div>
-    <button
-      onClick={() => {
-        onRemove(item);
-        toast.info(`${item.name || item.desc} removed from wishlist.`);
-      }}
-      className="mt-2 sm:mt-0 text-red-600 hover:text-red-800 focus:outline-none focus:ring-2 focus:ring-red-400 rounded px-3 py-1 text-sm font-semibold transition"
-      aria-label={`Remove ${item.name || item.desc} from wishlist`}
-      type="button"
-    >
-      Remove
-    </button>
-  </div>
-));
+  );
+});
 
 const Wishlist = () => {
   const wishlist = useSelector((state) => state.wishlist);
@@ -37,18 +72,59 @@ const Wishlist = () => {
     dispatch(removeFromWishlist(item));
   };
 
+  const handleAddToCart = (item) => {
+  
+    const cartItem = {
+      ...item,
+      quantity: 1
+    };
+    dispatch(addToCart(cartItem));
+    toast.success(`${item.name || item.desc} added to cart!`);
+  };
+
   return (
-    <main className="py-[15vh] overflow-y-auto px-4 max-w-4xl mx-auto min-h-[60vh] flex flex-col">
-      <h2 className="text-2xl sm:text-3xl font-semibold text-gray-800 mb-6 text-center sm:text-left">
-        My Wishlist
-      </h2>
+    <main className="py-6 px-4 sm:px-6 max-w-6xl mx-auto min-h-[60vh]">
+      <div className="mb-8">
+        <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
+          My Wishlist
+        </h2>
+        <p className="text-gray-500 mt-1">
+          {wishlist.length} {wishlist.length === 1 ? 'item' : 'items'}
+        </p>
+      </div>
 
       {wishlist.length === 0 ? (
-        <p className="text-center text-gray-500 text-lg mt-10">Your wishlist is empty.</p>
+        <div className="text-center py-12">
+          <div className="mx-auto w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-4">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-10 w-10 text-gray-400"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={1.5}
+                d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"
+              />
+            </svg>
+          </div>
+          <h3 className="text-lg font-medium text-gray-700">Your wishlist is empty</h3>
+          <p className="text-gray-500 mt-1">
+            Save items you love by clicking the heart icon
+          </p>
+        </div>
       ) : (
-        <section className="flex flex-col gap-6">
+        <section className="grid gap-6 divide-y divide-gray-200">
           {wishlist.map((item) => (
-            <WishlistItem key={item.id} item={item} onRemove={handleRemove} />
+            <WishlistItem
+              key={`${item.id}-${item.size || ''}`}
+              item={item}
+              onRemove={handleRemove}
+              onAddToCart={handleAddToCart}
+            />
           ))}
         </section>
       )}

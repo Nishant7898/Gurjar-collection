@@ -498,43 +498,62 @@ const Navbar = () => {
       </div>
 
       {/* MOBILE MODAL STYLE POPUPS - improved responsive sizing */}
-      {isMobile && openPopup === "wishlist" && isAuthenticated && (
-        <div
-          className="fixed inset-0 z-[200] flex items-center justify-center px-3 sm:px-4 bg-black bg-opacity-50"
-          role="dialog"
-          aria-modal="true"
+     {isMobile && openPopup === "wishlist" && isAuthenticated && (
+  <div
+    className="fixed inset-0 z-[200] flex items-end justify-center bg-black bg-opacity-50"
+    role="dialog"
+    aria-modal="true"
+    onClick={(e) => {
+      if (wishlistPopupRef.current && !wishlistPopupRef.current.contains(e.target)) {
+        setOpenPopup(null);
+      }
+    }}
+  >
+    <div
+      ref={wishlistPopupRef}
+      id="wishlist-popup-mobile"
+      className="relative w-full max-w-md bg-white rounded-t-xl shadow-xl h-[85vh]"
+      onClick={(e) => e.stopPropagation()}
+    >
+      <div className="p-4 border-b flex justify-between items-center bg-gray-50">
+        <h2 className="text-xl font-bold">Your Wishlist</h2>
+        <button
+          onClick={() => setOpenPopup(null)}
+          className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-200"
         >
-          <div 
-            ref={wishlistPopupRef}
-            id="wishlist-popup-mobile"
-            className="bg-white rounded-lg shadow-xl w-full max-w-xs sm:max-w-sm max-h-[80vh] sm:max-h-[85vh] relative flex flex-col"
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            className="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
           >
-            <button
-              onClick={() => setOpenPopup(null)}
-              className="absolute top-2 right-2 text-gray-500 hover:text-black text-xl font-bold z-10 p-1 rounded-full hover:bg-gray-100 touch-manipulation"
-              aria-label="Close wishlist"
-              type="button"
-            >
-              &times;
-            </button>
-            <div className="p-3 sm:p-4 overflow-y-auto flex-1">
-              <Wishlist />
-            </div>
-            <div className="p-3 sm:p-4 border-t flex-shrink-0">
-              <button
-                onClick={handleViewWishlist}
-                className="w-full bg-orange-500 text-white py-2.5 sm:py-3 rounded hover:bg-orange-600 transition-colors duration-200 text-sm font-medium touch-manipulation"
-                type="button"
-              >
-                View Wishlist
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
+          </svg>
+        </button>
+      </div>
+      <div className="overflow-y-auto h-[calc(100%-120px)] p-4">
+        <Wishlist />
+      </div>
+      <div className="absolute bottom-0 left-0 right-0 border-t p-4 bg-gray-50">
+        <button
+          onClick={handleViewWishlist}
+          className="w-full bg-orange-500 text-white py-3 rounded-md hover:bg-orange-600 transition-colors font-medium"
+        >
+          View Full Wishlist
+        </button>
+      </div>
+    </div>
+  </div>
+)}
 {isMobile && openPopup === "cart" && (
   <div
-    className="fixed inset-0  z-[200] flex items-center justify-center bg-black bg-opacity-50"
+    className="fixed inset-0 z-[200] flex items-center justify-center bg-black bg-opacity-50"
     role="dialog"
     aria-modal="true"
     onClick={(e) => {
@@ -543,22 +562,23 @@ const Navbar = () => {
       }
     }}
   >
-       <button
-        onClick={() => setOpenPopup(null)}
-        className="absolute top-2 right-2 text-gray-500 hover:text-black text-2xl font-bold z-10 p-1 rounded-full "
-        aria-label="Close cart"
-        type="button"
-      >
-        &times;
-      </button>
     <div
       ref={cartPopupRef}
       id="cart-popup-mobile"
-      className="relative w-[90%] max-w-sm m overflow-y-auto rounded-xl shadow-xl p-4"
+      className="relative w-full max-w-md h-full md:h-auto md:max-h-[80vh] bg-white rounded-t-xl md:rounded-xl shadow-xl overflow-hidden"
       onClick={(e) => e.stopPropagation()}
     >
-   
-      <CartPopup />
+      <CartPopup 
+        onClose={() => setOpenPopup(null)}
+        onViewCart={() => {
+          navigate("/cart");
+          setOpenPopup(null);
+        }}
+        onCheckout={() => {
+          navigate("/checkout");
+          setOpenPopup(null);
+        }}
+      />
     </div>
   </div>
 )}
@@ -588,35 +608,70 @@ const Navbar = () => {
       )}
 
       {/* DESKTOP POPUPS - improved responsive positioning */}
-      {!isMobile && openPopup === "wishlist" && isAuthenticated && (
-        <div
-          ref={wishlistPopupRef}
-          id="wishlist-popup"
-          className="absolute top-16 md:top-20 lg:top-24 right-2 md:right-6 z-[150] bg-white border rounded-md shadow-lg p-4 w-72 md:w-80 max-h-[400px] md:max-h-[500px] overflow-y-auto"
-          role="dialog"
-          aria-modal="true"
+     {!isMobile && openPopup === "wishlist" && isAuthenticated && (
+  <div
+    ref={wishlistPopupRef}
+    id="wishlist-popup"
+    className="absolute top-16 md:top-20 lg:top-24 right-2 md:right-6 z-[150] bg-white border rounded-md shadow-lg w-72 md:w-80 lg:w-96 max-h-[70vh] overflow-hidden"
+    role="dialog"
+    aria-modal="true"
+  >
+    <div className="p-4 border-b flex justify-between items-center bg-gray-50">
+      <h2 className="text-xl font-bold">Your Wishlist</h2>
+      <button
+        onClick={() => setOpenPopup(null)}
+        className="text-gray-500 hover:text-gray-700 p-1 rounded-full hover:bg-gray-200"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          className="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
         >
-          <Wishlist />
-          <button
-            onClick={handleViewWishlist}
-            className="mt-4 w-full bg-orange-500 text-white py-2 rounded hover:bg-orange-600 transition-colors duration-200 text-sm font-medium"
-            type="button"
-          >
-            View Wishlist
-          </button>
-        </div>
-      )}
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
+        </svg>
+      </button>
+    </div>
+    <div className="overflow-y-auto h-[calc(100%-120px)] p-4">
+      <Wishlist />
+    </div>
+    <div className="border-t p-4 bg-gray-50">
+      <button
+        onClick={handleViewWishlist}
+        className="w-full bg-orange-500 text-white py-2 rounded-md hover:bg-orange-600 transition-colors font-medium"
+      >
+        View Full Wishlist
+      </button>
+    </div>
+  </div>
+)}
       {!isMobile && openPopup === "cart" && (
-        <div
-          ref={cartPopupRef}
-          id="cart-popup"
-          className="absolute top-16 md:top-20 lg:top-24 right-2 md:right-6 z-[150] bg-white border rounded-md shadow-lg p-4 w-80 md:w-96 lg:w-[400px] max-h-[400px] md:max-h-[500px] overflow-y-auto"
-          role="dialog"
-          aria-modal="true"
-        >
-          <CartPopup />
-        </div>
-      )}
+  <div
+    ref={cartPopupRef}
+    id="cart-popup"
+    className="absolute top-16 md:top-20 lg:top-24 right-2 md:right-6 z-[150] bg-white border rounded-md shadow-lg w-72 md:w-80 lg:w-96 max-h-[70vh] overflow-hidden"
+    role="dialog"
+    aria-modal="true"
+  >
+    <CartPopup 
+      onClose={() => setOpenPopup(null)}
+      onViewCart={() => {
+        navigate("/cart");
+        setOpenPopup(null);
+      }}
+      onCheckout={() => {
+        navigate("/checkout");
+        setOpenPopup(null);
+      }}
+    />
+  </div>
+)}
       {!isMobile && openPopup === "profile" && (
         <div
           ref={profilePopupRef}
