@@ -154,7 +154,7 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
                         />
                       </svg>
                     </button>
-                    <p className="font-medium">${totalPrice.toFixed(2)}</p>
+                    <p className="font-medium">₹{totalPrice.toFixed(2)}</p>
                   </div>
                 </div>
               );
@@ -167,7 +167,7 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
       <div className="border-t p-4">
         <div className="flex justify-between mb-4">
           <span className="font-medium">Subtotal:</span>
-          <span className="font-bold">${calculateTotal().toFixed(2)}</span>
+          <span className="font-bold">₹{calculateTotal().toFixed(2)}</span>
         </div>
         <div className="space-y-2">
           <button
