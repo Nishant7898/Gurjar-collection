@@ -51,9 +51,9 @@ const ProductGrid = ({
               style={{ background: "none", border: "none", cursor: "pointer" }}
             >
               <Heart
-                color={isWishlisted(item.id) ? "red" : "gray"}
+                color={isWishlisted(item.id) ? "red" : "red"}
                 fill={isWishlisted(item.id) ? "red" : "none"}
-                size={20}
+                size={25}
                 strokeWidth={2.5}
               />
             </button>
@@ -136,6 +136,7 @@ const Malesection = () => {
         desc: item.desc,
         price: item.price,
         quantity: 1,
+      
       })
     );
 

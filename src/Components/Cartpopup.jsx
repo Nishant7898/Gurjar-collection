@@ -103,6 +103,7 @@ const CartPopup = ({ onClose, onViewCart, onCheckout }) => {
                     <p className="text-gray-800 font-medium mt-1">
                       ₹{price.toFixed(2)}
                     </p>
+                  
                     <div className="flex items-center mt-2">
                       <button
                         onClick={() =>

@@ -11,19 +11,19 @@ const images = [
   {
     img: "https://images.unsplash.com/photo-1630355734650-55fe91e1e5c7",
     Title: "Check Shirt",
-    path: "/men/Check Shirt",
+    path: "/men/Check-Shirt",
     subtitle: "Upto 50% OFF",
   },
   {
     img: "https://images.unsplash.com/photo-1621773881532-fe65715b5137",
     Title: "Oversized Shirts",
-    path: "/men/Oversized Shirts",
+    path: "/men/Oversized-Shirts",
     subtitle: "New Collection",
   },
   {
     img: "https://images.unsplash.com/photo-1612767809387-da2175a1796e",
     Title: "Formal Shirts",
-    path: "/men/Formal Shirts",
+    path: "/men/Formal-Shirts",
     subtitle: "Premium Wear",
   },
   {
