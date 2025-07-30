@@ -318,7 +318,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 w-[70%] md:w-[30%]  md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 w-[70%] md:w-[40%]  md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
                       Buy Now
                     </button>
                   </div>
@@ -352,7 +352,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs w-[70%] md:w-[30%] p-1 font-bold   mr-5   md:px-4 flex items-center text-center justify-center   md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs w-[70%] md:w-[40%] p-1 font-bold   mr-5   md:px-4 flex items-center text-center justify-center   md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
                       Order Now
                     </button>
                   </div>
