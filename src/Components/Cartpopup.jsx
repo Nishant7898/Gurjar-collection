@@ -50,7 +50,7 @@ const CartPopup = ({ onClose, onViewCart }) => {
   };
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex md:py-20 flex-col h-full">
       {/* Header */}
       <div className="p-4 border-b flex justify-between items-center">
         <h2 className="text-xl font-bold">Your Cart ({cartItems.length})</h2>

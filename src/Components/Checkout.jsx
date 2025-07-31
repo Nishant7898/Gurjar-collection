@@ -1,23 +1,13 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
+import {loadStripe} from '@stripe/stripe-js'
 
-// Mock loadStripe function (frontend-only demo)
-const loadStripe = async (publishableKey) => {
-  // Normally, you import this from '@stripe/stripe-js'
-  // Here, we mock redirectToCheckout to always throw because backend is missing
-  return {
-    redirectToCheckout: async ({ sessionId }) => {
-      throw new Error(
-        "Frontend-only demo: Backend required for actual Stripe checkout sessions"
-      );
-    },
-  };
-};
+import { useNavigate } from "react-router-dom";
 
 const CheckoutPage = () => {
   const location = useLocation();
   const cartItems = location.state?.items || [];
-
+const navigate=useNavigate()
   const [isProcessing, setIsProcessing] = useState(false);
   const [orderComplete, setOrderComplete] = useState(false);
 
@@ -91,8 +81,8 @@ const CheckoutPage = () => {
     setIsProcessing(true);
 
     try {
-      // Mock loading stripe SDK
-      const stripe = await loadStripe(
+    
+      const stripe =await loadStripe(
         "pk_test_51OSa1ASI94bxAiqNPhrns6JhCfkJwZf16TlX7iqylqmbCwUbYEThqtOzzdY5uRR8c1LSSk0CNSux0BXC8uEZsIO300Zf0OzWzp"
       );
 
@@ -100,20 +90,7 @@ const CheckoutPage = () => {
         throw new Error("Stripe failed to load");
       }
 
-      // You would normally call your backend here to create a session
-
-      alert(`Frontend-only Demo:
-      
-In a real app, this would:
-1. Send order data to backend
-2. Create a Stripe Checkout session
-3. Redirect to Stripe checkout page
-4. Process actual payment
-
-Order Total: ₹${total.toFixed(2)}
-Items: ${cartItems.length}
-
-This is a demo - no payment will be processed.`);
+  
 
       setOrderComplete(true);
     } catch (error) {
@@ -164,7 +141,7 @@ This is a demo - no payment will be processed.`);
             </p>
           </div>
           <button
-            onClick={resetOrder}
+            onClick={()=>navigate('/')}
             className="bg-blue-600 text-white px-6 py-2 rounded hover:bg-blue-700 transition-colors"
           >
             Place Another Order
@@ -178,12 +155,7 @@ This is a demo - no payment will be processed.`);
     <div className="max-w-4xl py-40 mx-auto p-6">
       <h2 className="text-2xl font-bold mb-4">Checkout</h2>
 
-      <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4 mb-6">
-        <p className="text-yellow-800">
-          <strong>Frontend-Only Demo:</strong> Stripe integration shown but
-          requires backend for real payments.
-        </p>
-      </div>
+    
 
       <div className="grid md:grid-cols-2 gap-8">
         {/* Address Form */}
@@ -333,9 +305,8 @@ This is a demo - no payment will be processed.`);
                   "Confirm Order"
                 )}
               </button>
-              <p className="text-xs text-orange-500 text-center">
-                This is a demo - no actual payment will be charged
-              </p>
+         
+            
             </div>
           </div>
         </div>
