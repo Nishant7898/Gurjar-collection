@@ -666,6 +666,7 @@ const Navbar = () => {
         setOpenPopup(null);
       }}
       onCheckout={() => {
+          
         navigate("/checkout");
         setOpenPopup(null);
       }}
