@@ -33,7 +33,7 @@ const CartPopup = ({ onClose, onViewCart }) => {
       return;
     }
 
-    
+    onclose()
     navigate("/checkout", { 
       state: { 
         items: cartItems.map(item => ({
