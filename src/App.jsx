@@ -20,6 +20,7 @@ import Malesection from "./MaleClothes/Malesection";
 import Wishlist from "./Components/Wishlist";
 
 import CartPopup from "./Components/Cartpopup";
+import Checkout from "./Components/Checkout";
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
 
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<CartPopup />} />
+            <Route path="/checkout" element={<Checkout/>}/>
 
             <Route path="/product/:id" element={<ProductDetails />} />
             {/* Women Clothes Section--------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>> */}

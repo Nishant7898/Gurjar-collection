@@ -655,7 +655,7 @@ const Navbar = () => {
   <div
     ref={cartPopupRef}
     id="cart-popup"
-    className="absolute top-16 md:top-20 lg:top-24 right-2 md:right-6 z-[150] bg-white border rounded-md shadow-lg w-72 md:w-80 lg:w-96 max-h-[70vh] overflow-hidden"
+    className="absolute top-16 md:top-20 lg:top-24 right-2 md:right-6 z-[150] bg-white border rounded-md shadow-lg w-72 md:w-80 lg:w-96 max-h-[70vh] overflow-y-auto"
     role="dialog"
     aria-modal="true"
   >
