@@ -9,13 +9,12 @@ import {
 import { toast } from 'react-toastify';
 
 const CartPopup = ({ onClose, onViewCart }) => {
-  // Get cart items from Redux store
+  
   const cartItems = useSelector((state) => state.cart.items);
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
   const navigate = useNavigate();
 
-  // Calculate total price of all items in cart
   const calculateTotal = () => {
     return cartItems.reduce(
       (total, item) => total + Number(item.price) * item.quantity,
@@ -23,7 +22,6 @@ const CartPopup = ({ onClose, onViewCart }) => {
     );
   };
 
-  // Handle checkout button click
   const handleCheckout = () => {
     if (!isAuthenticated) {
       toast.error("Please log in to checkout");
@@ -35,7 +33,7 @@ const CartPopup = ({ onClose, onViewCart }) => {
       return;
     }
 
-    // Navigate to checkout page with all cart items data
+    
     navigate("/checkout", { 
       state: { 
         items: cartItems.map(item => ({
