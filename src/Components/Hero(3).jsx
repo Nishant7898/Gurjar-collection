@@ -1,4 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
+import {
+  IoArrowBackCircleOutline,
+  IoArrowForwardCircleOutline,
+} from "react-icons/io5";
 
 const images1 = [
   "https://cmsimages.shoppersstop.com/Wrogn_web_7cefbb23f5/Wrogn_web_7cefbb23f5.png",
@@ -10,6 +14,7 @@ const images1 = [
 const images2 = [
   "https://images-eu.ssl-images-amazon.com/images/G/31/INSLGW/af_pc_1x._CB792409181_.jpg",
   "https://cdn.dribbble.com/userupload/10866321/file/original-117dd32f2ec57d55305d528be0fc170b.jpg?resize=1504x1034&vertical=center",
+
   "https://img.freepik.com/premium-vector/colorful-big-sale-banner-design_8499-254.jpg",
   "https://i.fbcd.co/products/resized/resized-750-500/dff0bca857016f16cdbeee90df63ca85a71d720995c927c584fc9642ad4bb49e.jpg",
 ];
@@ -34,7 +39,6 @@ const Hero = () => {
   const [currentIndex1, setCurrentIndex1] = useState(0);
   const [isTransitioning1, setIsTransitioning1] = useState(false);
   const [direction1, setDirection1] = useState(1);
-  
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning1(true);
@@ -56,7 +60,6 @@ const Hero = () => {
 
   const [horizontalIndex, setHorizontalIndex] = useState(0);
   const scrollRef = useRef(null);
-  
   useEffect(() => {
     const interval = setInterval(() => {
       setHorizontalIndex((prevIndex) => {
@@ -93,7 +96,6 @@ const Hero = () => {
   const [currentIndex3, setCurrentIndex3] = useState(0);
   const [isTransitioning3, setIsTransitioning3] = useState(false);
   const [direction3, setDirection3] = useState(1);
-  
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning3(true);
@@ -116,7 +118,6 @@ const Hero = () => {
   const [currentIndex4, setCurrentIndex4] = useState(0);
   const [isTransitioning4, setIsTransitioning4] = useState(false);
   const [direction4, setDirection4] = useState(1);
-  
   useEffect(() => {
     const interval = setInterval(() => {
       setIsTransitioning4(true);
@@ -139,7 +140,6 @@ const Hero = () => {
   const [currentindex5, setcurrentindex5] = useState(0);
   const [isTransitioning5, setisTransitioning5] = useState(false);
   const [direction5, setdirection5] = useState(1);
-  
   useEffect(() => {
     const interval = setInterval(() => {
       setisTransitioning5(true);
@@ -159,37 +159,25 @@ const Hero = () => {
     return () => clearInterval(interval);
   }, [direction5]);
 
-  // Screen size detection
+  // New state and ref for horizontal auto-scroll
   const containerRef = useRef(null);
   const [scrollDirection, setScrollDirection] = useState(1);
-  const [screenSize, setScreenSize] = useState('desktop');
+  const [isMobile, setIsMobile] = useState(false);
 
-  // Enhanced screen size detection
+  // Detect mobile screens
   useEffect(() => {
-    const checkScreenSize = () => {
-      const width = window.innerWidth;
-      if (width < 640) {
-        setScreenSize('mobile');
-      } else if (width < 768) {
-        setScreenSize('sm');
-      } else if (width < 1024) {
-        setScreenSize('tablet');
-      } else if (width < 1280) {
-        setScreenSize('lg');
-      } else {
-        setScreenSize('desktop');
-      }
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth < 768);
     };
 
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-    return () => window.removeEventListener("resize", checkScreenSize);
+    checkIfMobile();
+    window.addEventListener("resize", checkIfMobile);
+    return () => window.removeEventListener("resize", checkIfMobile);
   }, []);
 
-  // Horizontal auto-scroll effect for mobile and small tablets
+  // Horizontal auto-scroll effect
   useEffect(() => {
-    const shouldAutoScroll = ['mobile', 'sm', 'tablet'].includes(screenSize);
-    if (!shouldAutoScroll || !containerRef.current) return;
+    if (!isMobile || !containerRef.current) return;
 
     const container = containerRef.current;
     const interval = setInterval(() => {
@@ -201,36 +189,25 @@ const Hero = () => {
       } else if (scrollDirection === -1 && scrollLeft <= 10) {
         setScrollDirection(1);
       } else {
-        const scrollAmount = screenSize === 'mobile' ? 300 : screenSize === 'sm' ? 400 : 500;
         container.scrollBy({
-          left: scrollDirection * scrollAmount,
+          left: scrollDirection * 600,
           behavior: "smooth",
         });
       }
     }, 2000);
 
     return () => clearInterval(interval);
-  }, [scrollDirection, screenSize]);
+  }, [scrollDirection, isMobile]);
 
   return (
     <div
       ref={containerRef}
-      className="w-full flex flex-row gap-1 xs:gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 px-1 xs:px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-1 xs:py-2 sm:py-4 overflow-x-auto scrollbar-hide"
-      style={{
-        scrollbarWidth: 'none',
-        msOverflowStyle: 'none',
-      }}
+      className="w-full flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 px-2 sm:px-4 md:px-6 lg:px-8 xl:px-12 2xl:px-20 py-2 sm:py-4 overflow-x-auto scrollbar-hide"
     >
-      <style jsx>{`
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-      
       {/* Main Container */}
-      <div className="flex flex-row gap-1 xs:gap-2 sm:gap-3 md:gap-4 lg:gap-5 xl:gap-6 w-[280px] xs:w-[320px] sm:w-[480px] md:w-full min-w-[280px] md:min-w-0">
+      <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-screen sm:w-[960px] md:w-full min-w-[600px] md:min-w-0">
         {/* Left Column - First Carousel */}
-        <div className="w-[28%] xs:w-[30%] sm:w-[30%] md:w-[240px] lg:w-[280px] xl:w-[320px] 2xl:w-[380px] h-[200px] xs:h-[220px] sm:h-[250px] md:h-[320px] lg:h-[380px] xl:h-[440px] 2xl:h-[500px] min-w-[80px] xs:min-w-[100px] sm:min-w-[120px] overflow-hidden rounded-sm xs:rounded md:rounded-lg bg-white shadow-sm">
+        <div className="w-[30%] sm:w-[30%] md:w-[240px] lg:w-[280px] xl:w-[320px] 2xl:w-[350px] h-[300px] sm:h-[250px] md:h-[350px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] min-w-[120px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
             className="flex flex-col"
             style={{
@@ -252,10 +229,10 @@ const Hero = () => {
                 <img
                   src={img}
                   alt="slide"
-                  className="w-full h-full object-cover object-center"
+                  className="w-full object-center  h-full md:object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-1 xs:bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1 xs:left-2 bg-red-600 hover:bg-black text-white text-[8px] xs:text-[10px] sm:text-xs md:text-sm font-bold px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-0.5 xs:py-1 sm:py-1.5 md:py-2 lg:py-2.5 rounded xs:rounded-md shadow-lg hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm">
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1   backdrop-blur-sm">
                   Buy Now
                 </button>
               </div>
@@ -263,12 +240,12 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Middle Section */}
-        <div className="flex flex-col gap-1 xs:gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-[44%] xs:w-[40%] sm:w-[40%] md:w-[400px] lg:w-auto flex-1 min-w-[120px] xs:min-w-[140px] sm:min-w-[160px]">
+        {/* 2nd middle */}
+        <div className="flex flex-col gap-2 sm:gap-3 md:gap-4 lg:gap-5 w-[40%] sm:w-[40%] md:w-[400px] lg:w-auto flex-1 min-w-[160px]">
           {/* Main Horizontal Carousel */}
-          <div className="relative h-[120px] xs:h-[140px] sm:h-[160px] md:h-[200px] lg:h-[240px] xl:h-[280px] 2xl:h-[320px] w-full overflow-hidden rounded-sm xs:rounded md:rounded-lg bg-white shadow-sm">
+          <div className="relative h-[190px] sm:h-[200px] md:h-[250px] lg:h-[320px] xl:h-[350px] 2xl:h-[400px] w-full overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
             {/* Dots indicator */}
-            <div className="absolute bottom-1 xs:bottom-2 sm:bottom-3 left-1/2 transform -translate-x-1/2 z-10 flex gap-0.5 xs:gap-1 sm:gap-2 items-center">
+            <div className="absolute bottom-2 sm:bottom-3 left-1/2 transform -translate-x-1/2 z-10 flex gap-1 sm:gap-2 items-center">
               {images2.map((_, index) => (
                 <button
                   key={index}
@@ -283,8 +260,8 @@ const Hero = () => {
                   }}
                   className={`transition-all duration-300 ${
                     index === horizontalIndex
-                      ? "w-2 h-1 xs:w-3 xs:h-1.5 sm:w-4 sm:h-2 md:w-6 md:h-2 lg:w-8 lg:h-3 bg-black rounded-full shadow-md"
-                      : "w-1 h-1 xs:w-1.5 xs:h-1.5 sm:w-2 sm:h-2 md:w-3 md:h-3 bg-red-500 hover:bg-white/75 rounded-full"
+                      ? "w-4 h-2 sm:w-6 sm:h-2 md:w-8 md:h-3 bg-black rounded-full shadow-md"
+                      : "w-2 h-2 sm:w-3 sm:h-3 bg-red-500 hover:bg-white/75 rounded-full"
                   }`}
                 />
               ))}
@@ -302,10 +279,10 @@ const Hero = () => {
                   <img
                     src={img}
                     alt="slide"
-                    className="w-full h-full object-cover"
+                    className="w-full object-fill h-full md:object-cover"
                     loading="lazy"
                   />
-                  <button className="absolute bottom-3 xs:bottom-4 sm:bottom-6 md:bottom-8 lg:bottom-10 left-1/2 transform -translate-x-1/2 bg-red-600 hover:bg-black text-white text-[8px] xs:text-[10px] sm:text-xs md:text-sm font-bold px-2 xs:px-3 sm:px-4 md:px-6 py-1 xs:py-1.5 sm:py-2 md:py-2.5 rounded xs:rounded-md lg:rounded-lg shadow-lg hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm">
+                  <button className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm">
                     Order Now
                   </button>
                 </div>
@@ -314,9 +291,9 @@ const Hero = () => {
           </div>
 
           {/* Bottom Mini Carousels */}
-          <div className="flex flex-row gap-1 xs:gap-2 sm:gap-3 md:gap-4 lg:gap-5">
+          <div className="flex flex-row gap-2 sm:gap-3 md:gap-4 lg:gap-5">
             {/* 4th banner */}
-            <div className="h-[75px] xs:h-[80px] sm:h-[90px] md:h-[110px] lg:h-[130px] xl:h-[150px] w-[50%] min-w-[60px] xs:min-w-[70px] sm:min-w-[80px] overflow-hidden rounded-sm xs:rounded bg-white shadow-sm">
+            <div className="h-[100px] sm:h-[120px] md:h-[140px] lg:h-[170px] xl:h-[180px] w-[50%] min-w-[80px] overflow-hidden rounded-md bg-white shadow-sm">
               <div
                 className="flex flex-col"
                 style={{
@@ -341,7 +318,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-0.5 xs:bottom-1 sm:bottom-2 left-1 xs:left-2 bg-red-600 hover:bg-black text-white text-[6px] xs:text-[8px] sm:text-xs font-bold px-1 xs:px-2 sm:px-3 md:px-4 lg:px-5 py-0.5 xs:py-1 sm:py-1.5 md:py-2 rounded xs:rounded-md lg:rounded-lg shadow-lg hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm w-[80%] xs:w-[75%] sm:w-[70%] md:w-[60%] lg:w-[50%]">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 w-[70%] md:w-[40%]  md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
                       Buy Now
                     </button>
                   </div>
@@ -350,7 +327,7 @@ const Hero = () => {
             </div>
 
             {/* 5th banner */}
-            <div className="h-[75px] xs:h-[80px] sm:h-[90px] md:h-[110px] lg:h-[130px] xl:h-[150px] w-[50%] min-w-[60px] xs:min-w-[70px] sm:min-w-[80px] overflow-hidden rounded-sm xs:rounded bg-white shadow-sm">
+            <div className="h-[100px] sm:h-[120px] md:h-[140px] lg:h-[170px] xl:h-[180px] w-[50%] min-w-[80px] overflow-hidden rounded-md bg-white shadow-sm">
               <div
                 className="flex flex-col"
                 style={{
@@ -375,7 +352,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-0.5 xs:bottom-1 sm:bottom-2 left-1 xs:left-2 bg-red-600 hover:bg-black text-white text-[6px] xs:text-[8px] sm:text-xs font-bold px-1 xs:px-2 sm:px-3 md:px-4 py-0.5 xs:py-1 sm:py-1.5 md:py-2 rounded xs:rounded-md lg:rounded-lg shadow-lg hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm w-[80%] xs:w-[75%] sm:w-[70%] md:w-[60%] lg:w-[50%] flex items-center text-center justify-center">
+                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs w-[70%] md:w-[40%] p-1 font-bold   mr-5   md:px-4 flex items-center text-center justify-center   md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
                       Order Now
                     </button>
                   </div>
@@ -385,8 +362,8 @@ const Hero = () => {
           </div>
         </div>
 
-        {/* Right Column - 3rd banner */}
-        <div className="w-[28%] xs:w-[30%] sm:w-[30%] md:w-[240px] lg:w-[280px] xl:w-[320px] 2xl:w-[380px] h-[200px] xs:h-[220px] sm:h-[250px] md:h-[320px] lg:h-[380px] xl:h-[440px] 2xl:h-[500px] min-w-[80px] xs:min-w-[100px] sm:min-w-[120px] overflow-hidden rounded-sm xs:rounded md:rounded-lg bg-white shadow-sm">
+        {/* 3rd banner */}
+        <div className="w-[30%] sm:w-[30%] md:w-[240px] lg:w-[320px] xl:w-[380px] 2xl:w-[450px] h-[300px] sm:h-[250px] md:h-[350px] lg:h-[450px] xl:h-[500px] 2xl:h-[600px] min-w-[120px] overflow-hidden rounded-md lg:rounded-lg bg-white shadow-sm">
           <div
             className="flex flex-col"
             style={{
@@ -411,7 +388,7 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-1 xs:bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 right-1 xs:right-2 bg-red-600 text-white hover:bg-black text-[8px] xs:text-[10px] sm:text-xs md:text-sm font-bold px-1 xs:px-2 sm:px-3 md:px-4 lg:px-6 py-0.5 xs:py-1 sm:py-1.5 md:py-2 lg:py-2.5 rounded xs:rounded-md xl:rounded-xl shadow-lg hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm">
+                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 right-2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
                   Buy Now
                 </button>
               </div>

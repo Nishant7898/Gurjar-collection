@@ -234,14 +234,71 @@ const Navbar = () => {
                 tabIndex={0}
               />
             </div>
-            <button
-              aria-label="Mobile menu toggle"
-              onClick={() => setIsMobileMenuOpen((prev) => !prev)}
-              className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-blue-400 transition-colors duration-200 touch-manipulation"
-              type="button"
-            >
-              {isMobileMenuOpen ? <HiX className="h-5 w-5 sm:h-6 sm:w-6" /> : <HiMenu className="h-5 w-5 sm:h-6 sm:w-6" />}
-            </button>
+            
+            {/* Mobile Icons - Moved from mobile menu to header */}
+            <div className="flex items-center gap-4">
+              {/* Wishlist */}
+              <div className="relative" ref={wishlistRef}>
+                <button
+                  onClick={() => togglePopup("wishlist")}
+                  className="flex flex-col items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 p-1 rounded-lg hover:bg-blue-200 touch-manipulation"
+                  aria-haspopup="true"
+                  aria-expanded={openPopup === "wishlist"}
+                  aria-controls="wishlist-popup-mobile"
+                  title="Wishlist"
+                  type="button"
+                >
+                  <AiOutlineHeart className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Cart */}
+              <div className="relative" ref={cartRef}>
+                <button
+                  onClick={() => togglePopup("cart")}
+                  className="flex flex-col items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 p-1 rounded-lg hover:bg-blue-200 touch-manipulation"
+                  aria-haspopup="true"
+                  aria-expanded={openPopup === "cart"}
+                  aria-controls="cart-popup-mobile"
+                  title="Cart"
+                  type="button"
+                >
+                  <div className="relative">
+                    <ShoppingBag className="h-5 w-5" />
+                    {totalQuantity > 0 && (
+                      <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 flex items-center justify-center min-w-0">
+                        {totalQuantity > 99 ? '99+' : totalQuantity}
+                      </span>
+                    )}
+                  </div>
+                </button>
+              </div>
+
+              {/* Profile */}
+              <div className="relative" ref={profileRef}>
+                <button
+                  onClick={() => togglePopup("profile")}
+                  className="flex flex-col items-center text-gray-700 hover:text-blue-600 transition-colors duration-200 p-1 rounded-lg hover:bg-blue-200 touch-manipulation"
+                  aria-haspopup="true"
+                  aria-expanded={openPopup === "profile"}
+                  aria-controls="profile-popup-mobile"
+                  title="Profile"
+                  type="button"
+                >
+                  <CgProfile className="h-5 w-5" />
+                </button>
+              </div>
+
+              {/* Menu Button */}
+              <button
+                aria-label="Mobile menu toggle"
+                onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                className="p-2 rounded-md text-gray-700 hover:text-gray-900 hover:bg-blue-400 transition-colors duration-200 touch-manipulation"
+                type="button"
+              >
+                {isMobileMenuOpen ? <HiX className="h-5 w-5 sm:h-6 sm:w-6" /> : <HiMenu className="h-5 w-5 sm:h-6 sm:w-6" />}
+              </button>
+            </div>
           </div>
 
 
@@ -316,66 +373,16 @@ const Navbar = () => {
           </div>
 
 
-          {/* Mobile menu popup items - better spacing and touch targets */}
+          {/* Mobile menu popup items - now empty (removed the icons) */}
           <div
             ref={mobileMenuRef}
             className={`overflow-hidden transition-all duration-300 ease-in-out bg-blue-300 ${isMobileMenuOpen ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}`}
             aria-hidden={!isMobileMenuOpen}
           >
             <div className="pb-3 sm:pb-4">
-              <div className="flex justify-center gap-6 sm:gap-8 pt-2">
-                {/* Wishlist - improved touch targets */}
-                <div className="relative" ref={wishlistRef}>
-                  <button
-                    onClick={() => togglePopup("wishlist")}
-                    className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200 p-2 rounded-lg hover:bg-blue-200 touch-manipulation"
-                    aria-haspopup="true"
-                    aria-expanded={openPopup === "wishlist"}
-                    aria-controls="wishlist-popup-mobile"
-                    title="Wishlist"
-                    type="button"
-                  >
-                    <AiOutlineHeart className="h-5 w-5 sm:h-6 sm:w-6" />
-                    <span className="text-xs font-medium">Wishlist</span>
-                  </button>
-                </div>
-          
-                <div className="relative" ref={cartRef}>
-                  <button
-                    onClick={() => togglePopup("cart")}
-                    className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200 p-2 rounded-lg hover:bg-blue-200 touch-manipulation"
-                    aria-haspopup="true"
-                    aria-expanded={openPopup === "cart"}
-                    aria-controls="cart-popup-mobile"
-                    title="Cart"
-                    type="button"
-                  >
-                    <div className="relative">
-                      <ShoppingBag className="h-5 w-5 sm:h-6 sm:w-6" />
-                      {totalQuantity > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-4 w-4 sm:h-5 sm:w-5 flex items-center justify-center min-w-0">
-                          {totalQuantity > 99 ? '99+' : totalQuantity}
-                        </span>
-                      )}
-                    </div>
-                    <span className="text-xs font-medium">Cart</span>
-                  </button>
-                </div>
-                {/* Profile - improved touch targets */}
-                <div className="relative" ref={profileRef}>
-                  <button
-                    onClick={() => togglePopup("profile")}
-                    className="flex flex-col items-center gap-1 text-gray-700 hover:text-blue-600 transition-colors duration-200 p-2 rounded-lg hover:bg-blue-200 touch-manipulation"
-                    aria-haspopup="true"
-                    aria-expanded={openPopup === "profile"}
-                    aria-controls="profile-popup-mobile"
-                    title="Profile"
-                    type="button"
-                  >
-                    <CgProfile className="h-5 w-5 sm:h-6 sm:w-6" />
-                    <span className="text-xs font-medium">Profile</span>
-                  </button>
-                </div>
+              {/* Mobile menu content can be added here if needed */}
+              <div className="text-center py-4 text-gray-600">
+                Menu content goes here
               </div>
             </div>
           </div>
