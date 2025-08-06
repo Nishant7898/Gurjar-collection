@@ -50,7 +50,7 @@ const CartPopup = ({ onClose, onViewCart }) => {
   };
 
   return (
-    <div className="flex md:py-20 flex-col h-full">
+    <div className="flex md:py-20 flex-col  h-full">
       {/* Header */}
       <div className="p-4 border-b flex justify-between items-center">
         <h2 className="text-xl font-bold">Your Cart ({cartItems.length})</h2>
@@ -87,7 +87,7 @@ const CartPopup = ({ onClose, onViewCart }) => {
                         }}
                       />
                     ) : (
-                      <div className="w-full h-full flex items-center justify-center text-gray-500 bg-gray-200">
+                      <div className="w-full h-full  flex items-center justify-center text-gray-500 bg-gray-200">
                         <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                         </svg>
@@ -152,7 +152,7 @@ const CartPopup = ({ onClose, onViewCart }) => {
           <button
             onClick={handleCheckout}
             disabled={cartItems.length === 0}
-            className={`w-full py-3 rounded font-medium ${
+            className={`w-full  py-3 rounded font-medium ${
               cartItems.length === 0
                 ? 'bg-gray-300 cursor-not-allowed'
                 : 'bg-orange-500 text-white hover:bg-orange-600'

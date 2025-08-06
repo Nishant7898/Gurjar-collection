@@ -1,12 +1,34 @@
-import React, { memo } from "react";
+import React, { memo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { removeFromWishlist } from "../Redux/Wishlistslice";
 import { addToCart } from "../Redux/cartslice";
 import { toast } from "react-toastify";
 import { ShoppingBag } from "lucide-react";
+import { useNavigate } from "react-router";
 
-const WishlistItem = memo(({ item, onRemove, onAddToCart }) => {
-  const price = typeof item.price === "number" ? item.price : Number(item.price) || 0;
+const WishlistItem = memo(({ item, onRemove }) => {
+  const [added, setAdded] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const cart = useSelector((state) => state.cart);
+
+  const isInCart =
+    Array.isArray(cart) &&
+    cart.some(
+      (cartItem) => cartItem.id === item.id && cartItem.size === item.size
+    );
+
+  const handleButtonClick = () => {
+    if (!added && !isInCart) {
+      dispatch(addToCart({ ...item, quantity: 1 }));
+      setAdded(true);
+    } else {
+      navigate("/cart");
+    }
+  };
+
+  const price =
+    typeof item.price === "number" ? item.price : Number(item.price) || 0;
 
   return (
     <div className="flex flex-col sm:flex-row gap-4 items-center border-b pb-6 last:border-b-0 group">
@@ -38,13 +60,13 @@ const WishlistItem = memo(({ item, onRemove, onAddToCart }) => {
 
       <div className="flex gap-3 sm:flex-col sm:gap-2 w-full sm:w-auto">
         <button
-          onClick={() => onAddToCart(item)}
+          onClick={handleButtonClick}
           className="flex items-center justify-center gap-1 bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md text-sm font-medium transition-colors"
-          aria-label={`Add ${item.name || item.desc} to cart`}
+          aria-label={`${added || isInCart ? "Go to Cart" : "Add to Cart"}`}
           type="button"
         >
-          <ShoppingBag className="h-4 w-4" />
-          <span>Add to Cart</span>
+          <ShoppingBag className="h-2 w-2" />
+          <span>{added || isInCart ? "Go to Cart" : "Add to Cart"}</span>
         </button>
 
         <button
@@ -116,10 +138,10 @@ const Wishlist = () => {
               />
             </svg>
           </div>
-          <h3 className="text-lg font-medium text-gray-700">Your wishlist is empty</h3>
-          <p className="text-gray-500 mt-1">
-            Save items in your wishlist
-          </p>
+          <h3 className="text-lg font-medium text-gray-700">
+            Your wishlist is empty
+          </h3>
+          <p className="text-gray-500 mt-1">Save items in your wishlist</p>
         </div>
       ) : (
         <section className="grid gap-6 divide-y divide-gray-200">
