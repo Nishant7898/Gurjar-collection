@@ -56,7 +56,7 @@ const WishlistItem = memo(({ item, onRemove }) => {
         <p className="text-orange-600 font-semibold mt-1 text-lg">
           ₹{price.toLocaleString("en-IN")}
         </p>
-      </div>
+      </div> 
 
       <div className="flex gap-3 sm:flex-col sm:gap-2 w-full sm:w-auto">
         <button
@@ -65,7 +65,7 @@ const WishlistItem = memo(({ item, onRemove }) => {
           aria-label={`${added || isInCart ? "Go to Cart" : "Add to Cart"}`}
           type="button"
         >
-          <ShoppingBag className="h-2 w-2" />
+          <ShoppingBag className="h-2   w-2" />
           <span>{added || isInCart ? "Go to Cart" : "Add to Cart"}</span>
         </button>
 

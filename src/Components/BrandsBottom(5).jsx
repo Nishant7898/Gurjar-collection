@@ -1,5 +1,5 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/cartslice";
 import { HiMiniShoppingCart } from "react-icons/hi2";
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -51,6 +51,7 @@ const products = [
 
 const BrandsBottom = () => {
   const dispatch = useDispatch();
+  const cartitems=useSelector((state)=>state.cart.items)
 
   return (
     <div className="grid grid-cols-2 md:px-30   md:flex md:flex-wrap justify-center items-center gap-3 px-4 sm:px-10  lg:px-30 py-6">
@@ -69,7 +70,7 @@ const BrandsBottom = () => {
           <p className="text-red-600 font-bold">₹{item.price}</p>
           <div className="flex justify-center mt-2 flex-row items-center gap-2">
             <button
-              onClick={() => dispatch(addToCart(item))}
+              onClick={() => dispatch(addToCart({ ...item, quantity: 1 }))}
               className="bg-orange-500 flex items-center gap-2 rounded-md font-semibold hover:scale-95 text-white p-2"
             >
               {idx === 0 ? "Buy Now" : "Add To Cart"}
@@ -84,4 +85,4 @@ const BrandsBottom = () => {
   );
 };
 
-export default BrandsBottom;
+export default BrandsBottom; 

@@ -220,7 +220,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-blue-300 shadow-lg z-[100]">
+    <nav className="fixed top-0 left-0 w-full bg-gradient-to-l from-orange-300 to-orange-400 shadow-lg z-[100]">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         {/* MOBILE NAVBAR (< 768px) */}
         <div className="md:hidden">
