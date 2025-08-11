@@ -1,7 +1,7 @@
 import React, { memo, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { removeFromWishlist } from "../Redux/Wishlistslice";
-import { addToCart } from "../Redux/cartslice";
+import { removeFromWishlist } from "../../Redux/Wishlistslice";
+import { addToCart } from "../../Redux/cartslice";
 import { toast } from "react-toastify";
 import { ShoppingBag } from "lucide-react";
 import { useNavigate } from "react-router";

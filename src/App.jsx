@@ -1,26 +1,26 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Home from "./Pages/Home";
-import Navbar from "./Components/Navbar(1)";
+import Navbar from "./Components/Navbar/Navbar(1)";
 import Profiledropdown from ".//authpage/profiledropdown";
-import MenSection from "./Components/MenSection";
+import MenSection from "./CategoriesProducts/MenSection";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-import ProductDetails from "./Components/productdetails";
+import ProductDetails from "./Components/productpage/productdetails";
 
-import WomenSection from "./Components/WomenSection";
+import WomenSection from "./CategoriesProducts/WomenSection";
 
 import Login from "./authpage/Loginpage";
 import Signup from "./authpage/Signuppage";
 
-import Femalesection from "./FemaleClothes/Femalesection";
-import Malesection from "./MaleClothes/Malesection";
+import Femalesection from "./CategoriesProducts/Femalesection";
+import Malesection from "./CategoriesProducts/Malesection";
 
-import Wishlist from "./Components/Wishlist";
+import Wishlist from "./Components/Wishlist/Wishlist";
 
-import CartPopup from "./Components/Cartpopup";
-import Checkout from "./Components/Checkout";
+import CartPopup from "./Components/Cartpop/Cartpopup";
+import Checkout from "./Components/Checkout/Checkout";
 
 function App() {
   return (

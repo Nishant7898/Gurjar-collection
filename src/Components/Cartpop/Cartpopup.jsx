@@ -5,7 +5,7 @@ import {
   removeFromCart,
   incrementQuantity,
   decrementQuantity,
-} from '../Redux/cartslice';
+} from '../../Redux/cartslice';
 import { toast } from 'react-toastify';
 
 const CartPopup = ({ onClose, onViewCart }) => {

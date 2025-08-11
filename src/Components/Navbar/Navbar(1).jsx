@@ -4,11 +4,11 @@ import { AiOutlineHeart } from "react-icons/ai";
 import { ShoppingBag } from "lucide-react";
 import { CgProfile } from "react-icons/cg";
 import { HiMenu, HiX } from "react-icons/hi";
-import logo from "../assets/Logo.png";
+import logo from "../../assets/Logo.png";
 import { MdMic } from "react-icons/md";
-import Profiledropdown from "../authpage/profiledropdown";
-import CartPopup from "./Cartpopup";
-import Wishlist from "./Wishlist";
+import Profiledropdown from "../../authpage/profiledropdown";
+import CartPopup from "../Cartpop/Cartpopup";
+import Wishlist from "../Wishlist/Wishlist";
 import { useSelector } from "react-redux";
 import { useNavigate, useLocation } from "react-router-dom";  // Added useLocation import
 
@@ -220,7 +220,7 @@ const Navbar = () => {
 
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-gradient-to-l from-orange-300 to-orange-400 shadow-lg z-[100]">
+    <nav className="fixed top-0 left-0 w-full bg-orange-500 shadow-lg z-[100]">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         {/* MOBILE NAVBAR (< 768px) */}
         <div className="md:hidden">
@@ -319,7 +319,7 @@ const Navbar = () => {
                   <button
                     ref={categoryButtonRef}
                     onClick={handleDropdownToggle}
-                    className="flex items-center gap-1 sm:gap-2 bg-yellow-200 px-2 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm font-medium hover:bg-yellow-300 transition-colors duration-200 whitespace-nowrap min-w-0"
+                    className="flex items-center gap-1 sm:gap-2 bg-orange-200 px-2 sm:px-3 py-2 sm:py-2.5 text-xs sm:text-sm font-medium hover:bg-yellow-300 transition-colors duration-200 whitespace-nowrap min-w-0"
                     aria-haspopup="listbox"
                     aria-expanded={isDropdownOpen}
                     type="button"

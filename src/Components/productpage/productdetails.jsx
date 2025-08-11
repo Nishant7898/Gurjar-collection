@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { addToCart } from "../Redux/cartslice";
-import { addToWishlist, removeFromWishlist } from "../Redux/Wishlistslice";
+import { addToCart } from "../../Redux/cartslice";
+import { addToWishlist, removeFromWishlist } from "../../Redux/Wishlistslice";
 import { toast } from "react-toastify";
 import { ArrowLeft, Heart, Star, Truck, Shield, RotateCcw } from "lucide-react";
 

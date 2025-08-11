@@ -93,23 +93,23 @@ const Category = () => {
   };
 
   return (
-    <div className="mt-23 mb-2.5 sm:mt-20 md:mt-28 lg:mt-23 w-full bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-md px-4 backdrop-blur-sm relative z-50">
+    <div className="mt-23  mb-2.5 sm:mt-20 md:mt-28 lg:mt-23 w-full bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 shadow-md px-4 backdrop-blur-sm relative z-50">
 
       {/* Mobile Layout */}
-      <div className="md:hidden py-5" ref={mobileMenuRef}>
+      <div className="md:hidden  py-5" ref={mobileMenuRef}>
         {/* Mobile Menu Toggle Button */}
         <button
           onClick={toggleMobileMenu}
           aria-label="Mobile Menu"
-          className="w-full flex items-center justify-between px-6 py-4 bg-gradient-to-r from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200"
+          className="w-full flex items-center  justify-between px-6 py-4 bg-gradient-to-r from-white to-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border border-gray-100 hover:border-purple-200"
           type="button"
         >
-          <div className="flex items-center gap-3">
+          <div className="flex items-center  gap-3">
             <ImMenu className="text-lg text-purple-600" />
-            <span className="font-bold text-gray-800 text-lg">Menu</span>
+            <span className="font-bold text-gray-800  text-lg">Menu</span>
           </div>
           {isMobileMenuOpen ? (
-            <HiChevronUp className="text-xl text-purple-600 transition-transform duration-300" />
+            <HiChevronUp className="text-xl text-purple-600  transition-transform duration-300" />
           ) : (
             <HiChevronDown className="text-xl text-purple-600 transition-transform duration-300" />
           )}
@@ -130,7 +130,7 @@ const Category = () => {
             >
               <div className="flex items-center gap-3">
                 <ImMenu className="text-lg text-purple-600" />
-                <span className="font-semibold text-gray-800">Categories</span>
+                <span className="font-semibold  text-gray-800">Categories</span>
               </div>
               <IoMdArrowDropdownCircle className="text-xl text-purple-600" />
             </button>
@@ -151,10 +151,10 @@ const Category = () => {
           </div>
 
           {/* Gender Buttons */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid  grid-cols-2 gap-4">
             <button
               onClick={handleclick}
-              className="flex items-center justify-center gap-2 px-4 py-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-blue-200 hover:border-blue-300"
+              className="flex items-center  justify-center gap-2 px-4 py-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl shadow-md hover:shadow-lg hover:scale-105 transition-all duration-300 border border-blue-200 hover:border-blue-300"
               type="button"
             >
               <BiMale className="text-xl text-blue-600" />
