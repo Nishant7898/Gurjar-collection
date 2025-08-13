@@ -9,7 +9,8 @@ const Wishlistslice = createSlice({
       if (!exists) state.push(action.payload);
     },
     removeFromWishlist: (state, action) => {
-      return state.filter(item => item.id !== action.payload.id);
+    
+      return state.filter(item => item.id !== action.payload);
     },
   },
 });

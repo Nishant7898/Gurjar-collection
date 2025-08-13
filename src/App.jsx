@@ -5,7 +5,7 @@ import Profiledropdown from ".//authpage/profiledropdown";
 import MenSection from "./CategoriesProducts/MenSection";
 
 import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { Toaster } from "react-hot-toast";
 
 import ProductDetails from "./Components/productpage/productdetails";
 
@@ -53,6 +53,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
+         <Toaster position="top-right" reverseOrder={false} />
     </>
   );
 }

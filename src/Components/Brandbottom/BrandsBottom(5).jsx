@@ -2,8 +2,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Redux/cartslice";
 import { HiMiniShoppingCart } from "react-icons/hi2";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeartEmpty, IoMdHeart } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
+import { addToWishlist, removeFromWishlist } from "../../Redux/Wishlistslice";
+import toast from "react-hot-toast";
 
 const products = [
   {
@@ -53,17 +55,62 @@ const products = [
 const BrandsBottom = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const cartitems = useSelector((state) => state.cart.items);
 
-  // Check if product is in cart
-  const isInCart = (id) => {
-    return cartitems.some((item) => item.id === id);
+  const cartitems = useSelector((state) => state.cart.items);
+  const wishlistitems = useSelector((state) => state.wishlist);
+
+  const isInCart = (id) => cartitems.some((item) => item.id === id);
+  const isInWishlist = (id) => wishlistitems.some((item) => item.id === id);
+const handleAddToCart=(item)=>{
+  dispatch(addToCart({...item,quantity:1,size:"default"}))
+  toast(
+    <div className="flex gap-3 items-center">
+          <img src={item.img} className="h-20 rounded-md w-20 object-cover" alt="" />
+      <span className="font-semibold text-black">{item.Name} Added to Cart 🛒</span>
+  
+    </div>
+  )
+
+}
+  const toggleWishlist = (item) => {
+    if (isInWishlist(item.id)) {
+      dispatch(removeFromWishlist(item.id));
+      toast(
+        <div className="flex items-center gap-3">
+             <img
+            src={item.img}
+            alt={item.Name}
+            className="w-20 h-20 rounded-md object-cover"
+          />
+          <span className="font-semibold text-black">
+            {item.Name} Removed From The Wishlist 💔
+          </span>{" "}
+       
+        </div>
+      );
+    } else {
+      dispatch(addToWishlist(item));
+      toast(
+        <div className="flex items-center gap-3">
+             <img
+            src={item.img}
+            alt={item.Name}
+            className="w-20 h-20 rounded-md object-cover"
+          />
+          <span className="font-semibold text-black">
+            {item.Name} Added To The Wishlist ❤️
+          </span>
+       
+        </div>
+      );
+    }
   };
 
   return (
     <div className="grid grid-cols-2 md:px-30 md:flex md:flex-wrap justify-center items-center gap-3 px-4 sm:px-10 lg:px-30 py-6">
       {products.map((item, idx) => {
         const inCart = isInCart(item.id);
+        const inWishlist = isInWishlist(item.id);
 
         return (
           <div
@@ -75,16 +122,26 @@ const BrandsBottom = () => {
               className="h-[250px] w-full object-cover rounded-md hover:scale-95 transition-transform"
               alt={item.Name}
             />
-            <IoMdHeartEmpty className="absolute top-4 right-4 text-xl text-white" />
+
+            {/* Wishlist button */}
+            <button
+              onClick={() => toggleWishlist(item)}
+              className="absolute top-4 right-4 text-xl"
+            >
+              {inWishlist ? (
+                <IoMdHeart className="text-red-500" />
+              ) : (
+                <IoMdHeartEmpty className="text-white" />
+              )}
+            </button>
+
             <p className="font-semibold mt-2">{item.Name}</p>
             <p className="text-red-600 font-bold">₹{item.price}</p>
 
             <div className="flex justify-center mt-2 flex-row items-center gap-2">
               {!inCart ? (
                 <button
-                  onClick={() =>
-                    dispatch(addToCart({ ...item, quantity: 1, size: "default" }))
-                  }
+                  onClick={()=>handleAddToCart(item)}
                   className="bg-orange-500 flex items-center gap-2 rounded-md font-semibold hover:scale-95 text-white p-2"
                 >
                   {idx === 0 ? "Buy Now" : "Add To Cart"}

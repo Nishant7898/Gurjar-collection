@@ -1,12 +1,15 @@
+// Femalesection.jsx
+
 import React, { useState, useEffect } from "react";
 import { Heart, ListFilter } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/cartslice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import Womencollection from "../ClothesData/Womencollection";
 import { addToWishlist, removeFromWishlist } from "../Redux/Wishlistslice";
 
+// ---------------- Product Grid ----------------
 const ProductGrid = ({
   items,
   visiblecount,
@@ -20,13 +23,40 @@ const ProductGrid = ({
 
   const isWishlisted = (id) => wishlist.some((item) => item.id === id);
 
+  // Custom Wishlist Toast
+  const showWishlistToast = (product, type) => {
+    toast.custom((t) => (
+      <div
+        className={`${
+          t.visible ? "animate-enter" : "animate-leave"
+        } bg-white shadow-lg rounded-lg flex items-center gap-3 p-3 border-l-4 ${
+          type === "add" ? "border-green-500" : "border-red-500"
+        }`}
+      >
+        <img
+          src={product.img}
+          alt={product.Name || product.desc}
+          className="w-12 h-12 object-cover rounded"
+        />
+        <div className="text-sm">
+          <p className="font-semibold">{product.Name || product.desc}</p>
+          <p className={type === "add" ? "text-green-600" : "text-red-600"}>
+            {type === "add"
+              ? "Added to Wishlist ❤️"
+              : "Removed from Wishlist 💔"}
+          </p>
+        </div>
+      </div>
+    ));
+  };
+
   const handleToggleWishlist = (item) => {
     if (isWishlisted(item.id)) {
-      dispatch(removeFromWishlist(item));
-      toast.info("Removed from Wishlist", { position: "top-right", autoClose: 2000 });
+      dispatch(removeFromWishlist(item.id)); // ✅ always send `id`
+      showWishlistToast(item, "remove");
     } else {
-      dispatch(addToWishlist(item));
-      toast.success("Added to Wishlist", { position: "top-right", autoClose: 2000 });
+      dispatch(addToWishlist(item)); // ✅ always send full object
+      showWishlistToast(item, "add");
     }
   };
 
@@ -38,7 +68,7 @@ const ProductGrid = ({
             key={item.id}
             className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white"
           >
-            {/* Heart Icon (Wishlist) */}
+            {/* Wishlist Heart */}
             <button
               className="absolute top-1 right-3 p-1 z-10"
               onClick={() => handleToggleWishlist(item)}
@@ -53,8 +83,11 @@ const ProductGrid = ({
               />
             </button>
 
-            {/* Image - Clickable */}
-            <div onClick={() => handleProductClick(item)} className="cursor-pointer">
+            {/* Product Image */}
+            <div
+              onClick={() => handleProductClick(item)}
+              className="cursor-pointer"
+            >
               <img
                 src={item.img}
                 alt={item.desc}
@@ -63,7 +96,7 @@ const ProductGrid = ({
               />
             </div>
 
-            {/* Product Info */}
+            {/* Product Details */}
             <div className="p-3">
               <p className="font-semibold text-lg">{item.desc}</p>
               <span className="mt-5 flex flex-row">
@@ -74,10 +107,12 @@ const ProductGrid = ({
                   </span>
                 </p>
               </span>
-              <p className="text-red-500 font-semibold text-sm">{item.discount}</p>
+              <p className="text-red-500 font-semibold text-sm">
+                {item.discount}
+              </p>
             </div>
 
-            {/* Add to Cart Button */}
+            {/* Add to Cart */}
             <button
               onClick={() => handleAddToCart(item)}
               className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition"
@@ -88,7 +123,7 @@ const ProductGrid = ({
         ))}
       </div>
 
-      {/* Load More Button */}
+      {/* Load More */}
       {visiblecount < items.length && (
         <div className="text-center mt-10">
           <button
@@ -103,6 +138,7 @@ const ProductGrid = ({
   );
 };
 
+// ---------------- Female Section ----------------
 const Femalesection = () => {
   const { category } = useParams();
   const navigate = useNavigate();
@@ -117,10 +153,7 @@ const Femalesection = () => {
 
   const handleAddToCart = (item) => {
     if (!user) {
-      toast.warn("⚠️ Please log in to add items to cart!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
+      toast.error("⚠️ Please log in to add items to cart!");
       return;
     }
 
@@ -137,17 +170,12 @@ const Femalesection = () => {
       <div className="flex items-center gap-3">
         <img src={item.img} alt={item.desc} className="w-10 h-10 rounded" />
         <span>✅ {item.desc} added to cart</span>
-      </div>,
-      {
-        position: "top-right",
-        autoClose: 3000,
-      }
+      </div>
     );
   };
 
   const validCategories = ["Tops", "T-Shirts", "Skirts", "Salwar-Suits"];
 
-  // Initialize selectedCategory with URL category or empty string if none
   const [selectedCategory, setSelectedCategory] = useState(category || "");
   const [selectedPrice, setSelectedPrice] = useState("");
   const [sortOrder, setSortOrder] = useState("");
@@ -166,12 +194,10 @@ const Femalesection = () => {
   }, []);
 
   useEffect(() => {
-    // Update selectedCategory when URL changes
     if (category && validCategories.includes(category)) {
       setSelectedCategory(category);
-      setvisiblecount(ismobile ? 8 : 12); // Reset visible count on category change
+      setvisiblecount(ismobile ? 8 : 12);
     } else if (category && !validCategories.includes(category)) {
-      // Redirect to women section if invalid category
       navigate(`/women`);
       setSelectedCategory("");
     }
@@ -181,7 +207,6 @@ const Femalesection = () => {
     setvisiblecount((prev) => prev + (ismobile ? 4 : 6));
   };
 
-  // Filter by category
   const categories = {
     Tops: Womencollection.filter((item) => item.category === "Tops"),
     "T-Shirts": Womencollection.filter((item) => item.category === "T-Shirts"),
@@ -191,12 +216,10 @@ const Femalesection = () => {
     ),
   };
 
-  // Use all products if no category is selected, otherwise filter by selected category
   const filteredItems = selectedCategory
     ? categories[selectedCategory] || Womencollection
     : Womencollection;
 
-  // Filter by price
   const filtered = filteredItems.filter((item) => {
     const price = parseInt(item.price?.replace("₹", "").replace(",", "") || 0);
     if (selectedPrice === "below500") return price < 500;
@@ -205,7 +228,6 @@ const Femalesection = () => {
     return true;
   });
 
-  // Sort by price
   const sorted = [...filtered].sort((a, b) => {
     const priceA = parseInt(a.price?.replace("₹", "").replace(",", "") || 0);
     const priceB = parseInt(b.price?.replace("₹", "").replace(",", "") || 0);
@@ -216,7 +238,7 @@ const Femalesection = () => {
 
   return (
     <div className="min-h-screen px-4 py-30">
-      {/* Category Selection */}
+      {/* Categories */}
       <div className="flex flex-wrap gap-4 justify-center mb-8">
         <button
           onClick={() => {
@@ -248,13 +270,13 @@ const Femalesection = () => {
         ))}
       </div>
 
-      {/* Filter and Sort Controls */}
+      {/* Filters */}
       <div className="flex flex-wrap gap-4 justify-between mb-8">
-        {/* Filter Dropdown */}
+        {/* Price Filter */}
         <div className="relative">
           <select
             onChange={(e) => setSelectedPrice(e.target.value)}
-            className="appearance-none w-full md:w-48 bg-white border border-gray-300 text-gray-700 py-2.5 px-4 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition duration-200 cursor-pointer"
+            className="appearance-none w-full md:w-48 bg-white border border-gray-300 text-gray-700 py-2.5 px-4 pr-8 rounded-lg"
           >
             <option value="">Filter by Price</option>
             <option value="below500">Below ₹500</option>
@@ -262,23 +284,22 @@ const Femalesection = () => {
             <option value="above800">Above ₹800</option>
           </select>
           <ListFilter
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
             size={18}
           />
         </div>
-
-        {/* Sort Dropdown */}
+        {/* Sort */}
         <div className="relative">
           <select
             onChange={(e) => setSortOrder(e.target.value)}
-            className="appearance-none w-full md:w-48 bg-white border border-gray-300 text-gray-700 py-2.5 px-4 pr-8 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition duration-200 cursor-pointer"
+            className="appearance-none w-full md:w-48 bg-white border border-gray-300 text-gray-700 py-2.5 px-4 pr-8 rounded-lg"
           >
             <option value="">Sort by</option>
             <option value="lowToHigh">Price: Low to High</option>
             <option value="highToLow">Price: High to Low</option>
           </select>
           <ListFilter
-            className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
             size={18}
           />
         </div>
