@@ -3,7 +3,7 @@ import { Heart, ListFilter } from "lucide-react";
 import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../Redux/cartslice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import MenCollection from "../ClothesData/MenCollection";
 import { addToWishlist, removeFromWishlist } from "../Redux/Wishlistslice";
 
@@ -17,22 +17,54 @@ const ProductGrid = ({
 }) => {
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
-
+const user =useSelector((state)=>state.auth.currentUser)
   const isWishlisted = (id) => wishlist.some((item) => item.id === id);
 
-  const handleToggleWishlist = (item) => {
-    if (isWishlisted(item.id)) {
-      dispatch(removeFromWishlist(item));
-      toast.info("Removed from Wishlist", {
-        position: "top-right",
-        autoClose: 2000,
+  const toggleWishlist = (item) => {
+    if(!user) {
+      toast("Please Login!", {
+        icon: "⚠️",
+        style: {
+          borderRadius: "10px",
+          background: "white",
+          fontSize: "18px",
+          font: "message-box",
+
+          placeItems: "center",
+          color: "red",
+          width: "250px",
+        },
       });
+      return;
+    }
+    if (isWishlisted(item.id)) {
+      dispatch(removeFromWishlist(item.id));
+      toast(
+        <div className="flex items-center gap-3">
+          <img
+            src={item.img}
+            alt={item.Name}
+            className="w-20 h-20 rounded-md object-cover"
+          />
+          <span className="font-semibold text-black">
+            {item.Name} Removed From The Wishlist 💔
+          </span>{" "}
+        </div>
+      );
     } else {
       dispatch(addToWishlist(item));
-      toast.success("Added to Wishlist", {
-        position: "top-right",
-        autoClose: 2000,
-      });
+      toast(
+        <div className="flex items-center gap-3">
+          <img
+            src={item.img}
+            alt={item.Name}
+            className="w-20 h-20 rounded-md object-cover"
+          />
+          <span className="font-semibold text-black">
+            {item.Name} Added To The Wishlist ❤️
+          </span>
+        </div>
+      );
     }
   };
 
@@ -46,7 +78,7 @@ const ProductGrid = ({
           >
             <button
               className="absolute top-1 right-3 p-1 z-10"
-              onClick={() => handleToggleWishlist(item)}
+              onClick={() => toggleWishlist(item)}
               aria-label="Toggle wishlist"
               style={{ background: "none", border: "none", cursor: "pointer" }}
             >
@@ -123,9 +155,18 @@ const Malesection = () => {
 
   const handleAddToCart = (item) => {
     if (!user) {
-      toast.warn("⚠️ Please log in to add items to cart!", {
-        position: "top-right",
-        autoClose: 3000,
+      toast("Please Login!", {
+        icon: "⚠️",
+        style: {
+          borderRadius: "10px",
+          background: "white",
+          fontSize: "18px",
+          font: "message-box",
+
+          placeItems: "center",
+          color: "red",
+          width: "250px",
+        },
       });
       return;
     }
@@ -136,7 +177,6 @@ const Malesection = () => {
         desc: item.desc,
         price: item.price,
         quantity: 1,
-      
       })
     );
 
@@ -152,7 +192,13 @@ const Malesection = () => {
     );
   };
 
-  const validCategories = ["Formal-Shirts", "T-Shirts", "Oversized-T-Shirts", "Check-Shirt", "Oversized-Shirts"];
+  const validCategories = [
+    "Formal-Shirts",
+    "T-Shirts",
+    "Oversized-T-Shirts",
+    "Check-Shirt",
+    "Oversized-Shirts",
+  ];
 
   const [selectedCategory, setSelectedCategory] = useState(category || "");
   const [selectedPrice, setSelectedPrice] = useState("");

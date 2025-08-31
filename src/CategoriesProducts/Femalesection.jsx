@@ -168,8 +168,8 @@ const Femalesection = () => {
 
     toast.success(
       <div className="flex items-center gap-3">
-        <img src={item.img} alt={item.desc} className="w-10 h-10 rounded" />
-        <span>✅ {item.desc} added to cart</span>
+        <img src={item.img} alt={item.desc} className="w-20 h-20 rounded" />
+        <span>{item.desc} added to cart</span>
       </div>
     );
   };

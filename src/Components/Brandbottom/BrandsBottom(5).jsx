@@ -129,9 +129,9 @@ const handleAddToCart=(item)=>{
               className="absolute top-4 right-4 text-xl"
             >
               {inWishlist ? (
-                <IoMdHeart className="text-red-500" />
+                <IoMdHeart className="text-red-500 text-2xl" />
               ) : (
-                <IoMdHeartEmpty className="text-white" />
+                <IoMdHeartEmpty className="text-rose-500 text-2xl" />
               )}
             </button>
 
