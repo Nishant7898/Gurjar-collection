@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "../../assets/logo.png";
+import bg from "../../assets/logo.png";
 
 const Footer = () => {
   return (
@@ -8,7 +8,7 @@ const Footer = () => {
         {/* Brand */}
         <div>
           <div className="flex items-center gap-2  bg-center">
-            <img className="h-10 w-10 rounded-full" src={logo} alt="" />
+            <img className="h-10 w-10 rounded-full" src={bg} alt="" />
             {" "}
             <h2 className="text-white font-scope-one-regular font-bold text-2xl ">
               Cloth Canvas
