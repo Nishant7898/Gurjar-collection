@@ -93,7 +93,7 @@ const Largebanner = () => {
             </div>
             
             {/* Styled Button */}
-            <button className="relative overflow-hidden bg-gradient-to-r from-red-600 to-red-700 hover:from-red-700 hover:to-red-800 px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-full text-white font-bold text-sm sm:text-base md:text-lg transition-all duration-300 transform hover:scale-110 animate-bounce hover:animate-none shadow-2xl flex items-center gap-2 sm:gap-3 group/btn border-2 border-white/20">
+            <button className="relative overflow-hidden bg-gradient-to-t from-[#d3af10ab] to to-[#b3c706] hover:bg-yellow-600 px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 rounded-full text-white font-bold text-sm sm:text-base md:text-lg transition-all duration-300 transform hover:scale-110 animate-bounce hover:animate-none shadow-2xl flex items-center gap-2 sm:gap-3 group/btn border-2 border-white/20">
               {/* Shimmer effect */}
               <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent transform -skew-x-12 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700"></div>
               

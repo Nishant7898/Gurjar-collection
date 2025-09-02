@@ -232,9 +232,7 @@ const Hero = () => {
                   className="w-full object-center  h-full md:object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 left-1 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-md shadow-2xl hover:shadow-red-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1   backdrop-blur-sm">
-                  Buy Now
-                </button>
+               
               </div>
             ))}
           </div>
@@ -282,9 +280,7 @@ const Hero = () => {
                     className="w-full object-fill h-full md:object-cover"
                     loading="lazy"
                   />
-                  <button className="absolute bottom-6 sm:bottom-8 md:bottom-10 lg:bottom-12 left-1/2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs sm:text-sm font-bold px-4 sm:px-6 md:px-8 py-2 sm:py-2.5 md:py-3 rounded-lg shadow-2xl hover:shadow-emerald-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1 backdrop-blur-sm">
-                    Order Now
-                  </button>
+               
                 </div>
               ))}
             </div>
@@ -318,9 +314,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs font-bold px-2 w-[70%] md:w-[40%]  md:px-4 lg:px-5 py-1 sm:py-1.5 md:py-2 rounded-lg shadow-xl hover:shadow-orange-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
-                      Buy Now
-                    </button>
+                 
                   </div>
                 ))}
               </div>
@@ -352,9 +346,7 @@ const Hero = () => {
                       className="w-full h-full object-cover"
                       loading="lazy"
                     />
-                    <button className="absolute bottom-1 sm:bottom-2 left-2 transform-translate-x-1/2 bg-red-600 hover:bg-black text-white text-xs w-[70%] md:w-[40%] p-1 font-bold   mr-5   md:px-4 flex items-center text-center justify-center   md:py-2 rounded-lg shadow-xl hover:shadow-blue-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
-                      Order Now
-                    </button>
+                 
                   </div>
                 ))}
               </div>
@@ -388,9 +380,7 @@ const Hero = () => {
                   className="w-full h-full object-cover"
                   loading="lazy"
                 />
-                <button className="absolute bottom-2 sm:bottom-3 md:bottom-4 lg:bottom-5 right-2 transform-translate-x-1/2 bg-red-600 text-white hover:bg-black text-xs sm:text-sm font-bold px-3 sm:px-4 md:px-6 lg:px-8 py-1.5 sm:py-2 md:py-2.5 lg:py-3 rounded-xl shadow-2xl hover:shadow-rose-500/50 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1  backdrop-blur-sm">
-                  Buy Now
-                </button>
+            
               </div>
             ))}
           </div>

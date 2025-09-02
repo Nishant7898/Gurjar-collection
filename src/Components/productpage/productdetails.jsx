@@ -3,7 +3,7 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../Redux/cartslice";
 import { addToWishlist, removeFromWishlist } from "../../Redux/Wishlistslice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { ArrowLeft, Heart, Star, Truck, Shield, RotateCcw } from "lucide-react";
 
 const ProductDetails = () => {
@@ -12,10 +12,8 @@ const ProductDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
 
-
   const allProducts = useSelector((state) => state.product?.allproducts) || [];
   
- 
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(true);
 
@@ -27,12 +25,10 @@ const ProductDetails = () => {
   const [selectedImage, setSelectedImage] = useState(0);
 
   useEffect(() => {
-
     if (location.state?.product) {
       setProduct(location.state.product);
       setLoading(false);
     } else {
-  
       const foundProduct = allProducts.find((p) => p.id === id);
       if (foundProduct) {
         setProduct(foundProduct);
@@ -40,6 +36,162 @@ const ProductDetails = () => {
       setLoading(false);
     }
   }, [id, location.state, allProducts]);
+
+  // Fixed wishlist check function
+  const isWishlisted = (productId) => {
+    if (!wishlist || !productId) return false;
+    
+    // If wishlist is an array
+    if (Array.isArray(wishlist)) {
+      return wishlist.some((item) => item.id === productId);
+    }
+    
+    // If wishlist has an items property that's an array
+    if (wishlist.items && Array.isArray(wishlist.items)) {
+      return wishlist.items.some((item) => item.id === productId);
+    }
+    
+    return false;
+  };
+
+  const toggleWishlist = () => {
+    if (!user) {
+      toast.error("Please Login!", {
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#ef4444",
+          fontSize: "16px",
+          fontWeight: "600",
+          padding: "16px",
+        },
+        icon: "⚠️",
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (!product) return;
+
+    const isCurrentlyWishlisted = isWishlisted(product.id);
+    
+    if (isCurrentlyWishlisted) {
+      dispatch(removeFromWishlist(product.id));
+      toast.success(
+        <div className="flex items-center gap-3">
+          <img
+            src={product.img}
+            alt={product.Name || product.desc}
+            className="w-12 h-12 rounded-md object-cover"
+          />
+          <span className="font-semibold text-gray-800">
+            {product.Name || product.desc} removed from wishlist
+          </span>
+        </div>,
+        {
+          style: {
+            borderRadius: "10px",
+            background: "#fff",
+            color: "#374151",
+            border: "1px solid #f3f4f6",
+          },
+          icon: "💔",
+          duration: 2500,
+        }
+      );
+    } else {
+      dispatch(addToWishlist(product));
+      toast.success(
+        <div className="flex items-center gap-3">
+          <img
+            src={product.img}
+            alt={product.Name || product.desc}
+            className="w-12 h-12 rounded-md object-cover"
+          />
+          <span className="font-semibold text-gray-800">
+            {product.Name || product.desc} added to wishlist
+          </span>
+        </div>,
+        {
+          style: {
+            borderRadius: "10px",
+            background: "#fff",
+            color: "#374151",
+            border: "1px solid #f3f4f6",
+          },
+          icon: "❤️",
+          duration: 2500,
+        }
+      );
+    }
+  };
+
+  const handleAddToCart = () => {
+    if (!user) {
+      toast.error("Please Login!", {
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#ef4444",
+          fontSize: "16px",
+          fontWeight: "600",
+          padding: "16px",
+        },
+        icon: "⚠️",
+        duration: 3000,
+      });
+      return;
+    }
+
+    if (!selectedSize) {
+      toast.error("Please select a size!", {
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#ef4444",
+          fontSize: "16px",
+          fontWeight: "600",
+          padding: "16px",
+        },
+        icon: "📏",
+        duration: 3000,
+      });
+      return;
+    }
+
+    dispatch(
+      addToCart({
+        id: product.id,
+        desc: product.desc,
+        price: product.price,
+        quantity: quantity,
+        size: selectedSize,
+      })
+    );
+
+    toast(
+      <div className="flex items-center gap-3">
+        <img 
+          src={product.img} 
+          alt={product.desc} 
+          className="w-12 h-12 rounded-md object-cover" 
+        />
+        <span className="font-semibold text-gray-800">
+          {product.desc} added to cart (Size: {selectedSize}, Qty: {quantity})
+        </span>
+      </div>,
+      {
+        position: "top-right",
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#374151",
+          border: "1px solid #f3f4f6",
+        },
+        duration: 3000,
+      }
+    );
+  };
 
   if (loading) {
     return (
@@ -66,67 +218,6 @@ const ProductDetails = () => {
       </div>
     );
   }
-
-
-  const isWishlisted = wishlist.some((item) => item.id === product.id);
-
-
-  const toggleWishlist = () => {
-    if (!user) {
-      toast.warn("⚠️ Please log in to manage wishlist!", {
-        position: "top-right",
-      });
-      return;
-    }
-
-    if (isWishlisted) {
-      dispatch(removeFromWishlist(product));
-      toast.info("Removed from wishlist", { position: "top-right" });
-    } else {
-      dispatch(addToWishlist(product));
-      toast.success("Added to wishlist", { position: "top-right" });
-    }
-  };
-
- 
-  const handleAddToCart = () => {
-    if (!user) {
-      toast.warn("⚠️ Please log in to add items to cart!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return;
-    }
-
-    if (!selectedSize) {
-      toast.error("Please select a size!", {
-        position: "top-right",
-        autoClose: 3000,
-      });
-      return;
-    }
-
-    dispatch(
-      addToCart({
-        id: product.id,
-        desc: product.desc,
-        price: product.price,
-        quantity: quantity,
-        size: selectedSize,
-      })
-    );
-
-    toast.success(
-      <div className="flex items-center gap-3">
-        <img src={product.img} alt={product.desc} className="w-10 h-10 rounded" />
-        <span>✅ {product.desc} added to cart</span>
-      </div>,
-      {
-        position: "top-right",
-        autoClose: 3000,
-      }
-    );
-  };
 
   const productImages = product.images || [product.img];
 
@@ -155,15 +246,16 @@ const ProductDetails = () => {
               {/* Wishlist Heart Toggle */}
               <button
                 onClick={toggleWishlist}
-                className="absolute top-4 right-4 p-2 bg-white rounded-full shadow-md hover:bg-gray-50 transition focus:outline-none focus:ring-2 focus:ring-orange-400"
-                aria-label={isWishlisted ? "Remove from wishlist" : "Add to wishlist"}
+                className="absolute top-4 right-4 p-2 bg-white/90 rounded-full shadow-md hover:bg-white transition focus:outline-none focus:ring-2 focus:ring-orange-400"
+                aria-label={isWishlisted(product.id) ? "Remove from wishlist" : "Add to wishlist"}
                 type="button"
               >
                 <Heart
                   size={24}
-                  color={isWishlisted ? "red" : "gray"}
-                  fill={isWishlisted ? "red" : "none"}
-                  strokeWidth={2.5}
+                  color="#ef4444"
+                  fill={isWishlisted(product.id) ? "#ef4444" : "none"}
+                  strokeWidth={2}
+                  className="transition-all duration-200"
                 />
               </button>
 

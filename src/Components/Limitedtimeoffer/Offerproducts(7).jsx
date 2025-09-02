@@ -148,7 +148,7 @@ const LimitedOffer = () => {
                 <p className="text-black bg-gray-400 max-w-fit font-medium px-2 py-1 rounded text-sm">
                   ⏰ {timeLeft[index] || "Loading..."}
                 </p>
-                <button className="px-4 py-2 bg-red-500 text-white rounded hover:bg-black transition-colors duration-200 text-sm w-fit">
+                <button className="px-4 py-2 bg-gradient-to-t from-[#d3af10ab] to to-[#b3c706] text-black rounded hover:bg-black transition-colors duration-200 text-sm  w-fit">
                   Buy Now
                 </button>
               </div>

@@ -22,9 +22,26 @@ const ProductGrid = ({
   const dispatch = useDispatch();
 
   const isWishlisted = (id) => wishlist.some((item) => item.id === id);
+const user =useSelector((state)=>state.auth.currentUser)
 
   // Custom Wishlist Toast
   const showWishlistToast = (product, type) => {
+      if(!user) {
+      toast("Please Login!", {
+        icon: "⚠️",
+        style: {
+          borderRadius: "10px",
+          background: "white",
+          fontSize: "18px",
+          font: "message-box",
+
+          placeItems: "center",
+          color: "red",
+          width: "250px",
+        },
+      });
+      return;
+    }
     toast.custom((t) => (
       <div
         className={`${
@@ -49,7 +66,6 @@ const ProductGrid = ({
       </div>
     ));
   };
-
   const handleToggleWishlist = (item) => {
     if (isWishlisted(item.id)) {
       dispatch(removeFromWishlist(item.id)); // ✅ always send `id`
@@ -59,6 +75,7 @@ const ProductGrid = ({
       showWishlistToast(item, "add");
     }
   };
+  
 
   return (
     <>
@@ -152,8 +169,20 @@ const Femalesection = () => {
   };
 
   const handleAddToCart = (item) => {
-    if (!user) {
-      toast.error("⚠️ Please log in to add items to cart!");
+   if(!user) {
+      toast("Please Login!", {
+        icon: "⚠️",
+        style: {
+          borderRadius: "10px",
+          background: "white",
+          fontSize: "18px",
+          font: "message-box",
+
+          placeItems: "center",
+          color: "red",
+          width: "250px",
+        },
+      });
       return;
     }
 

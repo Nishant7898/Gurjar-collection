@@ -17,53 +17,91 @@ const ProductGrid = ({
 }) => {
   const wishlist = useSelector((state) => state.wishlist);
   const dispatch = useDispatch();
-const user =useSelector((state)=>state.auth.currentUser)
-  const isWishlisted = (id) => wishlist.some((item) => item.id === id);
+  const user = useSelector((state) => state.auth.currentUser);
+
+  // Fixed wishlist check - handle different possible wishlist structures
+  const isWishlisted = (id) => {
+    if (!wishlist) return false;
+    
+    // If wishlist is an array
+    if (Array.isArray(wishlist)) {
+      return wishlist.some((item) => item.id === id);
+    }
+    
+    // If wishlist has an items property that's an array
+    if (wishlist.items && Array.isArray(wishlist.items)) {
+      return wishlist.items.some((item) => item.id === id);
+    }
+    
+    return false;
+  };
 
   const toggleWishlist = (item) => {
-    if(!user) {
-      toast("Please Login!", {
-        icon: "⚠️",
+    if (!user) {
+      toast.error("Please Login!", {
         style: {
           borderRadius: "10px",
-          background: "white",
-          fontSize: "18px",
-          font: "message-box",
-
-          placeItems: "center",
-          color: "red",
-          width: "250px",
+          background: "#fff",
+          color: "#ef4444",
+          fontSize: "16px",
+          fontWeight: "600",
+          padding: "16px",
         },
+        icon: "⚠️",
+        duration: 3000,
       });
       return;
     }
-    if (isWishlisted(item.id)) {
+
+    const isCurrentlyWishlisted = isWishlisted(item.id);
+    
+    if (isCurrentlyWishlisted) {
       dispatch(removeFromWishlist(item.id));
-      toast(
+      toast.success(
         <div className="flex items-center gap-3">
           <img
             src={item.img}
-            alt={item.Name}
-            className="w-20 h-20 rounded-md object-cover"
+            alt={item.Name || item.desc}
+            className="w-12 h-12 rounded-md object-cover"
           />
-          <span className="font-semibold text-black">
-            {item.Name} Removed From The Wishlist 💔
-          </span>{" "}
-        </div>
+          <span className="font-semibold text-gray-800">
+            {item.Name || item.desc} removed from wishlist
+          </span>
+        </div>,
+        {
+          style: {
+            borderRadius: "10px",
+            background: "#fff",
+            color: "#374151",
+            border: "1px solid #f3f4f6",
+          },
+          icon: "💔",
+          duration: 2500,
+        }
       );
     } else {
       dispatch(addToWishlist(item));
-      toast(
+      toast.success(
         <div className="flex items-center gap-3">
           <img
             src={item.img}
-            alt={item.Name}
-            className="w-20 h-20 rounded-md object-cover"
+            alt={item.Name || item.desc}
+            className="w-12 h-12 rounded-md object-cover"
           />
-          <span className="font-semibold text-black">
-            {item.Name} Added To The Wishlist ❤️
+          <span className="font-semibold text-gray-800">
+            {item.Name || item.desc} added to wishlist
           </span>
-        </div>
+        </div>,
+        {
+          style: {
+            borderRadius: "10px",
+            background: "#fff",
+            color: "#374151",
+            border: "1px solid #f3f4f6",
+          },
+          icon: "❤️",
+          duration: 2500,
+        }
       );
     }
   };
@@ -77,16 +115,20 @@ const user =useSelector((state)=>state.auth.currentUser)
             className="relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-shadow duration-300 bg-white"
           >
             <button
-              className="absolute top-1 right-3 p-1 z-10"
-              onClick={() => toggleWishlist(item)}
+              className="absolute top-2 right-2 p-2 z-10 bg-white/80 rounded-full hover:bg-white transition-colors"
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                toggleWishlist(item);
+              }}
               aria-label="Toggle wishlist"
-              style={{ background: "none", border: "none", cursor: "pointer" }}
             >
               <Heart
-                color={isWishlisted(item.id) ? "red" : "red"}
-                fill={isWishlisted(item.id) ? "red" : "none"}
-                size={25}
-                strokeWidth={2.5}
+                color="#ef4444"
+                fill={isWishlisted(item.id) ? "#ef4444" : "none"}
+                size={22}
+                strokeWidth={2}
+                className="transition-all duration-200"
               />
             </button>
 
@@ -118,7 +160,11 @@ const user =useSelector((state)=>state.auth.currentUser)
             </div>
 
             <button
-              onClick={() => handleAddToCart(item)}
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                handleAddToCart(item);
+              }}
               className="mt-3 flex ml-[8vw] mb-4 bg-orange-600 font-bold text-white px-4 py-1 rounded-md hover:bg-gray-800 transition"
             >
               Add to Cart
@@ -155,18 +201,17 @@ const Malesection = () => {
 
   const handleAddToCart = (item) => {
     if (!user) {
-      toast("Please Login!", {
-        icon: "⚠️",
+      toast.error("Please Login!", {
         style: {
           borderRadius: "10px",
-          background: "white",
-          fontSize: "18px",
-          font: "message-box",
-
-          placeItems: "center",
-          color: "red",
-          width: "250px",
+          background: "#fff",
+          color: "#ef4444",
+          fontSize: "16px",
+          fontWeight: "600",
+          padding: "16px",
         },
+        icon: "⚠️",
+        duration: 3000,
       });
       return;
     }
@@ -182,12 +227,24 @@ const Malesection = () => {
 
     toast.success(
       <div className="flex items-center gap-3">
-        <img src={item.img} alt={item.desc} className="w-10 h-10 rounded" />
-        <span>✅ {item.desc} added to cart</span>
+        <img 
+          src={item.img} 
+          alt={item.desc} 
+          className="w-12 h-12 rounded-md object-cover" 
+        />
+        <span className="font-semibold text-gray-800">
+          {item.desc} added to cart
+        </span>
       </div>,
       {
         position: "top-right",
-        autoClose: 3000,
+        style: {
+          borderRadius: "10px",
+          background: "#fff",
+          color: "#374151",
+          border: "1px solid #f3f4f6",
+        },
+        duration: 2500,
       }
     );
   };

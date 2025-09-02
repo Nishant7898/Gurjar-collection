@@ -3,8 +3,9 @@ import Home from "./Pages/Home";
 import Navbar from "./Components/Navbar/Navbar(1)";
 import Profiledropdown from ".//authpage/profiledropdown";
 import MenSection from "./CategoriesProducts/MenSection";
+import './index.css'
 
-import { ToastContainer } from "react-toastify";
+
 import { Toaster } from "react-hot-toast";
 
 import ProductDetails from "./Components/productpage/productdetails";
@@ -21,6 +22,7 @@ import Wishlist from "./Components/Wishlist/Wishlist";
 
 import CartPopup from "./Components/Cartpop/Cartpopup";
 import Checkout from "./Components/Checkout/Checkout";
+import Footer from "./Components/Footer.jsx/Footer"
 
 function App() {
   return (
@@ -29,7 +31,7 @@ function App() {
         {" "}
         <BrowserRouter>
           <Navbar />
-          <ToastContainer />
+     
 
           <Routes>
             {/* ------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>> */}
@@ -54,6 +56,7 @@ function App() {
         </BrowserRouter>
       </div>
          <Toaster position="top-right" reverseOrder={false} />
+           <Footer/>
     </>
   );
 }

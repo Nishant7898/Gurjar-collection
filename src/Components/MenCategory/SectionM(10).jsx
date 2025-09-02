@@ -121,7 +121,7 @@ const MenProducts = () => {
               <div className="p-3 flex flex-col justify-between w-full text-sm">
                 <p className="opacity-80 line-clamp-2">{product.title}</p>
                 <p className="text-red-600 font-bold text-base">{product.price}</p>
-                <button className="mt-2 px-1 py-1  text-sm font-semibold hover:scale-95 duration-500 bg-red-500 text-white rounded hover:bg-black">
+                <button className="mt-2 px-1 py-1 p-2  text-sm font-semibold hover:scale-95 duration-500 bg-gradient-to-t from-[#d3af10ab] to to-[#b3c706] text-black rounded hover:bg-black">
                   Add To Cart
                 </button>
               </div>

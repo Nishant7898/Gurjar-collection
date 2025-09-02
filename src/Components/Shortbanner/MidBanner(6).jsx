@@ -21,7 +21,7 @@ const Midbanner = () => {
 
         <div className="relative">
           <div className="absolute inset-0 bg-gradient-to-r from-red-500 to-orange-500 rounded-2xl blur opacity-30 animate-pulse"></div>
-          <button className="relative px-4 py-3 sm:px-6 sm:py-4 items-center text-center flex gap-3 text-white hover:text-gray-100 hover:bg-gradient-to-r hover:from-black hover:to-gray-900 hover:scale-110 duration-500 transition-all font-bold outline-none bg-gradient-to-r from-red-600 to-red-700 rounded-2xl shadow-2xl border border-red-400 hover:border-gray-700 hover:shadow-3xl">
+          <button className="relative px-4 py-3 sm:px-6 sm:py-4 items-center text-center flex gap-3 text-black  hover:bg-gradient-to-t hover:from-[#d3af10ab] to hover:to-[#b3c706] hover:scale-110 duration-500 transition-all font-bold outline-none bg-gradient-to-r from-green-600 to-yellow-500 rounded-2xl shadow-2xl border border-red-400 hover:border-gray-700 hover:shadow-3xl">
             <span className="text-base sm:text-lg">Shop Now</span>
             <HiShoppingCart className="text-xl sm:text-2xl animate-pulse" />
             <div className="absolute inset-0 bg-gradient-to-r from-white to-transparent opacity-20 rounded-2xl"></div>

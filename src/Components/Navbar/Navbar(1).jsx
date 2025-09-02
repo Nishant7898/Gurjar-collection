@@ -208,12 +208,12 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full bg-stone-200 shadow-lg z-[100]">
+    <nav className="fixed top-0 left-0  w-full bg-gradient-to-t from-[#d3af10ab] to to-[#b3c706] shadow-lg z-[100]">
       <div className="max-w-7xl mx-auto px-2 sm:px-4 md:px-6 lg:px-8">
         {/* MOBILE NAVBAR (< 768px) */}
         <div className="md:hidden">
           <div className="flex items-center justify-between py-2 sm:py-3">
-            <div className="flex items-center">
+            <div className="flex items-center gap-2 text-center justify-center">
               <img
                 onClick={() => navigate("/")}
                 src={logo}
@@ -221,6 +221,9 @@ const Navbar = () => {
                 className="h-8 w-8 sm:h-10 sm:w-10 rounded-full object-cover cursor-pointer"
                 tabIndex={0}
               />
+              <h2 className="text-white font-scope-one-regular font-bold text-xl ">
+                Cloth Canvas
+              </h2>
             </div>
 
             {/* Mobile Icons - Moved from mobile menu to header */}
@@ -394,7 +397,7 @@ const Navbar = () => {
         <div className="hidden md:flex md:items-center justify-between py-3 lg:py-4">
           {/* Logo - responsive sizing */}
           <div
-            className="flex items-center flex-shrink-0 cursor-pointer"
+            className="flex items-center gap-2 flex-shrink-0 cursor-pointer"
             onClick={() => navigate("/")}
             tabIndex={0}
           >
@@ -402,7 +405,10 @@ const Navbar = () => {
               className="h-10 w-10 md:h-12 md:w-12 lg:h-14 lg:w-14 xl:h-16 xl:w-16 rounded-full object-cover"
               src={logo}
               alt="Logo"
-            />
+            />{" "}
+            <h2 className="text-white animate-wave  font-scope-one-regular font-bold text-2xl ">
+              Cloth Canvas
+            </h2>
           </div>
 
           {/* Search and Category - improved responsive sizing */}

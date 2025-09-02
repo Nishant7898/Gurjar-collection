@@ -12,23 +12,19 @@ import Offer from "../Components/Limitedtimeoffer/Offerproducts(7)";
 import Largebanner from "../Components/midbanner/MidBanner(8)";
 import Womenproducts from "../Components/Womensection/SectionF(9)";
 import MenProducts from "../Components/MenCategory/SectionM(10)";
-import Latest from "../Components/Latest(11)";
 
 const Home = () => {
   return (
     <div className="overflow-hidden ">
-    
- <Category/>
- <Hero/>
- <Bannerbottom/>
- <BrandsBottom/>
- <Midbanner/>
-<Offer/>
-<Largebanner/>
-<Womenproducts/>
-<MenProducts/>
-<Latest/>
-
+      <Category />
+      <Hero />
+      <Bannerbottom />
+      <BrandsBottom />
+      <Midbanner />
+      <Offer />
+      <Largebanner />
+      <Womenproducts />
+      <MenProducts />
     </div>
   );
 };
