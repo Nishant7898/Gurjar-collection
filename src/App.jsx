@@ -1,16 +1,17 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Home from "./Pages/Home";
+import { lazy } from "react";
+
 import Navbar from "./Components/Navbar/Navbar(1)";
 import Profiledropdown from ".//authpage/profiledropdown";
-import MenSection from "./CategoriesProducts/MenSection";
-import './index.css'
 
+import "./index.css";
 
+const Home = lazy(() => import("./Pages/Home"));
+const MenSection = lazy(() => import("./CategoriesProducts/MenSection"));
+const WomenSection = lazy(() => import("./CategoriesProducts/WomenSection"));
 import { Toaster } from "react-hot-toast";
 
 import ProductDetails from "./Components/productpage/productdetails";
-
-import WomenSection from "./CategoriesProducts/WomenSection";
 
 import Login from "./authpage/Loginpage";
 import Signup from "./authpage/Signuppage";
@@ -22,7 +23,7 @@ import Wishlist from "./Components/Wishlist/Wishlist";
 
 import CartPopup from "./Components/Cartpop/Cartpopup";
 import Checkout from "./Components/Checkout/Checkout";
-import Footer from "./Components/Footer.jsx/Footer"
+import Footer from "./Components/Footer.jsx/Footer";
 
 function App() {
   return (
@@ -31,7 +32,6 @@ function App() {
         {" "}
         <BrowserRouter>
           <Navbar />
-     
 
           <Routes>
             {/* ------------------------------------------>>>>>>>>>>>>>>>>>>>>>>>>> */}
@@ -39,7 +39,7 @@ function App() {
 
             <Route path="/wishlist" element={<Wishlist />} />
             <Route path="/cart" element={<CartPopup />} />
-            <Route path="/checkout" element={<Checkout/>}/>
+            <Route path="/checkout" element={<Checkout />} />
 
             <Route path="/product/:id" element={<ProductDetails />} />
             {/* Women Clothes Section--------------------------------------->>>>>>>>>>>>>>>>>>>>>>>>>>>> */}
@@ -55,8 +55,8 @@ function App() {
           </Routes>
         </BrowserRouter>
       </div>
-         <Toaster position="top-right" reverseOrder={false} />
-           <Footer/>
+      <Toaster position="top-right" reverseOrder={false} />
+      <Footer />
     </>
   );
 }
